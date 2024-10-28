@@ -17,12 +17,8 @@
 
 // 個々のヘッダーファイルは下の方へ
 #include "audio.h"
-#include "scene_game.h"
-#include "scene_title.h"
-
+#include "m_scene.h"
 // namespace
 using namespace GameLib;
 using namespace input;
-extern int curScene;
-extern int nextScene;
 #endif//ALL_H
