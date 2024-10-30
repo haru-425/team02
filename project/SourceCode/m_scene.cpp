@@ -2,6 +2,7 @@
 #include "../GameLib/game_lib.h"
 #include "m_scene.h"
 #include "audio.h"
+#include "common.h"
 // namespace
 using namespace GameLib;
 using namespace input;
@@ -10,9 +11,14 @@ using namespace input;
 //------< 変数 >----------------------------------------------------------------
 SCENE_TYPE curScene = SCENE_TYPE::NONE;
 SCENE_TYPE nextScene = SCENE_TYPE::TITLE;
+//FADE fade;
 
 
 //------< 関数 >----------------------------------------------------------------
+
+static void SceneInitProcessing() {
+
+}
 void M_SCENE::SceneChangeProcessing() {
 	// シーン切り替え処理
 	if (curScene != nextScene)
@@ -95,3 +101,16 @@ void M_SCENE::SceneEndProcessing() {
 	// オーディオの終了処理
 	audio_deinit();
 }
+
+
+
+//FADE::FADE() {
+//	POS = { SCREEN_W / 2.0f, SCREEN_H / 2.0f };
+//	SCALE = { 1, 1 };
+//	texPOS = { 0, 0 };
+//	WH = { 1280, 720 };
+//	PIVOT = { 1280 / 2.0f, 720 / 2.0f };
+//	ANGLE = 0;
+//	COLOR = { 0, 0, 0, 1 };
+//	sprFADE = sprite_load(L"./Data/Images/transitions/fade.png");
+//}

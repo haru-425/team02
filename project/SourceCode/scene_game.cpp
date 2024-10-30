@@ -26,6 +26,7 @@ void game_init()
 {
 	game_state.state = 0;
 	game_timer = 0;
+
 }
 void game_deinit()
 {
@@ -36,10 +37,11 @@ void game_update()
 	switch (game_state.state)
 	{
 	case game_state.B_TRANSIATON:
-			if (true)
-			{
-				game_state.state = game_state.INITIALIZE;
-			}
+		if (true)
+		{
+			game_state.state = game_state.INITIALIZE;
+		}
+		break;
 	case game_state.INITIALIZE:
 
 		game_state.state = game_state.PARAMETER;
@@ -56,10 +58,10 @@ void game_update()
 		}
 		break;
 	case game_state.F_TRANSITION:
-			if (true)
-			{
-				nextScene = SCENE_TYPE::TITLE;
-			}
+		if (true)
+		{
+			nextScene = SCENE_TYPE::TITLE;
+		}
 
 
 	}
