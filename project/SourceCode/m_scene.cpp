@@ -10,7 +10,7 @@ using namespace input;
 
 //------< 変数 >----------------------------------------------------------------
 SCENE_TYPE curScene = SCENE_TYPE::NONE;
-SCENE_TYPE nextScene = SCENE_TYPE::TITLE;
+SCENE_TYPE nextScene = SCENE_TYPE::START;
 //FADE fade;
 
 
@@ -26,6 +26,10 @@ void M_SCENE::SceneChangeProcessing() {
 		// 現在のシーンに応じた終了処理
 		switch (curScene)
 		{
+		case SCENE_TYPE::START:
+			start_deinit();
+			break;
+
 		case SCENE_TYPE::TITLE:
 			title_deinit();
 			break;
@@ -38,6 +42,10 @@ void M_SCENE::SceneChangeProcessing() {
 		// 次のシーンに応じた初期設定処理
 		switch (nextScene)
 		{
+		case SCENE_TYPE::START:
+			start_init();
+			break;
+
 		case SCENE_TYPE::TITLE:
 			title_init();
 			break;
@@ -58,6 +66,10 @@ void M_SCENE::SceneUpdateProcessing() {
 	// 現在のシーンに応じた更新・描画処理
 	switch (curScene)
 	{
+	case SCENE_TYPE::START:
+		start_update();
+		break;
+
 	case SCENE_TYPE::TITLE:
 		title_update();
 		break;
@@ -72,6 +84,10 @@ void M_SCENE::SceneRenderProcessing() {
 	// 現在のシーンに応じた更新・描画処理
 	switch (curScene)
 	{
+	case SCENE_TYPE::START:
+		start_render();
+		break;
+
 	case SCENE_TYPE::TITLE:
 		title_render();
 		break;
@@ -89,6 +105,10 @@ void M_SCENE::SceneEndProcessing() {
 	// 現在のシーンに応じた終了処理
 	switch (curScene)
 	{
+	case SCENE_TYPE::START:
+		start_deinit();
+		break;
+
 	case SCENE_TYPE::TITLE:
 		title_deinit();
 		break;

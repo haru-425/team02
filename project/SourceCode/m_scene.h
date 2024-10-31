@@ -2,11 +2,13 @@
 //------< インクルード >---------------------------------------------------------
 #include "scene_game.h"
 #include "scene_title.h"
+#include "scene_start.h"
 //------< 定数 >----------------------------------------------------------------
 
 enum class SCENE_TYPE
 {
 	NONE = -1,
+	START,
 	TITLE,
 	GAME,
 };
@@ -38,8 +40,8 @@ class S_SCENE {
 public:
 	enum
 	{
-		B_TRANSIATON,
 		INITIALIZE,
+		B_TRANSIATON,
 		PARAMETER,
 		NORMAL,
 		F_TRANSITION,

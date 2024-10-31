@@ -32,15 +32,15 @@ void title_update()
 {
 	switch (title_state.state)
 	{
+	case title_state.INITIALIZE:
+		title_state.state = title_state.B_TRANSIATON;
 	case title_state.B_TRANSIATON:
 		if (true)
 		{
-			title_state.state = title_state.INITIALIZE;
+			title_state.state = title_state.PARAMETER;
 		}
 		break;
-	case title_state.INITIALIZE:
 
-		title_state.state = title_state.PARAMETER;
 	case title_state.PARAMETER:
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 
