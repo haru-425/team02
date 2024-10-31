@@ -15,6 +15,8 @@ S_SCENE start_state;
 int start_timer;
 VECTOR3 start_color;
 
+Sprite* sprBG_START;
+Sprite* sprFADE_START;
 void start_init()
 {
 	start_state.state = 0;
@@ -34,6 +36,8 @@ void start_update()
 	{
 	case start_state.INITIALIZE:
 		start_color = { 0,0,0 };
+
+		sprBG_START = sprite_load(L"./Data/Images/BG/start.png");
 		start_state.state = start_state.B_TRANSIATON;
 	case start_state.B_TRANSIATON:
 		if (true)
@@ -73,6 +77,7 @@ void start_render()
 	// ‰æ–Ê‚ğÂ‚Å“h‚è‚Â‚Ô‚·
 	//GameLib::clear(0.3f, 0.5f, 1.0f);
 	GameLib::clear(start_color.x, start_color.y, start_color.z);
+	sprite_render(sprBG_START, 0, 0, 1, 1);
 	debug::setString("timer%d", start_timer);
 	debug::setString("state%d", start_state.state);
 }

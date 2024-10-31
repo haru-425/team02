@@ -51,8 +51,8 @@ public:
 };
 class TRANSITION {
 public:
-	VECTOR2 POS;
-	VECTOR2 SCALE;
+	VECTOR2 POS = { 0,0 };
+	VECTOR2 SCALE = { 1, 1 };
 	VECTOR2 texPOS;
 	VECTOR2 WH;
 	VECTOR2 PIVOT;
@@ -60,10 +60,9 @@ public:
 	VECTOR4 COLOR;
 
 };
-//class FADE :public TRANSITION {
-//public:
-//
-//	Sprite* sprFADE;
-//	FADE();
-//
-//};
+class FADE :public TRANSITION {
+public:
+
+	static float alpha;
+
+};
