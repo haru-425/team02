@@ -38,6 +38,8 @@ void game_update()
 	{
 	case game_state.INITIALIZE:
 		game_state.state = game_state.B_TRANSIATON;
+		player_init();
+		enemy_init();
 	case game_state.B_TRANSIATON:
 		if (true)
 		{
@@ -56,6 +58,9 @@ void game_update()
 			game_state.state = game_state.F_TRANSITION;
 			break;
 		}
+
+		enemy_update();
+		player_update();
 		break;
 	case game_state.F_TRANSITION:
 		if (true)
@@ -75,6 +80,10 @@ void game_update()
 void game_render()
 {
 	GameLib::clear(0.2f, 0.2f, 0.4f);
+
+	enemy_render();
+
+	player_render();
 	debug::setString("game_timer%d", game_timer);
 	debug::setString("game_state%d", game_state.state);
 }

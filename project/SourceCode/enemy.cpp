@@ -1,4 +1,4 @@
-#include "player.h"
+#include "enemy.h"
 #include "../GameLib/game_lib.h"
 #include "common.h"
 #include "audio.h"
@@ -6,49 +6,49 @@
 using namespace input;
 
 // プレイヤーの状態を管理する変数
-int player_state;
+int enemy_state;
 
 
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
-void player_init()
+void enemy_init()
 {
 	// プレイヤーの状態を初期化
-	player_state = 0;
+	enemy_state = 0;
 }
 
 //--------------------------------------
 //  プレイヤーの終了処理
 //--------------------------------------
-void player_deinit()
+void enemy_deinit()
 {
 }
 
 //--------------------------------------
 //  プレイヤーの更新処理
 //--------------------------------------
-void player_update()
+void enemy_update()
 {
-	switch (player_state)
+	switch (enemy_state)
 	{
 	case 0:
 		//////// 初期設定 ////////
 
 		// 次の状態に遷移
-		++player_state;
+		++enemy_state;
 		/*fallthrough*/
 
 	case 1:
 		//////// パラメータの設定 ////////
 
 		// 次の状態に遷移
-		++player_state;
+		++enemy_state;
 		/*fallthrough*/
 
 	case 2:
 
-		player_act();
+		enemy_act();
 		break;
 	}
 }
@@ -56,7 +56,7 @@ void player_update()
 //--------------------------------------
 //  プレイヤーの描画処理
 //--------------------------------------
-void player_render()
+void enemy_render()
 {
 
 }
@@ -64,7 +64,7 @@ void player_render()
 //--------------------------------------
 //  プレイヤーの行動処理
 //--------------------------------------
-void player_act()
+void enemy_act()
 {
 
 }
