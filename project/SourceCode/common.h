@@ -14,7 +14,4 @@ extern const LPCWSTR APPLICATION_NAME;
 //  関数ポインタ
 extern float(* const ToRadian)(float);// 角度をラジアンに
 extern float(* const ToDegree)(float);// ラジアンを角度に
-#define SCENE_NONE -1
-#define SCENE_TITLE 0
-#define SCENE_GAME 1
 #endif // !COMMON_H

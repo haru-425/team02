@@ -1,17 +1,12 @@
-//******************************************************************************
-//
-//
-//      main
-//
-//
-//******************************************************************************
-
 //------< ƒCƒ“ƒNƒ‹[ƒh >---------------------------------------------------------
-#include "all.h"
-
+#include "../GameLib/game_lib.h"
+#include "common.h"
+#include "audio.h"
+#include "m_scene.h"
+// namespace
+using namespace GameLib;
+using namespace input;
 //------< •Ï” >----------------------------------------------------------------
-int curScene = SCENE_NONE;
-int nextScene = SCENE_TITLE;
 
 //------------------------------------------------------------------------------
 //  WinMainiƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒgj
@@ -26,77 +21,12 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// g—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 
 	while (GameLib::gameLoop())
 	{
-		// ƒV[ƒ“Ø‚è‘Ö‚¦ˆ—
-		if (curScene != nextScene)
-		{
-			// Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚½I—¹ˆ—
-			switch (curScene)
-			{
-			case SCENE_TITLE:
-				title_deinit();
-				break;
-
-			case SCENE_GAME:
-				game_deinit();
-				break;
-			}
-
-			// Ÿ‚ÌƒV[ƒ“‚É‰‚¶‚½‰Šúİ’èˆ—
-			switch (nextScene)
-			{
-			case SCENE_TITLE:
-				title_init();
-				break;
-
-			case SCENE_GAME:
-				game_init();
-				break;
-			}
-
-			curScene = nextScene;
-		}
-
-		// “ü—Í‚ğXV‚·‚é
-		input::update();
-
-		music::update();
-
-		// Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚½XVE•`‰æˆ—
-		switch (curScene)
-		{
-		case SCENE_TITLE:
-			title_update();
-			title_render();
-			break;
-
-		case SCENE_GAME:
-			game_update();
-			game_render();
-			break;
-		}
-
-		// ƒfƒoƒbƒO•¶š—ñ‚Ì•`‰æ
-		debug::display(1.0f, 0.4f, 0.6f, 1, 1);
-
+		M_SCENE::SceneChangeProcessing();
+		M_SCENE::SceneUpdateProcessing();
+		M_SCENE::SceneRenderProcessing();
 		GameLib::present(1, 0);
 	}
-
-	// Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚½I—¹ˆ—
-	switch (curScene)
-	{
-	case SCENE_TITLE:
-		title_deinit();
-		break;
-
-	case SCENE_GAME:
-		game_deinit();
-		break;
-	}
-
-	// ƒI[ƒfƒBƒI‚ÌI—¹ˆ—
-	audio_deinit();
-
-	// ƒQ[ƒ€ƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹ˆ—
+	M_SCENE::SceneEndProcessing;
 	GameLib::uninit();
 
 	return 0;

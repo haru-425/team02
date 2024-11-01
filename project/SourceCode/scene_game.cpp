@@ -6,63 +6,61 @@
 //
 //******************************************************************************
 
-//----< インクルード >-----------------------------------------------------------
-#include "all.h"
+//------< インクルード >---------------------------------------------------------
+#include "../GameLib/game_lib.h"
+#include "common.h"
+#include "audio.h"
+#include "m_scene.h"
+// namespace
+using namespace GameLib;
+using namespace input;
 
 //------< 定数 >----------------------------------------------------------------
 
 
 //------< 変数 >----------------------------------------------------------------
-int game_state;
+S_SCENE game_state;
 int game_timer;
 
-
-
-//--------------------------------------
-//  初期設定
-//--------------------------------------
 void game_init()
 {
-	game_state = 0;
+	game_state.state = 0;
 	game_timer = 0;
-}
 
-//--------------------------------------
-//  終了処理
-//--------------------------------------
+}
 void game_deinit()
 {
 
 }
-
-//--------------------------------------
-//  更新処理
-//--------------------------------------
 void game_update()
 {
-	switch (game_state)
+	switch (game_state.state)
 	{
-	case 0:
-		//////// 初期設定 ////////
+	case game_state.INITIALIZE:
+		game_state.state = game_state.B_TRANSIATON;
+	case game_state.B_TRANSIATON:
+		if (true)
+		{
+			game_state.state = game_state.PARAMETER;
+		}
+		break;
 
-		game_state++;
-		/*fallthrough*/
-
-	case 1:
-		//////// パラメータの設定 ////////
-
+	case game_state.PARAMETER:
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 
-		game_state++;
-		/*fallthrough*/
+		game_state.state = game_state.NORMAL;
 
-	case 2:
-		//////// 通常時 ////////
-
+	case game_state.NORMAL:
 		if (TRG(0) & PAD_SELECT)
 		{
-			nextScene = SCENE_TITLE;
+			game_state.state = game_state.F_TRANSITION;
 			break;
+		}
+		break;
+	case game_state.F_TRANSITION:
+		if (true)
+		{
+			nextScene = SCENE_TYPE::TITLE;
 		}
 
 
@@ -77,5 +75,6 @@ void game_update()
 void game_render()
 {
 	GameLib::clear(0.2f, 0.2f, 0.4f);
-
+	debug::setString("game_timer%d", game_timer);
+	debug::setString("game_state%d", game_state.state);
 }

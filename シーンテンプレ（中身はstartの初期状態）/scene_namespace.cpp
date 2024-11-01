@@ -11,61 +11,61 @@ using namespace input;
 
 
 //------< •Ï” >----------------------------------------------------------------
-S_SCENE title_state;
-int title_timer;
+S_SCENE start_state;
+int start_timer;
+VECTOR3 start_color;
 
-
-void title_init()
+void start_init()
 {
-	title_state.state = 0;
-	title_timer = 0;
+	start_state.state = 0;
+	start_timer = 0;
 }
 
-void title_deinit()
+void start_deinit()
 {
 
 	//music::stop(0);
 
 }
 
-void title_update()
+void start_update()
 {
-	switch (title_state.state)
+	switch (start_state.state)
 	{
-	case title_state.INITIALIZE:
-		title_state.state = title_state.B_TRANSIATON;
-	case title_state.B_TRANSIATON:
+	case start_state.INITIALIZE:
+		start_state.state = start_state.B_TRANSIATON;
+	case start_state.B_TRANSIATON:
 		if (true)
 		{
-			title_state.state = title_state.PARAMETER;
+			start_state.state = start_state.PARAMETER;
 		}
 		break;
 
-	case title_state.PARAMETER:
+	case start_state.PARAMETER:
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 
-		title_state.state = title_state.NORMAL;
+		start_state.state = start_state.NORMAL;
 
-	case title_state.NORMAL:
-		if (TRG(0) & PAD_START)
+	case start_state.NORMAL:
+		if (/*TRG(0) & PAD_START*/true)
 		{
-			title_state.state = title_state.F_TRANSITION;
+			start_state.state = start_state.F_TRANSITION;
 			break;
 		}
 		break;
-	case title_state.F_TRANSITION:
-		if (true)
+	case start_state.F_TRANSITION:
+		if (start_timer >= 240)
 		{
 			nextScene = SCENE_TYPE::GAME;
 		}
-
+		STRATCOLOR
 
 	}
 
-	title_timer++;
+	start_timer++;
 }
 
-void title_render()
+void start_render()
 {
 	// ‰æ–Ê‚ğÂ‚Å“h‚è‚Â‚Ô‚·
 	GameLib::clear(0.3f, 0.5f, 1.0f);
