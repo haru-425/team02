@@ -18,3 +18,7 @@ float tracking(VECTOR2 target, VECTOR2 tracking_person) {
 	angle = (float)atan2(subVector.y, subVector.x);
 	return angle;
 }
+VECTOR2 unit_vectorization(VECTOR2 vec) {
+	float length = std::sqrtf(powf(vec.x, 2) + powf(vec.y, 2));
+	return vec;
+}
