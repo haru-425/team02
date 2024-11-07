@@ -161,6 +161,7 @@ attrib +h SourceCode\gp1.log</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\School\ゲームプログラミングⅢ\ゲームプログラミングⅢ(学生配布)\ゲームプログラミングⅢ(学生配布)\Source\bomb.h" />
     <ClInclude Include="GameLib\blender.h" />
     <ClInclude Include="GameLib\debug.h" />
     <ClInclude Include="GameLib\depth_stencil.h" />
@@ -190,6 +191,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="SourceCode\system.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\School\ゲームプログラミングⅢ\ゲームプログラミングⅢ(学生配布)\ゲームプログラミングⅢ(学生配布)\Source\bomb.cpp" />
     <ClCompile Include="GameLib\debug.cpp" />
     <ClCompile Include="GameLib\depth_stencil.cpp" />
     <ClCompile Include="GameLib\dxtk_audio.cpp" />
