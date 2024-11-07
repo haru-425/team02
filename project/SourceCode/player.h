@@ -13,20 +13,7 @@
 #define PLAYER_CORE_PIVOT_Y      (PLAYER_CORE_TEX_H/2)   // プレイヤーの縦方向の下端
 
 //------< 構造体 >---------------------------------------------------------------
-class PLAYER {
-public:
-	float angle;
-	float speed;
-	VECTOR2 position;
-	VECTOR2 scale;
-	VECTOR2 texPos;
-	VECTOR2 texSize;
-	VECTOR2 pivot;
-	VECTOR4 color;
 
-
-
-};
 
 //------< 変数 >----------------------------------------------------------------
 
