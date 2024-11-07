@@ -124,6 +124,8 @@ void M_SCENE::SceneEndProcessing() {
 
 
 
+
+
 //FADE::FADE() {
 //	POS = { SCREEN_W / 2.0f, SCREEN_H / 2.0f };
 //	SCALE = { 1, 1 };

@@ -26,11 +26,28 @@ VECTOR2 unit_vectorization(VECTOR2 vec) {
 	return vec;
 }
 //初速と角度をと今の時間を渡すとその時の位置を返す
-VECTOR2 launch_alculate_position(double initialSpeed, double angle, double time) {
-	VECTOR2 position;
-	time /= 10;//調整用10は仮
-	double angleRad = ToRadian(angle); // 角度をラジアンに変換
-	position.x = initialSpeed * cos(angleRad) * time;
-	position.y = initialSpeed * sin(angleRad) * time - 0.5 * GRAVITY * time * time;
-	return position;
+//VECTOR2 launch_alculate_position(double initialSpeed, double angle, double time) {
+//	VECTOR2 position;
+//	//time /= 100;//調整用10は仮
+//	double angleRad = ToRadian(angle); // 角度をラジアンに変換
+//	position.x = initialSpeed * cos(angleRad) * time;
+//	position.y = initialSpeed * sin(angleRad) * time - 0.5 * GRAVITY * time * time;
+//	return position;
+//}
+
+VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
+	// 初期速度を計算
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = 9.8f;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	// 位置を返す
+	return VECTOR2(x, y);
 }

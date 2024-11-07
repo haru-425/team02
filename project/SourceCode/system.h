@@ -5,4 +5,4 @@ float tracking(VECTOR2 target, VECTOR2 tracking_person);
 VECTOR2 unit_vectorization(VECTOR2 vec);
 
 //‰‘¬‚ÆŠp“x‚ğ‚Æ¡‚ÌŠÔ‚ğ“n‚·‚Æ‚»‚Ì‚ÌˆÊ’u‚ğ•Ô‚·
-VECTOR2 launch_alculate_position(double initialSpeed, double angle, double time);
+VECTOR2 LaunchCalculatePosition(float angle, float force, float time);

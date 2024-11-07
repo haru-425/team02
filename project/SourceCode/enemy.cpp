@@ -28,26 +28,26 @@ class ENEMY {
 private:
 public:
 	ENEMY_TYPE type;
-	int timer;
+	float timer;
 
 	float angle;
 	float speed;
 	float trackingRange;
 	VECTOR2 BasePosition;
 	VECTOR2 position;
-	float initialSpeed;
+	float force;
 	VECTOR2 scale;
 	VECTOR2 texPos;
 	VECTOR2 texSize;
 	VECTOR2 pivot;
 	VECTOR4 color;
 
-	ENEMY(VECTOR2 pos, float angl, float ini_Speed) {
+	ENEMY(VECTOR2 pos, float _angle, float _force) {
 		timer = 0;
 		BasePosition = pos;
-		angle = angl;
-		initialSpeed = ini_Speed;
-		position = pos + launch_alculate_position(initialSpeed, angle, 0);
+		angle = _angle;
+		force = _force;
+		position = pos + LaunchCalculatePosition(_angle, _force, timer);
 		type = ENEMY_TYPE::JUMP;
 		scale = { E_SCALE, E_SCALE };
 		texPos = { ENEMY_TEX_W * int(type), 0 };
@@ -110,7 +110,7 @@ void enemy_update()
 		if (enemy_timer % 60 == 0)
 		{
 
-			enemy.push_back(ENEMY(spawnPoint, 2.0f, 0.0f));
+			enemy.push_back(ENEMY(spawnPoint, 45.0f, 50.0f));
 		}
 		break;
 	}
@@ -127,12 +127,15 @@ void enemy_render()
 		});
 
 	//以下debagu用
-	for (auto& enemy : enemy) {
-
-		debug::setString("enemy[]%d:pos%f.%f", enemy.timer, enemy.position.x, enemy.position.y);
-	}
 
 	debug::setString("enemytimer%d", enemy_timer);
+	debug::setString("add%f", spawnPointIncreaseValue);
+	debug::setString("spawnpoint%f,%f", spawnPoint.x, spawnPoint.y);
+	for (auto& enemy : enemy) {
+
+		debug::setString("enemy[]%f:pos%f.%f", enemy.timer, enemy.position.x, enemy.position.y);
+	}
+
 }
 //--------------------------------------
 //  プレイヤーの行動処理
@@ -147,13 +150,17 @@ void enemy_act()
 
 	//要素数だけループ
 	for (auto& enemy : enemy) {
-		enemy.timer++;
-		enemy.position = enemy.BasePosition + launch_alculate_position(enemy.initialSpeed, enemy.angle, enemy.timer);
+		enemy.timer += 0.01f;
+		enemy.position = enemy.BasePosition + LaunchCalculatePosition(enemy.angle, enemy.force, enemy.timer);
 	}
-	enemy.erase(std::remove_if(enemy.begin(), enemy.end(),
-		[](const ENEMY& enemy)
-		{
-			return enemy.position.y > SCREEN_H + 20;
-		}),
-		enemy.end());
+	//enemy.erase(std::remove_if(enemy.begin(), enemy.end(),
+	//	[](const ENEMY& enemy)
+	//	{
+	//		return enemy.position.y > SCREEN_H + 20;
+	//	}),
+	//	enemy.end());
+	auto it = std::remove_if(enemy.begin(), enemy.end(),
+		[](const ENEMY& enemy) { return enemy.position.y >= SCREEN_H + 100; });
+	enemy.erase(it, enemy.end());
+
 }
