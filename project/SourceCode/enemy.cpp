@@ -7,10 +7,20 @@
 #include "common.h"
 #include "audio.h"
 #include "m_scene.h"
+#include "system.h"
+
+
+
+#include <vector>
+#include <algorithm>
+
+
+
 using namespace input;
 
 // プレイヤーの状態を管理する変数
 int enemy_state;
+int enemy_timer;
 enum class ENEMY_TYPE {
 	JUMP,
 };
@@ -20,20 +30,24 @@ public:
 	ENEMY_TYPE type;
 	int timer;
 
-	int trackingRangeDiameter;
 	float angle;
 	float speed;
 	float trackingRange;
 	VECTOR2 BasePosition;
+	VECTOR2 position;
+	float initialSpeed;
 	VECTOR2 scale;
 	VECTOR2 texPos;
 	VECTOR2 texSize;
 	VECTOR2 pivot;
 	VECTOR4 color;
 
-	ENEMY(VECTOR2 pos, float angle, float initialSpeed) {
+	ENEMY(VECTOR2 pos, float angl, float ini_Speed) {
 		timer = 0;
 		BasePosition = pos;
+		angle = angl;
+		initialSpeed = ini_Speed;
+		position = pos + launch_alculate_position(initialSpeed, angle, 0);
 		type = ENEMY_TYPE::JUMP;
 		scale = { E_SCALE, E_SCALE };
 		texPos = { ENEMY_TEX_W * int(type), 0 };
@@ -50,7 +64,7 @@ public:
 float spawnPointIncreaseValue = 1;
 VECTOR2 spawnPoint;
 
-ENEMY* enemy[100];
+std::vector<ENEMY> enemy;
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
@@ -58,7 +72,8 @@ void enemy_init()
 {
 	// プレイヤーの状態を初期化
 	enemy_state = 0;
-	spawnPoint = { 0,SCREEN_H };
+	enemy_timer = 0;
+	spawnPoint = { 0,float(SCREEN_H) };
 }
 
 //--------------------------------------
@@ -90,8 +105,13 @@ void enemy_update()
 		/*fallthrough*/
 
 	case 2:
-
 		enemy_act();
+		enemy_timer++;
+		if (enemy_timer % 60 == 0)
+		{
+
+			enemy.push_back(ENEMY(spawnPoint, 2.0f, 0.0f));
+		}
 		break;
 	}
 }
@@ -101,15 +121,39 @@ void enemy_update()
 //--------------------------------------
 void enemy_render()
 {
+	std::for_each(enemy.begin(), enemy.end(), [](ENEMY i) {
 
+
+		});
+
+	//以下debagu用
+	for (auto& enemy : enemy) {
+
+		debug::setString("enemy[]%d:pos%f.%f", enemy.timer, enemy.position.x, enemy.position.y);
+	}
+
+	debug::setString("enemytimer%d", enemy_timer);
 }
-
 //--------------------------------------
 //  プレイヤーの行動処理
 //--------------------------------------
 void enemy_act()
 {
-	for (ENEMY* time : enemy) {
-
+	spawnPoint.x += spawnPointIncreaseValue;
+	if (spawnPoint.x <= 0 || spawnPoint.x >= SCREEN_W)
+	{
+		spawnPointIncreaseValue *= -1;
 	}
+
+	//要素数だけループ
+	for (auto& enemy : enemy) {
+		enemy.timer++;
+		enemy.position = enemy.BasePosition + launch_alculate_position(enemy.initialSpeed, enemy.angle, enemy.timer);
+	}
+	enemy.erase(std::remove_if(enemy.begin(), enemy.end(),
+		[](const ENEMY& enemy)
+		{
+			return enemy.position.y > SCREEN_H + 20;
+		}),
+		enemy.end());
 }
