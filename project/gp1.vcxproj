@@ -191,7 +191,6 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="SourceCode\system.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\School\ゲームプログラミングⅢ\ゲームプログラミングⅢ(学生配布)\ゲームプログラミングⅢ(学生配布)\Source\bomb.cpp" />
     <ClCompile Include="GameLib\debug.cpp" />
     <ClCompile Include="GameLib\depth_stencil.cpp" />
     <ClCompile Include="GameLib\dxtk_audio.cpp" />
@@ -208,6 +207,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
     <ClCompile Include="SourceCode\audio.cpp" />
+    <ClCompile Include="SourceCode\bomb.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
     <ClCompile Include="SourceCode\enemy.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />

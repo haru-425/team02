@@ -8,7 +8,8 @@
 #include "audio.h"
 #include "m_scene.h"
 #include "system.h"
-
+#include <time.h>
+#include<stdlib.h>
 
 
 #include <vector>
@@ -63,6 +64,8 @@ public:
 
 float spawnPointIncreaseValue = 1;
 VECTOR2 spawnPoint;
+float spawnAngle = 0;
+float spawnAngleIncreaseValue = 1;
 
 std::vector<ENEMY> enemy;
 //--------------------------------------
@@ -74,6 +77,7 @@ void enemy_init()
 	enemy_state = 0;
 	enemy_timer = 0;
 	spawnPoint = { 0,float(SCREEN_H) };
+	srand(time(NULL));
 }
 
 //--------------------------------------
@@ -107,10 +111,15 @@ void enemy_update()
 	case 2:
 		enemy_act();
 		enemy_timer++;
-		if (enemy_timer % 60 == 0)
+		if (spawnAngle >= 180 || spawnAngle <= 0)
+		{
+			spawnAngleIncreaseValue *= -1;
+		}
+		spawnAngle += spawnAngleIncreaseValue;
+		if (enemy_timer % 1 == 0)
 		{
 
-			enemy.push_back(ENEMY(spawnPoint, 45.0f, 50.0f));
+			enemy.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50));
 		}
 		break;
 	}
@@ -121,15 +130,15 @@ void enemy_update()
 //--------------------------------------
 void enemy_render()
 {
-	std::for_each(enemy.begin(), enemy.end(), [](ENEMY i) {
-
-
-		});
+	for (auto& enemy : enemy) {
+		primitive::circle(enemy.position.x, enemy.position.y, 5);
+	}
 
 	//以下debagu用
 
 	debug::setString("enemytimer%d", enemy_timer);
 	debug::setString("add%f", spawnPointIncreaseValue);
+	debug::setString("angle%f", spawnAngle);
 	debug::setString("spawnpoint%f,%f", spawnPoint.x, spawnPoint.y);
 	for (auto& enemy : enemy) {
 
@@ -150,7 +159,7 @@ void enemy_act()
 
 	//要素数だけループ
 	for (auto& enemy : enemy) {
-		enemy.timer += 0.01f;
+		enemy.timer += 0.1f;
 		enemy.position = enemy.BasePosition + LaunchCalculatePosition(enemy.angle, enemy.force, enemy.timer);
 	}
 	//enemy.erase(std::remove_if(enemy.begin(), enemy.end(),

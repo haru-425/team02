@@ -37,6 +37,7 @@ VECTOR2 unit_vectorization(VECTOR2 vec) {
 
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	// ‰Šú‘¬“x‚ğŒvZ
+	angle = ToRadian(angle);
 	float v0 = force;
 	float vx = v0 * cos(angle);
 	float vy = v0 * sin(angle);
