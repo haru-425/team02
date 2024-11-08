@@ -76,7 +76,7 @@ void enemy_init()
 	// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğ‰Šú‰»
 	enemy_state = 0;
 	enemy_timer = 0;
-	spawnPoint = { 0,float(SCREEN_H / 2.0f) };
+	spawnPoint = { 0,float(SCREEN_H) };
 	srand(time(NULL));
 }
 
