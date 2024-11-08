@@ -22,6 +22,36 @@
     <Filter Include="GameLib\ソース ファイル">
       <UniqueIdentifier>{2b3b33ef-65b8-40b0-8bf8-daa091790458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scenes">
+      <UniqueIdentifier>{0c53dc19-464a-4b65-a70f-cb9a6467e974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\scene">
+      <UniqueIdentifier>{02a4f117-c964-4472-8e43-f2aae40f364e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\systems">
+      <UniqueIdentifier>{c2e0ac0a-8022-4294-b008-ea793dc98f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entities">
+      <UniqueIdentifier>{92d42a6d-361f-4349-89c5-edb735bcb80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Entities\items">
+      <UniqueIdentifier>{15cb211e-9d4c-4e8f-875c-5d809346b668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Systems">
+      <UniqueIdentifier>{93fc239c-0bea-4e32-b48d-87059ef59d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entities">
+      <UniqueIdentifier>{5d2db46d-4d72-41ff-accd-6c47164742fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes">
+      <UniqueIdentifier>{dd195a69-41c5-4e29-8388-6bb0223a2fd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entities\Items">
+      <UniqueIdentifier>{e90ca224-57d0-4c61-9d34-70d5fc017801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes\Scene">
+      <UniqueIdentifier>{1abcffe4-b91f-4c22-802d-7e5697803371}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLib\blender.h">
@@ -75,38 +105,38 @@
     <ClInclude Include="GameLib\view_settings.h">
       <Filter>GameLib\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCode\scene_title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\scene_game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\common.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\audio.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="GameLib\depth_stencil.h">
       <Filter>GameLib\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCode\m_scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\scene_start.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\system.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="SourceCode\audio.h">
+      <Filter>ヘッダー ファイル\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Desktop\School\ゲームプログラミングⅢ\ゲームプログラミングⅢ(学生配布)\ゲームプログラミングⅢ(学生配布)\Source\bomb.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\common.h">
+      <Filter>ヘッダー ファイル\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\enemy.h">
+      <Filter>ヘッダー ファイル\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\m_scene.h">
+      <Filter>ヘッダー ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\player.h">
+      <Filter>ヘッダー ファイル\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\scene_title.h">
+      <Filter>ヘッダー ファイル\Scenes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\scene_game.h">
+      <Filter>ヘッダー ファイル\Scenes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\scene_start.h">
+      <Filter>ヘッダー ファイル\Scenes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\system.h">
+      <Filter>ヘッダー ファイル\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,41 +182,41 @@
     <ClCompile Include="SourceCode\main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCode\scene_title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCode\scene_game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCode\audio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="GameLib\depth_stencil.cpp">
       <Filter>GameLib\ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GameLib\wnd_proc.cpp">
       <Filter>GameLib\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCode\common.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCode\m_scene.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\scene_title.cpp">
+      <Filter>ソース ファイル\Scenes\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\scene_game.cpp">
+      <Filter>ソース ファイル\Scenes\scene</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\scene_start.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCode\player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCode\enemy.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Scenes\scene</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\system.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\common.cpp">
+      <Filter>ソース ファイル\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\audio.cpp">
+      <Filter>ソース ファイル\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\player.cpp">
+      <Filter>ソース ファイル\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\enemy.cpp">
+      <Filter>ソース ファイル\Entities</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\bomb.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Entities\items</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

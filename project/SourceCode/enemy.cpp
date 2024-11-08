@@ -62,9 +62,9 @@ public:
 
 };
 
-float spawnPointIncreaseValue = 1;
+float spawnPointIncreaseValue = 5;
 VECTOR2 spawnPoint;
-float spawnAngle = 0;
+float spawnAngle = 90;
 float spawnAngleIncreaseValue = 1;
 
 std::vector<ENEMY> enemy;
@@ -76,7 +76,7 @@ void enemy_init()
 	// プレイヤーの状態を初期化
 	enemy_state = 0;
 	enemy_timer = 0;
-	spawnPoint = { 0,float(SCREEN_H) };
+	spawnPoint = { 0,float(SCREEN_H / 2.0f) };
 	srand(time(NULL));
 }
 
@@ -111,12 +111,8 @@ void enemy_update()
 	case 2:
 		enemy_act();
 		enemy_timer++;
-		if (spawnAngle >= 180 || spawnAngle <= 0)
-		{
-			spawnAngleIncreaseValue *= -1;
-		}
-		spawnAngle += spawnAngleIncreaseValue;
-		if (enemy_timer % 1 == 0)
+
+		if (enemy_timer % 20 == 0)
 		{
 
 			enemy.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50));
@@ -131,19 +127,20 @@ void enemy_update()
 void enemy_render()
 {
 	for (auto& enemy : enemy) {
-		primitive::circle(enemy.position.x, enemy.position.y, 5);
+		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 1, 2, 0.5f);
 	}
 
 	//以下debagu用
 
-	debug::setString("enemytimer%d", enemy_timer);
-	debug::setString("add%f", spawnPointIncreaseValue);
-	debug::setString("angle%f", spawnAngle);
-	debug::setString("spawnpoint%f,%f", spawnPoint.x, spawnPoint.y);
-	for (auto& enemy : enemy) {
+	//debug::setString("enemytimer%d", enemy_timer);
+	//debug::setString("add%f", spawnPointIncreaseValue);
+	//debug::setString("angle%f", spawnAngle);
+	//debug::setString("spawnpoint%f,%f", spawnPoint.x, spawnPoint.y);
+	//for (auto& enemy : enemy) {
 
-		debug::setString("enemy[]%f:pos%f.%f", enemy.timer, enemy.position.x, enemy.position.y);
-	}
+	//	debug::setString("enemy[]%f:pos%f.%f", enemy.timer, enemy.position.x, enemy.position.y);
+	//}
+	primitive::line(SCREEN_H, 0, SCREEN_H, SCREEN_H);
 
 }
 //--------------------------------------
@@ -152,22 +149,26 @@ void enemy_render()
 void enemy_act()
 {
 	spawnPoint.x += spawnPointIncreaseValue;
-	if (spawnPoint.x <= 0 || spawnPoint.x >= SCREEN_W)
+	if (spawnPoint.x <= 0 || spawnPoint.x >= SCREEN_H)
 	{
 		spawnPointIncreaseValue *= -1;
 	}
 
+
+	spawnAngle += spawnAngleIncreaseValue;
+	if (spawnAngle >= 105 || spawnAngle <= 75)
+	{
+		spawnAngleIncreaseValue *= -1;
+	}
 	//要素数だけループ
 	for (auto& enemy : enemy) {
 		enemy.timer += 0.1f;
 		enemy.position = enemy.BasePosition + LaunchCalculatePosition(enemy.angle, enemy.force, enemy.timer);
+		// 画面外に出た場合の処理
+		if (enemy.position.x < 0) enemy.position.x *= -1;
+		if (enemy.position.x > SCREEN_H) enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H);
 	}
-	//enemy.erase(std::remove_if(enemy.begin(), enemy.end(),
-	//	[](const ENEMY& enemy)
-	//	{
-	//		return enemy.position.y > SCREEN_H + 20;
-	//	}),
-	//	enemy.end());
+
 	auto it = std::remove_if(enemy.begin(), enemy.end(),
 		[](const ENEMY& enemy) { return enemy.position.y >= SCREEN_H + 100; });
 	enemy.erase(it, enemy.end());

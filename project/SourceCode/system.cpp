@@ -47,6 +47,7 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 
 	// n•bŒã‚ÌˆÊ’u‚ðŒvŽZ
 	float x = vx * time;
+
 	float y = vy * time - 0.5f * g * time * time;
 	y *= -1;
 	// ˆÊ’u‚ð•Ô‚·
