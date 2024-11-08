@@ -8,21 +8,8 @@ using namespace input;
 
 // プレイヤーの状態を管理する変数
 int player_state;
-class PLAYER {
-public:
-	float angle;
-	float speed;
-	VECTOR2 position;
-	VECTOR2 scale;
-	VECTOR2 texPos;
-	VECTOR2 texSize;
-	VECTOR2 pivot;
-	VECTOR4 color;
 
-
-
-};
-
+PLAYER player;
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------

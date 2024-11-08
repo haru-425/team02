@@ -1,4 +1,6 @@
 #pragma once
+#include "../GameLib/game_lib.h"
+
 //------< 定数 >----------------------------------------------------------------
 #define PLAYER_TEX_W        (400.0f)   // プレイヤーの画像1つの幅
 #define PLAYER_TEX_H        (400.0f)   // プレイヤーの画像1つの高さ
@@ -23,3 +25,18 @@ void player_update();
 void player_render();
 void player_deinit();
 void player_act();
+
+class PLAYER {
+public:
+	float angle;
+	float speed;
+	VECTOR2 position;
+	VECTOR2 scale;
+	VECTOR2 texPos;
+	VECTOR2 texSize;
+	VECTOR2 pivot;
+	VECTOR4 color;
+
+
+
+};
