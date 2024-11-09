@@ -53,3 +53,22 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	// ˆÊ’u‚ğ•Ô‚·
 	return VECTOR2(x, y);
 }
+
+// îŒ`ƒ|ƒŠƒSƒ“•`‰æ
+void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color)
+{
+	float angleStep = (endAngle - startAngle) / polygon;
+	for (int i = 0; i < polygon; i++) {
+		float angle1 = ToRadian(startAngle + i * angleStep);
+		float angle2 = ToRadian(startAngle + (i + 1) * angleStep);
+		VECTOR2 p1 = { center.x + radius * sinf(angle1), center.y - radius * cosf(angle1) };
+		VECTOR2 p2 = { center.x + radius * sinf(angle2), center.y - radius * cosf(angle2) };
+		VECTOR2 vertex[4] = {
+			{center.x,center.y},
+			{center.x,center.y},
+			{p1.x,p1.y},
+			{p2.x,p2.y}
+		};
+		primitive::quad(vertex, color, true);
+	}
+}
