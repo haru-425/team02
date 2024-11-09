@@ -36,13 +36,13 @@ void bomb_throw()
 
 
 	// マウスカーソルの現在位置を取得
-	GetCursorPos(&point);
+	//GetCursorPos(&point);
 
-	// スクリーン座標をクライアント座標に変換
-	ScreenToClient(window::getHwnd(), &point);
+	//// スクリーン座標をクライアント座標に変換
+	//ScreenToClient(window::getHwnd(), &point);
 
-	VECTOR2 Point = { point.x, point.y };
-	bomb.bomb_angle = tracking(Point, player.position);
+	//VECTOR2 Point = { point.x, point.y };
+	//bomb.bomb_angle = tracking(Point, player.position);
 
 	bomb.bomb_state++;
 }
