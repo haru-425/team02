@@ -172,12 +172,12 @@ void enemy_act()
 
 
 
-		//	if (enemy.position.x < 0) { enemy.position.x *= -1;		enemy.BasePosition.x += 5; }
+		//if (enemy.position.x < 0) { enemy.position.x *= -1;		enemy.BasePosition.x += 5; }
 
-		//	if (enemy.position.x > SCREEN_H) {
-		//		enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H); 		enemy.BasePosition.x -= 5;
-			//}
-			//enemy.BasePosition.x -= 5;
+		//if (enemy.position.x > SCREEN_H) {
+		//	enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H); 		enemy.BasePosition.x -= 5;
+		//}
+		//enemy.BasePosition.x -= 5;
 	}
 
 	auto it = std::remove_if(enemy.begin(), enemy.end(),
