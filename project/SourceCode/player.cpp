@@ -4,12 +4,14 @@
 #include "common.h"
 #include "audio.h"
 #include "m_scene.h"
+#include "bomb.h"
 using namespace input;
 
 // プレイヤーの状態を管理する変数
 int player_state;
 
 PLAYER player;
+extern Bomb bomb;
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
@@ -36,6 +38,7 @@ void player_update()
 	case 0:
 		//////// 初期設定 ////////
 
+		player.position = VECTOR2(500, 350);
 		// 次の状態に遷移
 		++player_state;
 		/*fallthrough*/
@@ -50,6 +53,11 @@ void player_update()
 	case 2:
 
 		player_act();
+		if (TRG(0)& L_CLICK)
+		{
+			bomb_throw();
+		}
+		debug::setString("%f", player.position.x);
 		break;
 	}
 }

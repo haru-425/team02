@@ -11,6 +11,7 @@
 #include "common.h"
 #include "audio.h"
 #include "m_scene.h"
+#include "bomb.h"
 // namespace
 using namespace GameLib;
 using namespace input;
@@ -61,6 +62,7 @@ void game_update()
 
 		enemy_update();
 		player_update();
+		bomb_update();
 		break;
 	case game_state.F_TRANSITION:
 		if (true)
@@ -82,7 +84,7 @@ void game_render()
 	GameLib::clear(0.2f, 0.2f, 0.4f);
 
 	enemy_render();
-
+	bomb_render();
 	player_render();
 	debug::setString("game_timer%d", game_timer);
 	debug::setString("game_state%d", game_state.state);
