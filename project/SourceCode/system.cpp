@@ -52,8 +52,36 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	y *= -1;
 	// 位置を返す
 	return VECTOR2(x, y);
+}VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity)
+{
+	// 初期速度を計算
+	angle = ToRadian(angle);
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = gravity;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	// 位置を返す
+	return VECTOR2(x, y);
 }
 
+VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
+	VECTOR2 Vec = target_BasePos;
+	if (Vec.x <= 0) Vec.x += magnetic_force.x / 2.0f;
+
+	if (Vec.x >= SCREEN_H)Vec.x -= magnetic_force.x / 2.0f;
+
+	Vec.x += magnetic_force.x;
+
+	return Vec;
+}
 // 扇形ポリゴン描画
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color)
 {

@@ -165,8 +165,19 @@ void enemy_act()
 		enemy.timer += 0.1f;
 		enemy.position = enemy.BasePosition + LaunchCalculatePosition(enemy.angle, enemy.force, enemy.timer);
 		// âÊñ äOÇ…èoÇΩèÍçáÇÃèàóù
-		if (enemy.position.x < 0) enemy.position.x *= -1;
+		if (enemy.position.x < 0)  enemy.position.x *= -1;
 		if (enemy.position.x > SCREEN_H) enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H);
+
+		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, { 5,0 });
+
+
+
+		//	if (enemy.position.x < 0) { enemy.position.x *= -1;		enemy.BasePosition.x += 5; }
+
+		//	if (enemy.position.x > SCREEN_H) {
+		//		enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H); 		enemy.BasePosition.x -= 5;
+			//}
+			//enemy.BasePosition.x -= 5;
 	}
 
 	auto it = std::remove_if(enemy.begin(), enemy.end(),

@@ -6,6 +6,9 @@ VECTOR2 unit_vectorization(VECTOR2 vec);
 
 //初速と角度をと今の時間を渡すとその時の位置を返す
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time);
+VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity);
+
+VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force);
 
 //--------------------------------------------------------------
 // 扇形ポリゴン描画
