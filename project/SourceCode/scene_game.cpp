@@ -12,10 +12,13 @@
 #include "audio.h"
 #include "m_scene.h"
 #include "bomb.h"
+#include "system.h"
 // namespace
 using namespace GameLib;
 using namespace input;
 
+//debug
+Sprite* sprArrow;
 //------< íËêî >----------------------------------------------------------------
 
 
@@ -31,7 +34,8 @@ void game_init()
 }
 void game_deinit()
 {
-
+	//debug
+	safe_delete(sprArrow);
 }
 void game_update()
 {
@@ -41,6 +45,10 @@ void game_update()
 		game_state.state = game_state.B_TRANSIATON;
 		player_init();
 		enemy_init();
+
+		//debug
+
+		sprArrow = sprite_load(L"./Data/Images/unnamed.png");
 	case game_state.B_TRANSIATON:
 		if (true)
 		{
@@ -59,6 +67,18 @@ void game_update()
 			game_state.state = game_state.F_TRANSITION;
 			break;
 		}
+
+
+
+
+
+		//debugópíËä˙é•óÕïœçX
+		if (game_timer % 60 == 0) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
+		//if (game_timer % 180 == 0) magnetic_force = { 1 ,1 };
+
+
+
+
 
 		enemy_update();
 		player_update();
@@ -88,4 +108,23 @@ void game_render()
 	player_render();
 	debug::setString("game_timer%d", game_timer);
 	debug::setString("game_state%d", game_state.state);
+	debug::setString("magnet(%f:%f)", magnetic_force.x, magnetic_force.y);
+
+	if (magnetic_force.x == 0 && magnetic_force.y == 0)
+	{
+
+	}
+	else {
+		sprite_render(
+			sprArrow,
+			SCREEN_H + ((SCREEN_W - SCREEN_H) / 2.0f), SCREEN_H / 2.0f,
+			0.1f, 0.1f,
+			0, 0,
+			2067, 1646,
+			1033.5f, 823,
+			(float)atan2(magnetic_force.y, magnetic_force.x)
+		);
+	}
+
+
 }

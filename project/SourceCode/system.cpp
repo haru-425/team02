@@ -5,6 +5,9 @@
 #include "common.h"
 #include "system.h"
 
+
+VECTOR2 magnetic_force = { 0,0 };
+
 //A‚ªB‚ðŒü‚­ˆ—
 float tracking(VECTOR2 target, VECTOR2 tracking_person) {
 	VECTOR2 subVector;
@@ -79,6 +82,7 @@ VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
 	if (Vec.x >= SCREEN_H)Vec.x -= magnetic_force.x / 2.0f;
 
 	Vec.x += magnetic_force.x;
+	Vec.y += magnetic_force.y;
 
 	return Vec;
 }

@@ -168,7 +168,7 @@ void enemy_act()
 		if (enemy.position.x < 0)  enemy.position.x *= -1;
 		if (enemy.position.x > SCREEN_H) enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H);
 
-		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, { 5,0 });
+		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, magnetic_force);
 
 
 
