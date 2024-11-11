@@ -52,7 +52,8 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	y *= -1;
 	// ˆÊ’u‚ğ•Ô‚·
 	return VECTOR2(x, y);
-}VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity)
+}
+VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity)
 {
 	// ‰Šú‘¬“x‚ğŒvZ
 	angle = ToRadian(angle);
