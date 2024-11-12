@@ -14,6 +14,7 @@ float flepY = 0.0f;
 void bomb_init()
 {
 	bomb.bomb_state = 0;
+	bomb.start_bomb_position = player.position;
 	bomb.bomb_position.x = -200;
 	bomb.bomb_position.y = -200;
 	bomb.bomb_speed = 50.0f;
@@ -50,14 +51,20 @@ void bomb_throw()
 
 void bomb_update()
 {
-	debug::setString("%f", bomb.start_bomb_position.x);
+
+	debug::setString("bomb.start_bomb_position.x:%f", bomb.start_bomb_position.x);
 	switch (bomb.bomb_state)
 	{
 	case 3:
 		flepX = player.position.x - bomb.bomb_position.x;
 		flepY = player.position.y - bomb.bomb_position.y;
-		force = sqrtf(flepX * flepX + flepY * flepY) - BOMB_BLAST_STRANGE;
-		angle = tracking(player.position, bomb.bomb_position);
+		if (sqrtf(flepX * flepX + flepY * flepY) - BOMB_BLAST_STRANGE>0)
+		{
+			player.strat_position = player.position;
+			force = sqrtf(flepX * flepX + flepY * flepY) - BOMB_BLAST_STRANGE;
+			angle = tracking(player.position, bomb.bomb_position);
+		}
+		
 		bomb_deinit();
 		break;
 
@@ -91,14 +98,14 @@ void bomb_render()
 	for (int i = 0; i < 120; i++)
 	{
 		primitive::circle(edge_reflecting(
-			bomb.start_bomb_position + LaunchCalculatePosition(
+			player.position + LaunchCalculatePosition(
 				-tracking(
 					cursor_position(
 					), player.position
 				), bomb.bomb_speed, i * 0.5f
 			)
 		).x,
-			edge_reflecting(bomb.start_bomb_position + LaunchCalculatePosition(-tracking(cursor_position(), player.position), bomb.bomb_speed, i * 0.5f)).y,
+			edge_reflecting(player.position + LaunchCalculatePosition(-tracking(cursor_position(), player.position), bomb.bomb_speed, i * 0.5f)).y,
 			3,
 			1, 1,
 			0,
