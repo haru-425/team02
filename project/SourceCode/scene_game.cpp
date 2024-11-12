@@ -45,7 +45,7 @@ void game_update()
 		game_state.state = game_state.B_TRANSIATON;
 		player_init();
 		enemy_init();
-
+		bomb_init();
 		//debug
 
 		sprArrow = sprite_load(L"./Data/Images/unnamed.png");

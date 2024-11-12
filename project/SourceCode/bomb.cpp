@@ -15,8 +15,8 @@ float flepY = 0.0f;
 void bomb_init()
 {
 	bomb.bomb_state = 0;
-	bomb.bomb_position.x = -100;
-	bomb.bomb_position.y = -100;
+	bomb.bomb_position.x = -200;
+	bomb.bomb_position.y = -200;
 	bomb.bomb_speed = 0.0f;
 	bomb.bomb_angle = 0.0f;
 	bomb.bom_time=0;
@@ -92,4 +92,5 @@ void bomb_update()
 void bomb_render()
 {
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
+	debug::setString("%f", bomb.bomb_position.x);
 }
