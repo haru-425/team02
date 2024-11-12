@@ -40,7 +40,6 @@ VECTOR2 unit_vectorization(VECTOR2 vec) {
 
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	// 初期速度を計算
-	angle = ToRadian(angle);
 	float v0 = force;
 	float vx = v0 * cos(angle);
 	float vy = v0 * sin(angle);
@@ -59,7 +58,6 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity)
 {
 	// 初期速度を計算
-	angle = ToRadian(angle);
 	float v0 = force;
 	float vx = v0 * cos(angle);
 	float vy = v0 * sin(angle);
