@@ -127,7 +127,7 @@ void enemy_update()
 void enemy_render()
 {
 	for (auto& enemy : enemy) {
-		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 1, 2, 0.5f);
+		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 1, 0, 0.5f);
 	}
 
 	//以下debagu用
@@ -163,7 +163,7 @@ void enemy_act()
 	//要素数だけループ
 	for (auto& enemy : enemy) {
 		enemy.timer += 0.1f;
-		enemy.position = enemy.BasePosition + LaunchCalculatePosition(ToRadian(enemy.angle), enemy.angle, enemy.force, enemy.timer);
+		enemy.position = enemy.BasePosition + LaunchCalculatePosition(ToRadian(enemy.angle), enemy.force, enemy.timer);
 		// 画面外に出た場合の処理
 		if (enemy.position.x < 0)  enemy.position.x *= -1;
 		if (enemy.position.x > SCREEN_H) enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H);
