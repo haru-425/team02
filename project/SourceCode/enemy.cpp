@@ -127,7 +127,7 @@ void enemy_update()
 void enemy_render()
 {
 	for (auto& enemy : enemy) {
-		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 1, 2, 0.5f);
+		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 1, 0, 0.5f);
 	}
 
 	//ˆÈ‰ºdebagu—p
