@@ -73,8 +73,8 @@ void game_update()
 
 
 		//debug—p’èŠú¥—Í•ÏX
-		if (game_timer % 60 == 0) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
-		//if (game_timer % 180 == 0) magnetic_force = { 1 ,1 };
+		if (game_timer % 1200 == 0) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
+		//if (game_timer % 180 == 0) mag1200netic_force = { 1 ,1 };
 
 
 
