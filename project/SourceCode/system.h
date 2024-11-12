@@ -13,6 +13,10 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force);
 
+VECTOR2 cursor_position();
+
+VECTOR2 edge_reflecting(VECTOR2 pos);
+
 //--------------------------------------------------------------
 // êÓå`É|ÉäÉSÉìï`âÊ
 //--------------------------------------------------------------

@@ -85,6 +85,26 @@ VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
 
 	return Vec;
 }
+
+VECTOR2 edge_reflecting(VECTOR2 pos) {
+	// 画面外に出た場合の処理
+	if (pos.x < 0)  pos.x *= -1;
+	if (pos.x > SCREEN_H) pos.x = SCREEN_H - (pos.x - SCREEN_H);
+	return pos;
+
+}
+VECTOR2 cursor_position() {
+
+	POINT point;
+	//マウスカーソルの現在位置を取得
+	GetCursorPos(&point);
+
+	// スクリーン座標をクライアント座標に変換
+	ScreenToClient(window::getHwnd(), &point);
+
+	VECTOR2 Point = { (float)point.x, (float)point.y };
+	return Point;
+}
 // 扇形ポリゴン描画
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color)
 {
