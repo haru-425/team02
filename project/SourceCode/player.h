@@ -13,7 +13,7 @@
 #define PLAYER_CORE_TEX_H        (128.0f)   // プレイヤーの画像1つの高さ
 #define PLAYER_CORE_PIVOT_X      (PLAYER_CORE_TEX_W/2)    // プレイヤーの横方向の中心
 #define PLAYER_CORE_PIVOT_Y      (PLAYER_CORE_TEX_H/2)   // プレイヤーの縦方向の下端
-#define PLAYER_GRAVITY 7.2
+#define PLAYER_GRAVITY 2.45f
 
 //------< 構造体 >---------------------------------------------------------------
 
@@ -33,6 +33,7 @@ public:
 	float angle;
 	float speed;
 	VECTOR2 position;
+	VECTOR2 strat_position;
 	VECTOR2 scale;
 	VECTOR2 texPos;
 	VECTOR2 texSize;
