@@ -73,7 +73,7 @@ void bomb_update()
 	case 2:
 
 		bomb.bom_time += 0.1f;
-		bomb.bomb_position = bomb.start_bomb_position + LaunchCalculatePosition(ToDegree(-bomb.bomb_angle), bomb.bomb_speed, bomb.bom_time);
+		bomb.bomb_position = bomb.start_bomb_position + LaunchCalculatePosition(-bomb.bomb_angle, bomb.bomb_speed, bomb.bom_time);
 
 		if (bomb.bomb_position.y >= SCREEN_H)
 		{
