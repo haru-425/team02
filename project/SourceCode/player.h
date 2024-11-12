@@ -32,6 +32,7 @@ class PLAYER {
 public:
 	float angle;
 	float speed;
+	float player_time;
 	VECTOR2 position;
 	VECTOR2 strat_position;
 	VECTOR2 scale;

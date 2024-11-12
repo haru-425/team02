@@ -58,11 +58,12 @@ void bomb_update()
 	case 3:
 		flepX = player.position.x - bomb.bomb_position.x;
 		flepY = player.position.y - bomb.bomb_position.y;
-		if (sqrtf(flepX * flepX + flepY * flepY) - BOMB_BLAST_STRANGE>0)
+		if (BOMB_BLAST_RANGE - sqrtf(flepX * flepX + flepY * flepY)>0)
 		{
+			player.player_time = 0;
 			player.strat_position = player.position;
-			force = sqrtf(flepX * flepX + flepY * flepY) - BOMB_BLAST_STRANGE;
-			angle = tracking(player.position, bomb.bomb_position);
+			force = (BOMB_BLAST_RANGE-sqrtf(flepX * flepX + flepY * flepY))* BOMB_BLAST_STRANGE;
+			angle = -tracking(player.position, bomb.bomb_position);
 		}
 		
 		bomb_deinit();

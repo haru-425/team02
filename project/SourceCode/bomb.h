@@ -7,7 +7,8 @@
 
 using namespace DirectX;
 
-#define BOMB_BLAST_STRANGE 5.0f
+#define BOMB_BLAST_STRANGE 0.28f
+#define BOMB_BLAST_RANGE 200.0f
 
 void bomb_init();			// ”š’e‚Ì‰Šú‰»
 void bomb_deinit();			// ”š’e‚ÌƒŠƒZƒbƒg
