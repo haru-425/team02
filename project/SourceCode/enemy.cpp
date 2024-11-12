@@ -164,9 +164,7 @@ void enemy_act()
 	for (auto& enemy : enemy) {
 		enemy.timer += 0.1f;
 		enemy.position = enemy.BasePosition + LaunchCalculatePosition(ToRadian(enemy.angle), enemy.force, enemy.timer);
-		// ‰æ–ÊŠO‚Éo‚½ê‡‚Ìˆ—
-		if (enemy.position.x < 0)  enemy.position.x *= -1;
-		if (enemy.position.x > SCREEN_H) enemy.position.x = SCREEN_H - (enemy.position.x - SCREEN_H);
+		enemy.position = edge_reflecting(enemy.position);
 
 		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, magnetic_force);
 
