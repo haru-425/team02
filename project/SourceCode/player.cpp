@@ -5,10 +5,12 @@
 #include "audio.h"
 #include "m_scene.h"
 #include "bomb.h"
+#include "system.h"
 using namespace input;
 
 // プレイヤーの状態を管理する変数
 int player_state;
+int player_time;
 
 PLAYER player;
 extern Bomb bomb;
@@ -19,6 +21,7 @@ void player_init()
 {
 	// プレイヤーの状態を初期化
 	player_state = 0;
+	player_time = 0;
 }
 
 //--------------------------------------
@@ -51,7 +54,7 @@ void player_update()
 		/*fallthrough*/
 
 	case 2:
-
+		player_time++;
 		player_act();
 		if (TRG(0)& L_CLICK)
 		{
@@ -68,6 +71,7 @@ void player_update()
 void player_render()
 {
 
+	primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
 }
 
 //--------------------------------------
@@ -83,5 +87,5 @@ void player_act()
 //--------------------------------------
 void player_movement(float angle, float force)
 {
-
+	player.position += player.position + LaunchCalculatePosition(angle, force, player_time, PLAYER_GRAVITY);
 }
