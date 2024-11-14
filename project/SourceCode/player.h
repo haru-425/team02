@@ -26,7 +26,7 @@ void player_update();
 void player_render();
 void player_deinit();
 void player_act();
-void player_movement(float angle,float force);
+void player_movement(float angle, float force);
 
 class PLAYER {
 public:

@@ -90,6 +90,7 @@ VECTOR2 edge_reflecting(VECTOR2 pos) {
 	// ‰æ–ÊŠO‚Éo‚½ê‡‚Ìˆ—
 	if (pos.x < 0)  pos.x *= -1;
 	if (pos.x > SCREEN_H) pos.x = SCREEN_H - (pos.x - SCREEN_H);
+	//	if (pos.y <= 0) pos.y *= -1;
 	return pos;
 
 }

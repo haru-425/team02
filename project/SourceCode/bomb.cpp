@@ -7,8 +7,8 @@
 Bomb bomb;
 extern PLAYER player;
 POINT screenPoint;
-float force = 0.0f;
-float angle = 0.0f;
+extern float force;
+extern float angle;
 float flepX = 0.0f;
 float flepY = 0.0f;
 void bomb_init()
@@ -58,14 +58,14 @@ void bomb_update()
 	case 3:
 		flepX = player.position.x - bomb.bomb_position.x;
 		flepY = player.position.y - bomb.bomb_position.y;
-		if (BOMB_BLAST_RANGE - sqrtf(flepX * flepX + flepY * flepY)>0)
+		if (BOMB_BLAST_RANGE - sqrtf(flepX * flepX + flepY * flepY) > 0)
 		{
 			player.player_time = 0;
 			player.strat_position = player.position;
-			force = (BOMB_BLAST_RANGE-sqrtf(flepX * flepX + flepY * flepY))* BOMB_BLAST_STRANGE;
+			force = (BOMB_BLAST_RANGE - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
 			angle = -tracking(player.position, bomb.bomb_position);
 		}
-		
+
 		bomb_deinit();
 		break;
 

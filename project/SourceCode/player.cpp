@@ -10,7 +10,8 @@ using namespace input;
 
 // ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğŠÇ—‚·‚é•Ï”
 int player_state;
-
+float force = 0.0f;
+float angle = 0.0f;
 PLAYER player;
 extern Bomb bomb;
 //--------------------------------------
@@ -55,9 +56,9 @@ void player_update()
 		/*fallthrough*/
 
 	case 2:
-		player.player_time+=0.1f;
+		player.player_time += 0.1f;
 		player_act();
-		if (TRG(0)& L_CLICK)
+		if (TRG(0) & L_CLICK)
 		{
 			bomb_throw();
 		}
@@ -73,6 +74,8 @@ void player_render()
 {
 
 	primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
+
+	debug::setString("force%f", force);
 }
 
 //--------------------------------------
@@ -89,4 +92,13 @@ void player_act()
 void player_movement(float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
+	player.position = edge_reflecting(player.position);
+	if (player.position.y < 0)
+	{
+		::force = 0.0;
+		player.player_time = 0.0f;
+		player.strat_position = { player.position.x, 0.0f };
+	}
+
+
 }
