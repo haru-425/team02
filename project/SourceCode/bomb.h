@@ -3,12 +3,15 @@
 #define BOMB_H
 
 #include "../GameLib/game_lib.h"
+#include <vector>
+#include <algorithm>
 #include <DirectXMath.h>
 
 using namespace DirectX;
 
 #define BOMB_BLAST_STRANGE 0.28f
-#define BOMB_BLAST_RANGE 200.0f
+#define BOMB_BLAST_MAX_RANGE 180.0f
+#define BOMB_BLAST_R_INC 10.0f
 
 void bomb_init();			// ”š’e‚Ì‰Šú‰»
 void bomb_deinit();			// ”š’e‚ÌƒŠƒZƒbƒg
@@ -27,5 +30,18 @@ public:
 	float bomb_angle;
 	float bomb_blast;
 };
+
+class Bomb_range
+{
+public:
+	Bomb_range(VECTOR2 position);
+	~Bomb_range();
+	VECTOR2 judg_position;
+	float bomb_blast_range;
+	void bomb_range_expansion();
+};
+
+extern std::vector<Bomb_range> range_Box;
+
 
 #endif // BOMB_H
