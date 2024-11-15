@@ -94,6 +94,7 @@ void bomb_update()
 
 void bomb_render()
 {
+	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, BOMB_BLAST_RANGE, 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 
 	for (int i = 0; i < 120; i++)
@@ -112,5 +113,11 @@ void bomb_render()
 			0,
 			1, 1, 1, 0.5f);
 	}
+
+
+
+
+
+
 	debug::setString("%f", bomb.bomb_position.x);
 }

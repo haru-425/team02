@@ -9,7 +9,7 @@ const LONG SCREEN_H{ 720 };
 const LONG GAME_SCREEN_H{ 720 };
 const LONG GAME_SCREEN_W{ 720 };
 //const LONG SCREEN_H{ 1008 };
-const BOOL FULLSCREEN{ FALSE };
+const BOOL FULLSCREEN{ TRUE };
 const LPCWSTR APPLICATION_NAME{ L"C++ project template" };
 
 //  ä÷êîÉ|ÉCÉìÉ^

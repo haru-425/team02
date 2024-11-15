@@ -70,6 +70,7 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 	float y = vy * time - 0.5f * g * time * time;
 	y *= -1;
+
 	// ˆÊ’u‚ð•Ô‚·
 	return VECTOR2(x, y);
 }

@@ -93,12 +93,12 @@ void player_movement(float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);
-	if (player.position.y < 0)
-	{
-		::force = 0.0;
-		player.player_time = 0.0f;
-		player.strat_position = { player.position.x, 0.0f };
-	}
+	//if (player.position.y < 0)
+	//{
+	//	::force = 0.0;
+	//	player.player_time = 0.0f;
+	//	player.strat_position = { player.position.x, 0.0f };
+	//}
 
 
 }
