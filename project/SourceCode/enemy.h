@@ -24,5 +24,4 @@ void enemy_update();
 void enemy_render();
 void enemy_deinit();
 void enemy_act();
-
-void enemy_kill();
+void enemy_kill(int kill_num);

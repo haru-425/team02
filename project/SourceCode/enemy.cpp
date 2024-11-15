@@ -142,9 +142,18 @@ void enemy_render()
 	}
 
 
+
 	for (auto& enemy : enemy_thrower) {
-		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
 	}
+
+
+
+	for (auto& enemy : enemy_thrown_item) {
+		primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
+	}
+
+
 	//ˆÈ‰ºdebagu—p
 
 	primitive::line(SCREEN_H, 0, SCREEN_H, SCREEN_H);
@@ -196,9 +205,21 @@ void enemy_act()
 
 	if (enemy_timer % spawnrate == 0)
 	{
-
-		enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50));
+		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f));
 	}
+
+	for (auto& enemy : enemy_thrown_item) {
+		enemy.timer += 0.1f;
+		enemy.position = enemy.BasePosition + LaunchCalculatePosition(ToRadian(enemy.angle * 45 + 90), enemy.force, enemy.timer);
+		enemy.position = edge_reflecting(enemy.position);
+
+		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, magnetic_force);
+	}
+
+	auto thrown_it = std::remove_if(enemy_thrown_item.begin(), enemy_thrown_item.end(),
+		[](const ENEMY& enemy) { return enemy.position.y >= SCREEN_H + 100; });
+	enemy_thrown_item.erase(thrown_it, enemy_thrown_item.end());
+
 }
 
 
