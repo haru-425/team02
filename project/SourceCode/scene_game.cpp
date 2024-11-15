@@ -36,6 +36,9 @@ void game_deinit()
 {
 	//debug
 	safe_delete(sprArrow);
+	enemy_deinit();
+	player_deinit();
+	bomb_deinit();
 }
 void game_update()
 {
