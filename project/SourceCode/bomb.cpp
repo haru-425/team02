@@ -1,5 +1,6 @@
 #include "bomb.h"
 #include "player.h"
+#include "enemy.h"
 #include "system.h"
 
 #include "common.h"
@@ -150,4 +151,7 @@ void Bomb_range::bomb_range_expansion()
 		force = (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
 		angle = -tracking(player.position, bomb.bomb_position);
 	}
+
+	enemy_kill(bomb_blast_range, judg_position);
+	
 }

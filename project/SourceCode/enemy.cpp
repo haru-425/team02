@@ -223,7 +223,14 @@ void enemy_act()
 }
 
 
-void enemy_kill(int kill_num) {
-
-	enemy_pop.erase(enemy_pop.begin() + kill_num);
+void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison) {
+	int kill_num = 0;
+	for (auto& enemy : enemy_pop)
+	{
+		if (isCircleColliding(blast_posison, bomb_blast_range,enemy.position,ENEMY_CD))
+		{
+			enemy_pop.erase(enemy_pop.begin() + kill_num);
+		}
+		kill_num++;
+	}
 }

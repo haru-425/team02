@@ -125,3 +125,14 @@ void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, floa
 		primitive::quad(vertex, color, true);
 	}
 }
+
+// ‰~‚Æ‰~‚Ì“–‚½‚è”»’èŠÖ”
+bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_position, float b_radius) {
+	// ’†SŠÔ‚Ì‹——£‚ğŒvZ
+	float dx = b_position.x - a_position.x;
+	float dy = b_position.y - a_position.y;
+	float distance = std::sqrt(dx * dx + dy * dy);
+
+	// ”¼Œa‚Ì˜a‚Æ‹——£‚ğ”äŠr
+	return distance <= (a_radius + b_radius);
+}

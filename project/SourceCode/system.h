@@ -28,3 +28,5 @@ VECTOR2 edge_reflecting(VECTOR2 pos);
 //VECTOR4  color		êF (r, g, b, a)
 //--------------------------------------------------------------
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color);
+
+bool isCircleColliding(const VECTOR2 a_position,float a_radius, VECTOR2 b_position, float b_radius);

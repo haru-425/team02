@@ -12,6 +12,7 @@
 #define ENEMY_CORE_PIVOT_X      (ENEMY_CORE_TEX_W/2)    // プレイヤーの横方向の中心
 #define ENEMY_CORE_PIVOT_Y      (ENEMY_CORE_TEX_H/2)   // プレイヤーの縦方向の下端
 #define E_SCALE	(1.0f)
+#define ENEMY_CD 1
 //------< 構造体 >---------------------------------------------------------------
 
 
@@ -24,4 +25,4 @@ void enemy_update();
 void enemy_render();
 void enemy_deinit();
 void enemy_act();
-void enemy_kill(int kill_num);
+void enemy_kill(float bomb_blast_range,VECTOR2 blast_posison);
