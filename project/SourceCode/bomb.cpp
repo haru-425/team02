@@ -94,7 +94,7 @@ void bomb_update()
 		auto it = std::remove_if(range_Box.begin(), range_Box.end(),
 		[](const Bomb_range& renge) { return renge.bomb_blast_range >= BOMB_BLAST_MAX_RANGE; });
 		range_Box.erase(it, range_Box.end());
-		player_movement(angle, force);
+		player_movement(angle, force+BOMB_ADJUSTMENT);
 		return;
 
 		break;

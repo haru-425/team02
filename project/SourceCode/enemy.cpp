@@ -223,8 +223,11 @@ void enemy_act()
 }
 
 
-void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison) {
+void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison) 
+{
 	int kill_num = 0;
+
+	//‚±‚Á‚©‚ç‰º‚ªŒ´ˆö
 	for (auto& enemy : enemy_pop)
 	{
 		if (isCircleColliding(blast_posison, bomb_blast_range,enemy.position,ENEMY_CD))
