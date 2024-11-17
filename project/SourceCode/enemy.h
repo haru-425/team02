@@ -1,4 +1,6 @@
 #pragma once
+#include "../GameLib/game_lib.h"
+#include <vector>
 //------< 定数 >----------------------------------------------------------------
 #define ENEMY_TEX_W        (400.0f)   // プレイヤーの画像1つの幅
 #define ENEMY_TEX_H        (400.0f)   // プレイヤーの画像1つの高さ
