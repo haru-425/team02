@@ -106,6 +106,12 @@ void bomb_update()
 
 void bomb_render()
 {
+
+	for (auto& range : range_Box) {
+		primitive::circle(range.judg_position.x, range.judg_position.y, BOMB_BLAST_MAX_RANGE, range.bomb_blast_range / BOMB_BLAST_MAX_RANGE, range.bomb_blast_range / BOMB_BLAST_MAX_RANGE, 0, 1, 1, 1, 0.2f);
+	}
+
+
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, BOMB_BLAST_MAX_RANGE, 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 
