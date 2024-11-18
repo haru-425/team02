@@ -27,4 +27,4 @@ void enemy_update();
 void enemy_render();
 void enemy_deinit();
 void enemy_act();
-void enemy_kill(float bomb_blast_range,VECTOR2 blast_posison);
+void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison);

@@ -1,5 +1,5 @@
 #pragma once // 二重インクルードを防ぐためのディレクティブ
-#ifndef BOMB_H 
+#ifndef BOMB_H
 #define BOMB_H
 
 #include "../GameLib/game_lib.h"

@@ -82,6 +82,8 @@ void bomb_update()
 		bomb.bom_time += 0.1f;
 		bomb.bomb_position = bomb.start_bomb_position + LaunchCalculatePosition(-bomb.bomb_angle, bomb.bomb_speed, bomb.bom_time);
 
+		bomb.bomb_position = edge_reflecting(bomb.bomb_position);
+
 		if (bomb.bomb_position.y >= SCREEN_H)
 		{
 			bomb_deinit();
@@ -92,9 +94,9 @@ void bomb_update()
 			renge.bomb_range_expansion();
 		}
 		auto it = std::remove_if(range_Box.begin(), range_Box.end(),
-		[](const Bomb_range& renge) { return renge.bomb_blast_range >= BOMB_BLAST_MAX_RANGE; });
+			[](const Bomb_range& renge) { return renge.bomb_blast_range >= BOMB_BLAST_MAX_RANGE; });
 		range_Box.erase(it, range_Box.end());
-		player_movement(angle, force+BOMB_ADJUSTMENT);
+		player_movement(angle, force + BOMB_ADJUSTMENT);
 		return;
 
 		break;
@@ -132,7 +134,7 @@ void bomb_render()
 	debug::setString("%f", bomb.bomb_position.x);
 }
 
-Bomb_range::Bomb_range(VECTOR2 position):judg_position(position)
+Bomb_range::Bomb_range(VECTOR2 position) :judg_position(position)
 {
 	bomb_blast_range = 0;
 }
@@ -153,5 +155,5 @@ void Bomb_range::bomb_range_expansion()
 	}
 
 	enemy_kill(bomb_blast_range, judg_position);
-	
+
 }

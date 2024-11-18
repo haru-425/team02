@@ -136,3 +136,87 @@ bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_posit
 	// ”¼Œa‚Ì˜a‚Æ‹——£‚ð”äŠr
 	return distance <= (a_radius + b_radius);
 }
+
+
+//‰ñ“]‚·‚é‹éŒ`‚Æ‹éŒ`‚Ì“–‚½‚è”»’è
+
+
+struct Rect {
+	VECTOR2 center;
+	VECTOR2 size;
+};
+
+struct RotatedRect {
+	VECTOR2 center;
+	VECTOR2 size;
+	float angle;
+};
+
+bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+
+	const Rect& rect = { _center, _size };
+	const RotatedRect& rotatedRect = { rot_center, rot_size, angle };
+	// ‰ñ“]‚·‚é‹éŒ`‚Ì’¸“_‚ðŽæ“¾‚·‚é
+	VECTOR2 vertices[4];
+	vertices[0] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
+	vertices[1] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
+	vertices[2] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+	vertices[3] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+
+	// ‰ñ“]s—ñ‚ðŒvŽZ‚·‚é
+	float cosAngle = std::cos(rotatedRect.angle);
+	float sinAngle = std::sin(rotatedRect.angle);
+
+	// ‰ñ“]‚·‚é‹éŒ`‚Ì’¸“_‚ð•ÏŠ·‚·‚é
+	for (int i = 0; i < 4; i++) {
+		float x = vertices[i].x - rotatedRect.center.x;
+		float y = vertices[i].y - rotatedRect.center.y;
+		vertices[i].x = x * cosAngle - y * sinAngle + rotatedRect.center.x;
+		vertices[i].y = x * sinAngle + y * cosAngle + rotatedRect.center.y;
+	}
+
+	// “–‚½‚è”»’è‚ðŽÀs‚·‚é
+	for (int i = 0; i < 4; i++) {
+		if (rect.center.x - rect.size.x / 2 <= vertices[i].x && vertices[i].x <= rect.center.x + rect.size.x / 2 &&
+			rect.center.y - rect.size.y / 2 <= vertices[i].y && vertices[i].y <= rect.center.y + rect.size.y / 2) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+//‰ñ“]‚·‚é‹éŒ`‚Æ‚Ì“–‚½‚è”»’è
+
+bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius) {
+	// ‰ñ“]s—ñ‚ðŒvŽZ‚·‚é
+	float cosAngle = std::cos(angle);
+	float sinAngle = std::sin(angle);
+
+	// ‹éŒ`‚Ì’¸“_‚ðŽæ“¾‚·‚é
+	VECTOR2 vertices[4];
+	vertices[0] = { rec_center.x - size.x / 2, rec_center.y - size.y / 2 };
+	vertices[1] = { rec_center.x + size.x / 2, rec_center.y - size.y / 2 };
+	vertices[2] = { rec_center.x + size.x / 2, rec_center.y + size.y / 2 };
+	vertices[3] = { rec_center.x - size.x / 2, rec_center.y + size.y / 2 };
+
+	// ‰ñ“]s—ñ‚ðŽg—p‚µ‚Ä’¸“_‚ð•ÏŠ·‚·‚é
+	for (int i = 0; i < 4; i++) {
+		float x = vertices[i].x - rec_center.x;
+		float y = vertices[i].y - rec_center.y;
+		vertices[i].x = x * cosAngle - y * sinAngle + rec_center.x;
+		vertices[i].y = x * sinAngle + y * cosAngle + rec_center.y;
+	}
+
+	// “–‚½‚è”»’è‚ðŽÀs‚·‚é
+	for (int i = 0; i < 4; i++) {
+		VECTOR2 v = { cir_center.x - vertices[i].x, cir_center.y - vertices[i].y };
+		float distance = std::sqrt(v.x * v.x + v.y * v.y);
+		if (distance <= radius) {
+			return true;
+		}
+	}
+
+	return false;
+}

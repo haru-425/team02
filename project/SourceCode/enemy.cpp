@@ -15,22 +15,19 @@
 #include <vector>
 #include <algorithm>
 
-
+Sprite* sprEnemy;
 
 using namespace input;
 
 // ÉvÉåÉCÉÑÅ[ÇÃèÛë‘Çä«óùÇ∑ÇÈïœêî
 int enemy_state;
 int enemy_timer;
-enum class ENEMY_TYPE {
-	JUMP,
-};
+enum class ENEMY_TYPE { ENEMY_TYPE_POP, ENEMY_TYPE_THROWER, ENEMY_TYPE_THROWN_ITEM };
 class ENEMY {
 private:
 public:
-	ENEMY_TYPE type;
 	float timer;
-
+	ENEMY_TYPE type;
 	float angle;
 	float speed;
 	VECTOR2 BasePosition;
@@ -44,14 +41,15 @@ public:
 	VECTOR2 faceing = { 1,0 };
 
 
-	ENEMY(VECTOR2 pos, float _angle, float _force) {
+	ENEMY(VECTOR2 pos, float _angle, float _force, ENEMY_TYPE _type) {
 		timer = 0;
 		BasePosition = pos;
+		type = _type;
 		angle = _angle;
 		force = _force;
 		position = pos + LaunchCalculatePosition(_angle, _force, timer);
 		scale = { E_SCALE, E_SCALE };
-		texPos = { ENEMY_TEX_W * int(type), 0 };
+		texPos = { 0, 0 };
 		texSize = { ENEMY_TEX_W, ENEMY_TEX_H };
 		pivot = { ENEMY_PIVOT_X, ENEMY_PIVOT_Y };
 		color = { 1.000f, 1.0f, 1.0f, 1.0f };
@@ -102,7 +100,7 @@ void enemy_update()
 	{
 	case 0:
 		//////// èâä˙ê›íË ////////
-		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0));
+		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
 		// éüÇÃèÛë‘Ç…ëJà⁄
 		++enemy_state;
 		/*fallthrough*/
@@ -121,7 +119,7 @@ void enemy_update()
 		if (enemy_timer % 20 == 0)
 		{
 
-			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50));
+			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50, ENEMY_TYPE::ENEMY_TYPE_POP));
 		}
 
 		break;
@@ -205,8 +203,9 @@ void enemy_act()
 
 	if (enemy_timer % spawnrate == 0)
 	{
-		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f));
+		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f, ENEMY_TYPE::ENEMY_TYPE_THROWN_ITEM));
 	}
+
 
 	for (auto& enemy : enemy_thrown_item) {
 		enemy.timer += 0.1f;

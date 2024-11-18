@@ -17,6 +17,12 @@ VECTOR2 cursor_position();
 
 VECTOR2 edge_reflecting(VECTOR2 pos);
 
+
+//回転する矩形との当たり判定
+
+bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius);//回転する矩形と矩形の当たり判定
+
+bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle); s
 //--------------------------------------------------------------
 // 扇形ポリゴン描画
 //--------------------------------------------------------------
@@ -29,4 +35,4 @@ VECTOR2 edge_reflecting(VECTOR2 pos);
 //--------------------------------------------------------------
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color);
 
-bool isCircleColliding(const VECTOR2 a_position,float a_radius, VECTOR2 b_position, float b_radius);
+bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_position, float b_radius);
