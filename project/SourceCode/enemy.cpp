@@ -223,17 +223,13 @@ void enemy_act()
 }
 
 
-void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison) 
+void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison)
 {
-	int kill_num = 0;
-
-	//‚±‚Á‚©‚ç‰º‚ªŒ´ˆö
-	for (auto& enemy : enemy_pop)
-	{
-		if (isCircleColliding(blast_posison, bomb_blast_range,enemy.position,ENEMY_CD))
-		{
-			enemy_pop.erase(enemy_pop.begin() + kill_num);
-		}
-		kill_num++;
-	}
+	enemy_pop.erase(
+		std::remove_if(enemy_pop.begin(), enemy_pop.end(),
+			[&](const ENEMY& enemy) {
+				return isCircleColliding(blast_posison, bomb_blast_range, enemy.position, ENEMY_CD);
+			}),
+		enemy_pop.end()
+	);
 }
