@@ -22,7 +22,7 @@ VECTOR2 edge_reflecting(VECTOR2 pos);
 
 bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius);//回転する矩形と矩形の当たり判定
 
-bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle); s
+bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle);
 //--------------------------------------------------------------
 // 扇形ポリゴン描画
 //--------------------------------------------------------------
