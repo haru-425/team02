@@ -62,6 +62,16 @@ void player_update()
 		{
 			bomb_throw();
 		}
+		if (player.damege_invincible==false)//敵と自分との当たり判定を条件に入れる
+		{
+
+		}
+		else if (player.damege_invincible == true)
+		{
+
+		}
+
+		//デバックログ
 		debug::setString("player.position.x:%f", player.position.x);
 		break;
 	}

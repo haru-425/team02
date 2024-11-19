@@ -37,6 +37,7 @@ class Bomb_range
 public:
 	Bomb_range(VECTOR2 position);
 	~Bomb_range();
+	bool player_launch;
 	VECTOR2 judg_position;
 	float bomb_blast_range;
 	void bomb_range_expansion();

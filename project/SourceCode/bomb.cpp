@@ -62,6 +62,7 @@ void bomb_update()
 	case 3:
 		flepX = player.position.x - bomb.bomb_position.x;
 		flepY = player.position.y - bomb.bomb_position.y;
+
 		if (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY) > 0)
 		{
 			player.player_time = 0;
@@ -69,6 +70,7 @@ void bomb_update()
 			force = (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
 			angle = -tracking(player.position, bomb.bomb_position);
 		}
+
 		range_Box.push_back(bomb.bomb_position);
 		bomb_deinit();
 		break;
@@ -132,17 +134,13 @@ void bomb_render()
 			1, 1, 1, 0.5f);
 	}
 
-
-
-
-
-
 	debug::setString("%f", bomb.bomb_position.x);
 }
 
 Bomb_range::Bomb_range(VECTOR2 position) :judg_position(position)
 {
 	bomb_blast_range = 0;
+	player_launch = false;
 }
 
 Bomb_range::~Bomb_range()
@@ -152,14 +150,18 @@ Bomb_range::~Bomb_range()
 void Bomb_range::bomb_range_expansion()
 {
 	bomb_blast_range += BOMB_BLAST_R_INC;
-	if (sqrtf(flepX * flepX + flepY * flepY) - bomb_blast_range == 0)
+	/*if (sqrtf(flepX * flepX + flepY * flepY) - bomb_blast_range <= 0 && player_launch == false)
 	{
 		player.player_time = 0;
 		player.strat_position = player.position;
 		force = (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
-		angle = -tracking(player.position, bomb.bomb_position);
+		angle = tracking(player.position, bomb.start_bomb_position);
+		player_launch = true;
 	}
-
+	if (bomb_blast_range >= BOMB_BLAST_MAX_RANGE)
+	{
+		player_launch = false;
+	}*/
 	enemy_kill(bomb_blast_range, judg_position);
 
 }
