@@ -1,5 +1,4 @@
 #pragma once // 二重インクルードを防ぐためのディレクティブ
-#ifndef BOMB_H
 #define BOMB_H
 
 #include "../GameLib/game_lib.h"
@@ -44,6 +43,3 @@ public:
 };
 
 extern std::vector<Bomb_range> range_Box;
-
-
-#endif // BOMB_H
