@@ -22,42 +22,7 @@ using namespace input;
 // ÉvÉåÉCÉÑÅ[ÇÃèÛë‘Çä«óùÇ∑ÇÈïœêî
 int enemy_state;
 int enemy_timer;
-enum class ENEMY_TYPE { ENEMY_TYPE_POP, ENEMY_TYPE_THROWER, ENEMY_TYPE_THROWN_ITEM };
-class ENEMY {
-private:
-public:
-	float timer;
-	ENEMY_TYPE type;
-	float angle;
-	float speed;
-	VECTOR2 BasePosition;
-	VECTOR2 position;
-	float force;
-	VECTOR2 scale;
-	VECTOR2 texPos;
-	VECTOR2 texSize;
-	VECTOR2 pivot;
-	VECTOR4 color;
-	VECTOR2 faceing = { 1,0 };
 
-
-	ENEMY(VECTOR2 pos, float _angle, float _force, ENEMY_TYPE _type) {
-		timer = 0;
-		BasePosition = pos;
-		type = _type;
-		angle = _angle;
-		force = _force;
-		position = pos + LaunchCalculatePosition(_angle, _force, timer);
-		scale = { E_SCALE, E_SCALE };
-		texPos = { 0, 0 };
-		texSize = { ENEMY_TEX_W, ENEMY_TEX_H };
-		pivot = { ENEMY_PIVOT_X, ENEMY_PIVOT_Y };
-		color = { 1.000f, 1.0f, 1.0f, 1.0f };
-		speed = 0;
-	}
-
-
-};
 
 float spawnPointIncreaseValue = 5;
 VECTOR2 spawnPoint;
