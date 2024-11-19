@@ -66,7 +66,7 @@ void player_update()
 	case 2:
 		player.player_time += 0.1f;
 		player_act();
-		if (TRG(0) & L_CLICK)
+		if (TRG_RELEASE(0) & L_CLICK)
 		{
 			bomb_throw();
 		}
