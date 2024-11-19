@@ -102,23 +102,37 @@ void enemy_render()
 	}
 
 	for (auto& enemy : enemy_pop) {
-		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
-		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
+		//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		sprite_render(sprEnemy,
+			enemy.position.x, enemy.position.y,
+			enemy.scale.x, enemy.scale.y,
+			enemy.texPos.x, enemy.texPos.y,
+			enemy.texSize.x, enemy.texSize.y,
+			enemy.pivot.x, enemy.pivot.y,
+			LaunchCalculateRotation(ToRadian(enemy.angle), enemy.force, enemy.timer),
+			enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 
 	}
 
 
 
 	for (auto& enemy : enemy_thrower) {
-		primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
+		//primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
 		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 
 
 	for (auto& enemy : enemy_thrown_item) {
-		primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
-		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
+		//primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
+		sprite_render(sprEnemy,
+			enemy.position.x, enemy.position.y,
+			enemy.scale.x, enemy.scale.y,
+			enemy.texPos.x, enemy.texPos.y,
+			enemy.texSize.x, enemy.texSize.y,
+			enemy.pivot.x, enemy.pivot.y,
+			LaunchCalculateRotation(ToRadian(enemy.angle), enemy.force, enemy.timer),
+			enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 

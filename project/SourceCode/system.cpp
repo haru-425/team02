@@ -73,6 +73,61 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 	// 位置を返す
 	return VECTOR2(x, y);
+
+
+
+
+}
+
+
+
+
+float LaunchCalculateRotation(float angle, float force, float time) {
+	// 初期速度を計算
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = 9.8f;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	// 位置を返す
+	float vxAtTime = vx;
+	float vyAtTime = vy - g * time;
+
+	// Calculate the angle of the launched object at the specified time
+	float angleAtTime = atan2(vyAtTime, vxAtTime);
+
+	return angleAtTime - 90.0f;
+}
+float LaunchCalculateRotation(float angle, float force, float time, float gravity)
+{
+	// 初期速度を計算
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = gravity;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	float vxAtTime = vx;
+	float vyAtTime = vy - g * time;
+
+	// Calculate the angle of the launched object at the specified time
+	float angleAtTime = atan2(vyAtTime, vxAtTime);
+
+	// 位置を返す
+	return angleAtTime + -90.0f;
 }
 
 VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {

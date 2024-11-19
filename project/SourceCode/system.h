@@ -11,6 +11,9 @@ VECTOR2 unit_vectorization(VECTOR2 vec);
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time);
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity);
 
+float LaunchCalculateRotation(float angle, float force, float time);
+float LaunchCalculateRotation(float angle, float force, float time, float gravity);
+
 VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force);
 
 VECTOR2 cursor_position();
