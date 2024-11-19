@@ -85,7 +85,7 @@ void enemy_update()
 		if (enemy_timer % 15 == 0)
 		{
 
-			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 75 + 50, ENEMY_TYPE::ENEMY_TYPE_POP));
+			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % (SCREEN_H / 24) + 50, ENEMY_TYPE::ENEMY_TYPE_POP));
 		}
 
 		break;
@@ -97,14 +97,29 @@ void enemy_update()
 //--------------------------------------
 void enemy_render()
 {
-	for (auto& enemy : enemy_pop) {
-		primitive::circle(enemy.position.x + 5, enemy.position.y + 5, 15, 1, 1, 0, 0, 0, 0, 0.5f);
-	}
+	//for (auto& enemy : enemy_pop) {
+	//	primitive::circle(enemy.position.x + 5, enemy.position.y + 5, 15, 1, 1, 0, 0, 0, 0, 0.5f);
+	//}
 
+	//GameLib::setBlendMode(Blender::BS_SUBTRACT);
+
+	//for (auto& enemy : enemy_pop) {
+	//	//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+	//	sprite_render(sprEnemy,
+	//		enemy.position.x, enemy.position.y,
+	//		enemy.scale.x, enemy.scale.y,
+	//		enemy.texPos.x, enemy.texPos.y,
+	//		enemy.texSize.x, enemy.texSize.y,
+	//		enemy.pivot.x, enemy.pivot.y,
+	//		LaunchCalculateRotation(ToRadian(enemy.angle), enemy.force, enemy.timer),
+	//		1, 1, 1, 1);
+
+	//	GameLib::setBlendMode(Blender::BS_ALPHA);
+	//}
 	for (auto& enemy : enemy_pop) {
 		//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
 		sprite_render(sprEnemy,
-			enemy.position.x, enemy.position.y,
+			enemy.position.x + 5, enemy.position.y - 5,
 			enemy.scale.x, enemy.scale.y,
 			enemy.texPos.x, enemy.texPos.y,
 			enemy.texSize.x, enemy.texSize.y,
