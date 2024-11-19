@@ -31,6 +31,8 @@ void player_init()
 	player.player_time = 0;
 	player.position = VECTOR2(500.0f, 350.0f);
 	player.strat_position = player.position;
+	player.hp = PLAYER_MAX_HP;
+	player.damege_invincible = false;
 }
 
 //--------------------------------------
@@ -45,7 +47,6 @@ void player_deinit()
 //--------------------------------------
 void player_update()
 {
-	bool hit_juge = 0;
 	switch (player_state)
 	{
 	case 0:
@@ -71,7 +72,7 @@ void player_update()
 		}
 		for (auto& enemy: enemy_pop)
 		{
-			if (intersectRectRotatedRect(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
+			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
 				&& player.damege_invincible == false)//敵と自分との当たり判定を条件に入れる
 			{
 				player.hp -= 1;
@@ -79,19 +80,30 @@ void player_update()
 				{
 					game_state.state = S_SCENE::F_TRANSITION;
 				}
-				hit_juge = true;
+				player.damege_invincible = true;
 				break;
 			}
 		}
 		if (player.damege_invincible == true)
 		{
 			player.invincible_time++;
-
-			player.color.w = 0;
+			if (player.invincible_time % 120 == 0)
+			{
+				player.color.w = 0;
+			}
+			else if (player.invincible_time % 60 == 0)
+			{
+				player.color.w = 1;
+			}
+			if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME*60)
+			{
+				player.color.w = 1;
+				player.damege_invincible = false;
+			}
 		}
 
 		//デバックログ
-		debug::setString("player.position.x:%f", player.position.x);
+		debug::setString("player.hp:%d", player.hp);
 		break;
 	}
 }

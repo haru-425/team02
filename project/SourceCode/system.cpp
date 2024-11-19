@@ -4,7 +4,9 @@
 #include "audio.h"
 #include "common.h"
 #include "system.h"
-
+#include <cmath>
+#include <vector>
+using namespace std;
 
 VECTOR2 magnetic_force = { 0,0 };
 
@@ -197,50 +199,137 @@ bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_posit
 //回転する矩形と矩形の当たり判定
 
 
+//struct Rect {
+//	VECTOR2 center;
+//	VECTOR2 size;
+//};
+//
+//struct RotatedRect {
+//	VECTOR2 center;
+//	VECTOR2 size;
+//	float angle;
+//};
+//
+//bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+//
+//	const Rect& rect = { _center, _size };
+//	const RotatedRect& rotatedRect = { rot_center, rot_size, angle };
+//	// 回転する矩形の頂点を取得する
+//	VECTOR2 vertices[4];
+//	vertices[0] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
+//	vertices[1] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
+//	vertices[2] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+//	vertices[3] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+//
+//	// 回転行列を計算する
+//	float cosAngle = std::cos(rotatedRect.angle);
+//	float sinAngle = std::sin(rotatedRect.angle);
+//
+//	// 回転する矩形の頂点を変換する
+//	for (int i = 0; i < 4; i++) {
+//		float x = vertices[i].x - rotatedRect.center.x;
+//		float y = vertices[i].y - rotatedRect.center.y;
+//		vertices[i].x = x * cosAngle - y * sinAngle + rotatedRect.center.x;
+//		vertices[i].y = x * sinAngle + y * cosAngle + rotatedRect.center.y;
+//	}
+//
+//	// 当たり判定を実行する
+//	for (int i = 0; i < 4; i++) {
+//		if (rect.center.x - rect.size.x / 2 <= vertices[i].x && vertices[i].x <= rect.center.x + rect.size.x / 2 &&
+//			rect.center.y - rect.size.y / 2 <= vertices[i].y && vertices[i].y <= rect.center.y + rect.size.y / 2) {
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+
 struct Rect {
-	VECTOR2 center;
-	VECTOR2 size;
+	VECTOR2 center; // 中心座標
+	VECTOR2 size;   // サイズ (width, height)
+	float rotation; // 回転角度（ラジアン）
 };
 
-struct RotatedRect {
-	VECTOR2 center;
-	VECTOR2 size;
-	float angle;
-};
+// 2Dベクトルのドット積
+float dot(const VECTOR2& a, const VECTOR2& b) {
+	return a.x * b.x + a.y * b.y;
+}
 
-bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+// 2Dベクトルの回転
+VECTOR2 rotate(const VECTOR2& vec, float angle) {
+	float cosA = cos(angle);
+	float sinA = sin(angle);
+	return {
+		vec.x * cosA - vec.y * sinA,
+		vec.x * sinA + vec.y * cosA
+	};
+}
 
-	const Rect& rect = { _center, _size };
-	const RotatedRect& rotatedRect = { rot_center, rot_size, angle };
-	// 回転する矩形の頂点を取得する
-	VECTOR2 vertices[4];
-	vertices[0] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-	vertices[1] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-	vertices[2] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
-	vertices[3] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+// 矩形の頂点を計算（回転している場合も考慮）
+vector<VECTOR2> getVertices(const Rect& rect) {
+	VECTOR2 halfSize = { rect.size.x / 2, rect.size.y / 2 };
+	vector<VECTOR2> vertices = {
+		{-halfSize.x, -halfSize.y},
+		{ halfSize.x, -halfSize.y},
+		{ halfSize.x,  halfSize.y},
+		{-halfSize.x,  halfSize.y}
+	};
 
-	// 回転行列を計算する
-	float cosAngle = std::cos(rotatedRect.angle);
-	float sinAngle = std::sin(rotatedRect.angle);
-
-	// 回転する矩形の頂点を変換する
-	for (int i = 0; i < 4; i++) {
-		float x = vertices[i].x - rotatedRect.center.x;
-		float y = vertices[i].y - rotatedRect.center.y;
-		vertices[i].x = x * cosAngle - y * sinAngle + rotatedRect.center.x;
-		vertices[i].y = x * sinAngle + y * cosAngle + rotatedRect.center.y;
+	for (auto& v : vertices) {
+		v = rotate(v, rect.rotation); // 回転
+		v.x += rect.center.x;         // 中心位置を加算
+		v.y += rect.center.y;
 	}
+	return vertices;
+}
 
-	// 当たり判定を実行する
-	for (int i = 0; i < 4; i++) {
-		if (rect.center.x - rect.size.x / 2 <= vertices[i].x && vertices[i].x <= rect.center.x + rect.size.x / 2 &&
-			rect.center.y - rect.size.y / 2 <= vertices[i].y && vertices[i].y <= rect.center.y + rect.size.y / 2) {
-			return true;
+// 投影の範囲を取得
+void projectOntoAxis(const vector<VECTOR2>& vertices, const VECTOR2& axis, float& min, float& max) {
+	min = max = dot(vertices[0], axis);
+	for (size_t i = 1; i < vertices.size(); i++) {
+		float projection = dot(vertices[i], axis);
+		if (projection < min) min = projection;
+		if (projection > max) max = projection;
+	}
+}
+
+// 範囲が重なるかを判定
+bool overlap(float minA, float maxA, float minB, float maxB) {
+	return !(minA > maxB || minB > maxA);
+}
+
+// SATを用いた矩形の当たり判定
+bool isColliding(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+	const Rect& obb = { rot_center ,rot_size ,angle };
+	const Rect& aabb = { _center,_size };
+	vector<VECTOR2> obbVertices = getVertices(obb);
+
+	// AABBの頂点を取得
+	vector<VECTOR2> aabbVertices = getVertices({
+		aabb.center, aabb.size, 0.0f // 回転は0
+		});
+
+	// 分離軸候補
+	vector<VECTOR2> axes = {
+		{1, 0}, {0, 1}, // AABBの軸
+		rotate({1, 0}, obb.rotation), // OBBの軸1
+		rotate({0, 1}, obb.rotation)  // OBBの軸2
+	};
+
+	// 各軸でSATを判定
+	for (const auto& axis : axes) {
+		float minA, maxA, minB, maxB;
+		projectOntoAxis(obbVertices, axis, minA, maxA);
+		projectOntoAxis(aabbVertices, axis, minB, maxB);
+
+		if (!overlap(minA, maxA, minB, maxB)) {
+			return false; // 1つでも重ならない軸があれば衝突していない
 		}
 	}
 
-	return false;
+	return true; // 全ての軸で重なっていれば衝突
 }
+
 
 
 //回転する矩形と円の当たり判定
