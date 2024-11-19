@@ -82,10 +82,10 @@ void enemy_update()
 		enemy_act();
 		enemy_timer++;
 
-		if (enemy_timer % 20 == 0)
+		if (enemy_timer % 15 == 0)
 		{
 
-			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 50 + 50, ENEMY_TYPE::ENEMY_TYPE_POP));
+			enemy_pop.push_back(ENEMY(spawnPoint, spawnAngle, rand() % 75 + 50, ENEMY_TYPE::ENEMY_TYPE_POP));
 		}
 
 		break;

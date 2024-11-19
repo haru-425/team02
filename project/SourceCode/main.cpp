@@ -25,6 +25,8 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// g—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 		M_SCENE::SceneUpdateProcessing();
 		M_SCENE::SceneRenderProcessing();
 		GameLib::present(1, 0);
+
+		GameLib::init(L"ƒQ[ƒ€ƒvƒƒOƒ‰ƒ~ƒ“ƒO‡T", SCREEN_W, SCREEN_H, FULLSCREEN);
 	}
 	M_SCENE::SceneEndProcessing;
 	GameLib::uninit();
