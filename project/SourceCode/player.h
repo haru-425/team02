@@ -33,6 +33,8 @@ public:
 	float angle;
 	float speed;
 	float player_time;
+	int hp;
+	bool damege_invincible;
 	VECTOR2 position;
 	VECTOR2 strat_position;
 	VECTOR2 scale;
