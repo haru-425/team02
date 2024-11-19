@@ -147,7 +147,11 @@ VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
 VECTOR2 edge_reflecting(VECTOR2 pos) {
 	// ‰æ–ÊŠO‚Éo‚½ê‡‚Ìˆ—
 	if (pos.x < 0)  pos.x *= -1;
-	if (pos.x > SCREEN_H) pos.x = SCREEN_H - (pos.x - SCREEN_H);
+	if (pos.x > SCREEN_H) {
+		pos.x = SCREEN_H - (pos.x - SCREEN_H);
+
+		if (pos.x < 0)  pos.x *= -1;
+	}
 	//	if (pos.y <= 0) pos.y *= -1;
 	return pos;
 
