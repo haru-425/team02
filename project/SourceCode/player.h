@@ -35,6 +35,7 @@ public:
 	float player_time;
 	int hp;
 	bool damege_invincible;
+	int invincible_time;
 	VECTOR2 position;
 	VECTOR2 strat_position;
 	VECTOR2 scale;
@@ -42,7 +43,5 @@ public:
 	VECTOR2 texSize;
 	VECTOR2 pivot;
 	VECTOR4 color;
-
-
 
 };

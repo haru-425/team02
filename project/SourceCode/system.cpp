@@ -107,6 +107,7 @@ VECTOR2 cursor_position() {
 	VECTOR2 Point = { (float)point.x, (float)point.y };
 	return Point;
 }
+
 // îŒ`ƒ|ƒŠƒSƒ“•`‰æ
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color)
 {
@@ -187,7 +188,7 @@ bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_cente
 }
 
 
-//‰ñ“]‚·‚é‹éŒ`‚Æ‚Ì“–‚½‚è”»’è
+//‰ñ“]‚·‚é‹éŒ`‚Æ‰~‚Ì“–‚½‚è”»’è
 
 bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius) {
 	// ‰ñ“]s—ñ‚ğŒvZ‚·‚é
