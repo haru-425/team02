@@ -99,6 +99,7 @@ void player_update()
 			{
 				player.color.w = 1;
 				player.damege_invincible = false;
+				player.invincible_time = 0;
 			}
 		}
 
