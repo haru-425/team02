@@ -32,7 +32,6 @@ int spawnrate = 60;
 std::vector<ENEMY> enemy_pop;
 std::vector<ENEMY> enemy_thrower;
 std::vector<ENEMY> enemy_thrown_item;
-;
 //--------------------------------------
 //  ÉvÉåÉCÉÑÅ[ÇÃèâä˙ê›íË
 //--------------------------------------
@@ -53,6 +52,7 @@ void enemy_deinit()
 	enemy_pop.erase(enemy_pop.begin(), enemy_pop.end());
 	enemy_thrower.erase(enemy_thrower.begin(), enemy_thrower.end());
 	enemy_thrown_item.erase(enemy_thrown_item.begin(), enemy_thrown_item.end());
+	safe_delete(sprEnemy);
 
 }
 
@@ -66,6 +66,7 @@ void enemy_update()
 	case 0:
 		//////// èâä˙ê›íË ////////
 		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
+		sprEnemy = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
 		// éüÇÃèÛë‘Ç…ëJà⁄
 		++enemy_state;
 		/*fallthrough*/
@@ -102,18 +103,22 @@ void enemy_render()
 
 	for (auto& enemy : enemy_pop) {
 		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
+
 	}
 
 
 
 	for (auto& enemy : enemy_thrower) {
 		primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
+		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 
 
 	for (auto& enemy : enemy_thrown_item) {
 		primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
+		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 

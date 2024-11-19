@@ -18,7 +18,7 @@
 #define ENEMY_CD 1
 //------< \‘¢‘Ì >---------------------------------------------------------------
 
-enum class ENEMY_TYPE { ENEMY_TYPE_POP, ENEMY_TYPE_THROWER, ENEMY_TYPE_THROWN_ITEM };
+enum class ENEMY_TYPE { ENEMY_TYPE_THROWER, ENEMY_TYPE_POP, ENEMY_TYPE_THROWN_ITEM };
 class ENEMY {
 private:
 public:
@@ -44,7 +44,7 @@ public:
 		angle = _angle;
 		force = _force;
 		position = pos + LaunchCalculatePosition(_angle, _force, timer);
-		scale = { E_SCALE, E_SCALE };
+		scale = { 1 / (1.5f + float(_type)),1 / (1.5f + float(_type)) };
 		texPos = { int(type) * ENEMY_TEX_W, 0 };
 		texSize = { ENEMY_TEX_W, ENEMY_TEX_H };
 		pivot = { ENEMY_PIVOT_X, ENEMY_PIVOT_Y };
