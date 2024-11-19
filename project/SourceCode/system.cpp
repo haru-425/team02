@@ -199,51 +199,6 @@ bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_posit
 //回転する矩形と矩形の当たり判定
 
 
-//struct Rect {
-//	VECTOR2 center;
-//	VECTOR2 size;
-//};
-//
-//struct RotatedRect {
-//	VECTOR2 center;
-//	VECTOR2 size;
-//	float angle;
-//};
-//
-//bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
-//
-//	const Rect& rect = { _center, _size };
-//	const RotatedRect& rotatedRect = { rot_center, rot_size, angle };
-//	// 回転する矩形の頂点を取得する
-//	VECTOR2 vertices[4];
-//	vertices[0] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-//	vertices[1] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-//	vertices[2] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
-//	vertices[3] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
-//
-//	// 回転行列を計算する
-//	float cosAngle = std::cos(rotatedRect.angle);
-//	float sinAngle = std::sin(rotatedRect.angle);
-//
-//	// 回転する矩形の頂点を変換する
-//	for (int i = 0; i < 4; i++) {
-//		float x = vertices[i].x - rotatedRect.center.x;
-//		float y = vertices[i].y - rotatedRect.center.y;
-//		vertices[i].x = x * cosAngle - y * sinAngle + rotatedRect.center.x;
-//		vertices[i].y = x * sinAngle + y * cosAngle + rotatedRect.center.y;
-//	}
-//
-//	// 当たり判定を実行する
-//	for (int i = 0; i < 4; i++) {
-//		if (rect.center.x - rect.size.x / 2 <= vertices[i].x && vertices[i].x <= rect.center.x + rect.size.x / 2 &&
-//			rect.center.y - rect.size.y / 2 <= vertices[i].y && vertices[i].y <= rect.center.y + rect.size.y / 2) {
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
-
 struct Rect {
 	VECTOR2 center; // 中心座標
 	VECTOR2 size;   // サイズ (width, height)
