@@ -4,7 +4,9 @@
 #include "audio.h"
 #include "common.h"
 #include "system.h"
-
+#include <cmath>
+#include <vector>
+using namespace std;
 
 VECTOR2 magnetic_force = { 0,0 };
 
@@ -73,6 +75,61 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 	// 位置を返す
 	return VECTOR2(x, y);
+
+
+
+
+}
+
+
+
+
+float LaunchCalculateRotation(float angle, float force, float time) {
+	// 初期速度を計算
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = 9.8f;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	// 位置を返す
+	float vxAtTime = vx;
+	float vyAtTime = vy - g * time;
+
+	// Calculate the angle of the launched object at the specified time
+	float angleAtTime = atan2(vyAtTime, vxAtTime);
+
+	return angleAtTime - 90.0f;
+}
+float LaunchCalculateRotation(float angle, float force, float time, float gravity)
+{
+	// 初期速度を計算
+	float v0 = force;
+	float vx = v0 * cos(angle);
+	float vy = v0 * sin(angle);
+
+	// 重力加速度を定義
+	float g = gravity;
+
+	// n秒後の位置を計算
+	float x = vx * time;
+
+	float y = vy * time - 0.5f * g * time * time;
+	y *= -1;
+	float vxAtTime = vx;
+	float vyAtTime = vy - g * time;
+
+	// Calculate the angle of the launched object at the specified time
+	float angleAtTime = atan2(vyAtTime, vxAtTime);
+
+	// 位置を返す
+	return angleAtTime + -90.0f;
 }
 
 VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
@@ -90,7 +147,11 @@ VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force) {
 VECTOR2 edge_reflecting(VECTOR2 pos) {
 	// 画面外に出た場合の処理
 	if (pos.x < 0)  pos.x *= -1;
-	if (pos.x > SCREEN_H) pos.x = SCREEN_H - (pos.x - SCREEN_H);
+	if (pos.x > SCREEN_H) {
+		pos.x = SCREEN_H - (pos.x - SCREEN_H);
+
+		if (pos.x < 0)  pos.x *= -1;
+	}
 	//	if (pos.y <= 0) pos.y *= -1;
 	return pos;
 
@@ -107,6 +168,7 @@ VECTOR2 cursor_position() {
 	VECTOR2 Point = { (float)point.x, (float)point.y };
 	return Point;
 }
+
 // 扇形ポリゴン描画
 void draw_fan_triangle_quad(VECTOR2 center, float radius, float startAngle, float endAngle, int polygon, VECTOR4 color)
 {
@@ -142,52 +204,94 @@ bool isCircleColliding(const VECTOR2 a_position, float a_radius, VECTOR2 b_posit
 
 
 struct Rect {
-	VECTOR2 center;
-	VECTOR2 size;
+	VECTOR2 center; // 中心座標
+	VECTOR2 size;   // サイズ (width, height)
+	float rotation; // 回転角度（ラジアン）
 };
 
-struct RotatedRect {
-	VECTOR2 center;
-	VECTOR2 size;
-	float angle;
-};
+// 2Dベクトルのドット積
+float dot(const VECTOR2& a, const VECTOR2& b) {
+	return a.x * b.x + a.y * b.y;
+}
 
-bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+// 2Dベクトルの回転
+VECTOR2 rotate(const VECTOR2& vec, float angle) {
+	float cosA = cos(angle);
+	float sinA = sin(angle);
+	return {
+		vec.x * cosA - vec.y * sinA,
+		vec.x * sinA + vec.y * cosA
+	};
+}
 
-	const Rect& rect = { _center, _size };
-	const RotatedRect& rotatedRect = { rot_center, rot_size, angle };
-	// 回転する矩形の頂点を取得する
-	VECTOR2 vertices[4];
-	vertices[0] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-	vertices[1] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y - rotatedRect.size.y / 2 };
-	vertices[2] = { rotatedRect.center.x + rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
-	vertices[3] = { rotatedRect.center.x - rotatedRect.size.x / 2, rotatedRect.center.y + rotatedRect.size.y / 2 };
+// 矩形の頂点を計算（回転している場合も考慮）
+vector<VECTOR2> getVertices(const Rect& rect) {
+	VECTOR2 halfSize = { rect.size.x / 2, rect.size.y / 2 };
+	vector<VECTOR2> vertices = {
+		{-halfSize.x, -halfSize.y},
+		{ halfSize.x, -halfSize.y},
+		{ halfSize.x,  halfSize.y},
+		{-halfSize.x,  halfSize.y}
+	};
 
-	// 回転行列を計算する
-	float cosAngle = std::cos(rotatedRect.angle);
-	float sinAngle = std::sin(rotatedRect.angle);
-
-	// 回転する矩形の頂点を変換する
-	for (int i = 0; i < 4; i++) {
-		float x = vertices[i].x - rotatedRect.center.x;
-		float y = vertices[i].y - rotatedRect.center.y;
-		vertices[i].x = x * cosAngle - y * sinAngle + rotatedRect.center.x;
-		vertices[i].y = x * sinAngle + y * cosAngle + rotatedRect.center.y;
+	for (auto& v : vertices) {
+		v = rotate(v, rect.rotation); // 回転
+		v.x += rect.center.x;         // 中心位置を加算
+		v.y += rect.center.y;
 	}
+	return vertices;
+}
 
-	// 当たり判定を実行する
-	for (int i = 0; i < 4; i++) {
-		if (rect.center.x - rect.size.x / 2 <= vertices[i].x && vertices[i].x <= rect.center.x + rect.size.x / 2 &&
-			rect.center.y - rect.size.y / 2 <= vertices[i].y && vertices[i].y <= rect.center.y + rect.size.y / 2) {
-			return true;
+// 投影の範囲を取得
+void projectOntoAxis(const vector<VECTOR2>& vertices, const VECTOR2& axis, float& min, float& max) {
+	min = max = dot(vertices[0], axis);
+	for (size_t i = 1; i < vertices.size(); i++) {
+		float projection = dot(vertices[i], axis);
+		if (projection < min) min = projection;
+		if (projection > max) max = projection;
+	}
+}
+
+// 範囲が重なるかを判定
+bool overlap(float minA, float maxA, float minB, float maxB) {
+	return !(minA > maxB || minB > maxA);
+}
+
+// SATを用いた矩形の当たり判定
+bool isColliding(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle) {
+	const Rect& obb = { rot_center ,rot_size ,angle };
+	const Rect& aabb = { _center,_size };
+	vector<VECTOR2> obbVertices = getVertices(obb);
+
+	// AABBの頂点を取得
+	vector<VECTOR2> aabbVertices = getVertices({
+		aabb.center, aabb.size, 0.0f // 回転は0
+		});
+
+	// 分離軸候補
+	vector<VECTOR2> axes = {
+		{1, 0}, {0, 1}, // AABBの軸
+		rotate({1, 0}, obb.rotation), // OBBの軸1
+		rotate({0, 1}, obb.rotation)  // OBBの軸2
+	};
+
+	// 各軸でSATを判定
+	for (const auto& axis : axes) {
+		float minA, maxA, minB, maxB;
+		projectOntoAxis(obbVertices, axis, minA, maxA);
+		projectOntoAxis(aabbVertices, axis, minB, maxB);
+
+		if (!overlap(minA, maxA, minB, maxB)) {
+			return false; // 1つでも重ならない軸があれば衝突していない
 		}
 	}
 
-	return false;
+	return true; // 全ての軸で重なっていれば衝突
 }
 
 
-//回転する矩形との当たり判定
+
+//回転する矩形と円の当たり判定
 
 bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius) {
 	// 回転行列を計算する

@@ -22,42 +22,7 @@ using namespace input;
 // プレイヤーの状態を管理する変数
 int enemy_state;
 int enemy_timer;
-enum class ENEMY_TYPE { ENEMY_TYPE_POP, ENEMY_TYPE_THROWER, ENEMY_TYPE_THROWN_ITEM };
-class ENEMY {
-private:
-public:
-	float timer;
-	ENEMY_TYPE type;
-	float angle;
-	float speed;
-	VECTOR2 BasePosition;
-	VECTOR2 position;
-	float force;
-	VECTOR2 scale;
-	VECTOR2 texPos;
-	VECTOR2 texSize;
-	VECTOR2 pivot;
-	VECTOR4 color;
-	VECTOR2 faceing = { 1,0 };
 
-
-	ENEMY(VECTOR2 pos, float _angle, float _force, ENEMY_TYPE _type) {
-		timer = 0;
-		BasePosition = pos;
-		type = _type;
-		angle = _angle;
-		force = _force;
-		position = pos + LaunchCalculatePosition(_angle, _force, timer);
-		scale = { E_SCALE, E_SCALE };
-		texPos = { 0, 0 };
-		texSize = { ENEMY_TEX_W, ENEMY_TEX_H };
-		pivot = { ENEMY_PIVOT_X, ENEMY_PIVOT_Y };
-		color = { 1.000f, 1.0f, 1.0f, 1.0f };
-		speed = 0;
-	}
-
-
-};
 
 float spawnPointIncreaseValue = 5;
 VECTOR2 spawnPoint;
@@ -67,7 +32,6 @@ int spawnrate = 60;
 std::vector<ENEMY> enemy_pop;
 std::vector<ENEMY> enemy_thrower;
 std::vector<ENEMY> enemy_thrown_item;
-;
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
@@ -88,6 +52,7 @@ void enemy_deinit()
 	enemy_pop.erase(enemy_pop.begin(), enemy_pop.end());
 	enemy_thrower.erase(enemy_thrower.begin(), enemy_thrower.end());
 	enemy_thrown_item.erase(enemy_thrown_item.begin(), enemy_thrown_item.end());
+	safe_delete(sprEnemy);
 
 }
 
@@ -101,6 +66,7 @@ void enemy_update()
 	case 0:
 		//////// 初期設定 ////////
 		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
+		sprEnemy = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
 		// 次の状態に遷移
 		++enemy_state;
 		/*fallthrough*/
@@ -136,19 +102,37 @@ void enemy_render()
 	}
 
 	for (auto& enemy : enemy_pop) {
-		primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		sprite_render(sprEnemy,
+			enemy.position.x, enemy.position.y,
+			enemy.scale.x, enemy.scale.y,
+			enemy.texPos.x, enemy.texPos.y,
+			enemy.texSize.x, enemy.texSize.y,
+			enemy.pivot.x, enemy.pivot.y,
+			LaunchCalculateRotation(ToRadian(enemy.angle), enemy.force, enemy.timer),
+			enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
+
 	}
 
 
 
 	for (auto& enemy : enemy_thrower) {
-		primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
+		//primitive::circle(enemy.position.x, enemy.position.y, 20, 1, 1, 0, 1, 1.0f, 0.6f, 1.0f);
+		sprite_render(sprEnemy, enemy.position.x, enemy.position.y, enemy.scale.x, enemy.scale.y, enemy.texPos.x, enemy.texPos.y, enemy.texSize.x, enemy.texSize.y, enemy.pivot.x, enemy.pivot.y, enemy.angle, enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 
 
 	for (auto& enemy : enemy_thrown_item) {
-		primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
+		//primitive::circle(enemy.position.x, enemy.position.y, 10, 1, 1, 0, 1, 0.6f, 0.4f, 1.0f);
+		sprite_render(sprEnemy,
+			enemy.position.x, enemy.position.y,
+			enemy.scale.x, enemy.scale.y,
+			enemy.texPos.x, enemy.texPos.y,
+			enemy.texSize.x, enemy.texSize.y,
+			enemy.pivot.x, enemy.pivot.y,
+			LaunchCalculateRotation(ToRadian(enemy.angle), enemy.force, enemy.timer),
+			enemy.color.x, enemy.color.y, enemy.color.z, enemy.color.w);
 	}
 
 

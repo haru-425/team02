@@ -14,6 +14,8 @@
 #define PLAYER_CORE_PIVOT_X      (PLAYER_CORE_TEX_W/2)    // プレイヤーの横方向の中心
 #define PLAYER_CORE_PIVOT_Y      (PLAYER_CORE_TEX_H/2)   // プレイヤーの縦方向の下端
 #define PLAYER_GRAVITY 2.45f
+#define PLAYER_MAX_INVINCIBLE_TIME 3
+#define PLAYER_MAX_HP 10
 
 //------< 構造体 >---------------------------------------------------------------
 
@@ -35,6 +37,7 @@ public:
 	float player_time;
 	int hp;
 	bool damege_invincible;
+	int invincible_time;
 	VECTOR2 position;
 	VECTOR2 strat_position;
 	VECTOR2 scale;
@@ -42,7 +45,5 @@ public:
 	VECTOR2 texSize;
 	VECTOR2 pivot;
 	VECTOR4 color;
-
-
 
 };

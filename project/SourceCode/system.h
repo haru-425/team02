@@ -11,6 +11,9 @@ VECTOR2 unit_vectorization(VECTOR2 vec);
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time);
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity);
 
+float LaunchCalculateRotation(float angle, float force, float time);
+float LaunchCalculateRotation(float angle, float force, float time, float gravity);
+
 VECTOR2 magnetic_force_suction(VECTOR2 target_BasePos, VECTOR2 magnetic_force);
 
 VECTOR2 cursor_position();
@@ -22,7 +25,7 @@ VECTOR2 edge_reflecting(VECTOR2 pos);
 
 bool intersectRectCircle(VECTOR2 rec_center, VECTOR2 size, float angle, VECTOR2 cir_center, float radius);//âÒì]Ç∑ÇÈãÈå`Ç∆ãÈå`ÇÃìñÇΩÇËîªíË
 
-bool intersectRectRotatedRect(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle);
+bool isColliding(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  rot_size, float angle);
 //--------------------------------------------------------------
 // êÓå`É|ÉäÉSÉìï`âÊ
 //--------------------------------------------------------------

@@ -5,7 +5,12 @@
 #include "audio.h"
 #include "m_scene.h"
 #include "bomb.h"
+#include "enemy.h"
 #include "system.h"
+#include "m_scene.h"
+#include <vector>
+#include <algorithm>
+#include <DirectXMath.h>
 using namespace input;
 
 // プレイヤーの状態を管理する変数
@@ -13,7 +18,9 @@ int player_state;
 float force = 0.0f;
 float angle = 0.0f;
 PLAYER player;
+extern std::vector<ENEMY> enemy_pop;
 extern Bomb bomb;
+extern S_SCENE game_state;
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
@@ -24,6 +31,8 @@ void player_init()
 	player.player_time = 0;
 	player.position = VECTOR2(500.0f, 350.0f);
 	player.strat_position = player.position;
+	player.hp = PLAYER_MAX_HP;
+	player.damege_invincible = false;
 }
 
 //--------------------------------------
@@ -42,7 +51,6 @@ void player_update()
 	{
 	case 0:
 		//////// 初期設定 ////////
-
 		player.position = VECTOR2(500, 350);
 		// 次の状態に遷移
 		++player_state;
@@ -58,21 +66,45 @@ void player_update()
 	case 2:
 		player.player_time += 0.1f;
 		player_act();
-		if (TRG(0) & L_CLICK)
+		if (TRG_RELEASE(0) & L_CLICK)
 		{
 			bomb_throw();
 		}
-		if (player.damege_invincible==false)//敵と自分との当たり判定を条件に入れる
+		for (auto& enemy: enemy_pop)
 		{
-
+			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
+				&& player.damege_invincible == false)//敵と自分との当たり判定を条件に入れる
+			{
+				player.hp -= 1;
+				if (player.hp == 0)
+				{
+					game_state.state = S_SCENE::F_TRANSITION;
+				}
+				player.damege_invincible = true;
+				break;
+			}
 		}
-		else if (player.damege_invincible == true)
+		if (player.damege_invincible == true)
 		{
-
+			player.invincible_time++;
+			if (player.invincible_time % 120 == 0)
+			{
+				player.color.w = 0;
+			}
+			else if (player.invincible_time % 60 == 0)
+			{
+				player.color.w = 1;
+			}
+			if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME*60)
+			{
+				player.color.w = 1;
+				player.damege_invincible = false;
+				player.invincible_time = 0;
+			}
 		}
 
 		//デバックログ
-		debug::setString("player.position.x:%f", player.position.x);
+		debug::setString("player.hp:%d", player.hp);
 		break;
 	}
 }
