@@ -9,7 +9,7 @@
 #define ITEM_PIVOT_Y      (ITEM_TEX_H/2)   // プレイヤーの縦方向の下端
 
 #define ITEM_SPEED		(5)
-#define E_SCALE	(1.0f)
+#define ITEM_SCALE	(0.5f)
 #define ITEM_CD 1
 //------< 構造体 >---------------------------------------------------------------
 enum class ITEM_TYPE {
