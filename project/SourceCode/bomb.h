@@ -9,13 +9,15 @@
 using namespace DirectX;
 
 #define BOMB_BLAST_STRANGE 0.28f
-#define BOMB_BLAST_MAX_RANGE 180.0f
+#define BOMB_BLAST_MAX_INIT_RANGE 180.0f
 #define BOMB_BLAST_R_INC 10.0f
 #define BOMB_ADJUSTMENT 9.0f
+#define BOMB_MAX_CHARGE 30
+#define BOMB_ADD_CLIKC_TIME (float)(BOMB_MAX_CHARGE/3/60)//　爆弾の最大爆発範囲/チャージできる最大秒数/フレーム数
 
 void bomb_init();			// 爆弾の初期化
 void bomb_deinit();			// 爆弾のリセット
-void bomb_throw();			// プレイヤーが爆弾を投げる
+void bomb_throw(float muster_up);			// プレイヤーが爆弾を投げる
 void bomb_update();			// 爆弾の状態（タイマーなど）を更新
 void bomb_render();			// 爆弾と爆風範囲の描画処理
 
@@ -39,6 +41,7 @@ public:
 	bool player_launch;
 	VECTOR2 judg_position;
 	float bomb_blast_range;
+	float bomb_blast_max_range;
 	void bomb_range_expansion();
 };
 
