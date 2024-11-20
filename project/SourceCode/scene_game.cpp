@@ -11,7 +11,6 @@
 #include "common.h"
 #include "audio.h"
 #include "m_scene.h"
-#include "bomb.h"
 #include "system.h"
 // namespace
 using namespace GameLib;
@@ -39,6 +38,7 @@ void game_deinit()
 	enemy_deinit();
 	player_deinit();
 	bomb_deinit();
+	item_deinit();
 }
 void game_update()
 {
@@ -49,6 +49,7 @@ void game_update()
 		player_init();
 		enemy_init();
 		bomb_init();
+		item_init();
 		//debug
 
 		sprArrow = sprite_load(L"./Data/Images/unnamed.png");
@@ -86,6 +87,7 @@ void game_update()
 		enemy_update();
 		player_update();
 		bomb_update();
+		item_update();
 		break;
 	case game_state.F_TRANSITION:
 		if (true)
@@ -105,7 +107,7 @@ void game_update()
 void game_render()
 {
 	GameLib::clear(0.2f, 0.2f, 0.4f);
-
+	item_render();
 	enemy_render();
 	bomb_render();
 	player_render();
