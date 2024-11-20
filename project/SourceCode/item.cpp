@@ -61,7 +61,7 @@ void item_update()
 
 	case 1:
 		//////// ÉpÉâÉÅÅ[É^ÇÃê›íË ////////
-		item_spawn({ 380.0f,380.0f }, ITEM_TYPE::ExplosionRangeCloseUp, 100.0f);
+		item_spawn({ 380.0f,380.0f }, ITEM_TYPE::HPRecovery, 10.0f);
 		// éüÇÃèÛë‘Ç…ëJà⁄
 		++item_state;
 		/*fallthrough*/
@@ -81,15 +81,15 @@ void item_render()
 {
 	for (auto& items : item) {
 		//primitive::circle(items.position.x, items.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+
 		sprite_render(sprItem,
-			items.position.x + 5, items.position.y - 5,
-			items.scale.x, items.scale.y,
+			items.BasePosition.x, items.BasePosition.y,
+			items.scale.x * ITEM_SCALE, items.scale.y * ITEM_SCALE,
 			items.texPos.x, items.texPos.y,
 			items.texSize.x, items.texSize.y,
 			items.pivot.x, items.pivot.y,
 			items.angle,
 			items.color.x, items.color.y, items.color.z, items.color.w);
-
 	}
 
 }
@@ -101,20 +101,30 @@ void item_act()
 	for (auto& items : item) {
 		//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
 		items.timer -= 1.0f;
-		items.scale -= { 1.0f / items.timer, 1.0f / items.timer };
+
+		if (items.scale.x * ITEM_SCALE <= 0.3f)
+		{
+
+			items.color.w = (int(items.timer / 10.0f) % 2) * 0.2f + 0.5f;
+		}
+		else
+		{
+			items.scale -= { 0.2f / items.timer, 0.2f / items.timer };
+
+		}
 	}
 
 
 
 	auto item_it = std::remove_if(item.begin(), item.end(),
-		[](const ITEM& items) { return items.scale.x <= 0; });
+		[](const ITEM& items) { return items.timer <= 0; });
 	item.erase(item_it, item.end());
 }
 
 
 
 void item_spawn(VECTOR2 _pos, ITEM_TYPE _type) {
-	item.push_back(ITEM(_pos, _type, 60 * 3.0f));
+	item.push_back(ITEM(_pos, _type, 60 * 10.0f));
 }
 void item_spawn(VECTOR2 _pos, ITEM_TYPE _type, float _time) {
 
