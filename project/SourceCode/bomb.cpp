@@ -13,7 +13,7 @@ extern float angle;
 float flepX = 0.0f;
 float flepY = 0.0f;
 std::vector<Bomb_range> range_Box;
-
+float bomb_blast_max_range=0;
 
 void bomb_init()
 {
@@ -37,12 +37,9 @@ void bomb_deinit()
 	bomb.bom_time = 0;
 }
 
-void bomb_throw()
-{
-
+void bomb_throw(float muster_up)
+{	
 	bomb.start_bomb_position = player.position;
-
-
 
 	VECTOR2 Point = cursor_position();
 	bomb.bomb_angle = tracking(Point, player.position);
@@ -51,23 +48,32 @@ void bomb_throw()
 	//bomb.bomb_speed = 50.0f;
 
 	bomb.bomb_state++;
+
+	if (bomb.bomb_state == 1)
+	{
+		bomb_blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (float)(muster_up * 5);
+	}
 }
 
 void bomb_update()
 {
 
-	debug::setString("bomb.start_bomb_position.x:%f", bomb.start_bomb_position.x);
+	debug::setString("bomb_blast_max_range:%f", bomb_blast_max_range);
+	for (auto& renge : range_Box)
+	{
+		renge.bomb_blast_max_range = bomb_blast_max_range;
+	}
 	switch (bomb.bomb_state)
 	{
 	case 3:
 		flepX = player.position.x - bomb.bomb_position.x;
 		flepY = player.position.y - bomb.bomb_position.y;
 
-		if (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY) > 0)
+		if (bomb_blast_max_range - sqrtf(flepX * flepX + flepY * flepY) > 0)
 		{
 			player.player_time = 0;
 			player.strat_position = player.position;
-			force = (BOMB_BLAST_MAX_RANGE - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
+			force = (bomb_blast_max_range - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
 			angle = -tracking(player.position, bomb.bomb_position);
 		}
 
@@ -96,7 +102,7 @@ void bomb_update()
 			renge.bomb_range_expansion();
 		}
 		auto it = std::remove_if(range_Box.begin(), range_Box.end(),
-			[](const Bomb_range& renge) { return renge.bomb_blast_range >= BOMB_BLAST_MAX_RANGE; });
+			[](const Bomb_range& renge) { return renge.bomb_blast_range >= renge.bomb_blast_max_range; });
 		range_Box.erase(it, range_Box.end());
 		player_movement(angle, force + BOMB_ADJUSTMENT);
 		return;
@@ -110,11 +116,11 @@ void bomb_render()
 {
 
 	for (auto& range : range_Box) {
-		primitive::circle(range.judg_position.x, range.judg_position.y, BOMB_BLAST_MAX_RANGE, range.bomb_blast_range / BOMB_BLAST_MAX_RANGE, range.bomb_blast_range / BOMB_BLAST_MAX_RANGE, 0, 1, 1, 1, 0.2f);
+		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 1, 1, 0.2f);
 	}
 
 
-	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, BOMB_BLAST_MAX_RANGE, 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, bomb_blast_max_range, 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 
 	for (int i = 0; i < 120; i++)

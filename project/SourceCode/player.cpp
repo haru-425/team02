@@ -17,6 +17,7 @@ using namespace input;
 int player_state;
 float force = 0.0f;
 float angle = 0.0f;
+float click_time = 0;
 PLAYER player;
 extern std::vector<ENEMY> enemy_pop;
 extern Bomb bomb;
@@ -66,9 +67,14 @@ void player_update()
 	case 2:
 		player.player_time += 0.1f;
 		player_act();
+		if (STATE(0) & L_CLICK && click_time<= BOMB_MAX_CHARGE)
+		{
+			click_time+=0.17;
+		}
 		if (TRG_RELEASE(0) & L_CLICK)
 		{
-			bomb_throw();
+			bomb_throw(click_time);
+			click_time=0;
 		}
 		for (auto& enemy: enemy_pop)
 		{
