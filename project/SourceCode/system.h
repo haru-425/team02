@@ -1,4 +1,14 @@
 #pragma once
+#include "../GameLib/game_lib.h"
+#include "m_scene.h"
+#include "audio.h"
+#include "common.h"
+
+#include <cmath>
+#include <vector>
+
+
+using namespace std;
 
 extern VECTOR2 magnetic_force;
 

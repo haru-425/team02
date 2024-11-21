@@ -1,11 +1,6 @@
 //------< インクルード >---------------------------------------------------------
-#include "../GameLib/game_lib.h"
+
 #include "m_scene.h"
-#include "audio.h"
-#include "common.h"
-// namespace
-using namespace GameLib;
-using namespace input;
 
 
 //------< 変数 >----------------------------------------------------------------
