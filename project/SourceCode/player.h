@@ -47,4 +47,5 @@ public:
 	VECTOR2 pivot;
 	VECTOR4 color;
 
+	int bomb_reinforce_item;
 };

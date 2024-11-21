@@ -34,6 +34,7 @@ void player_init()
 	player.strat_position = player.position;
 	player.hp = PLAYER_MAX_HP;
 	player.damege_invincible = false;
+	player.bomb_reinforce_item=0;
 }
 
 //--------------------------------------
@@ -76,7 +77,7 @@ void player_update()
 			// クリックを離した瞬間に爆弾を投げる
 			if (TRG_RELEASE(0) & L_CLICK)
 			{
-				bomb_throw(click_time);
+				bomb_throw(click_time, player.bomb_reinforce_item);
 				click_time = 0;
 				bomb.bomb_state = 1; // 次の状態に進む
 			}

@@ -15,12 +15,12 @@ using namespace DirectX;
 #define BOMB_MAX_CHARGE 20
 #define BOMB_ADD_CLIKC_TIME (float)(BOMB_MAX_CHARGE/3/60)//　爆弾の最大爆発範囲/チャージできる最大秒数/フレーム数
 
-void bomb_init();			// 爆弾の初期化
-void bomb_deinit();			// 爆弾のリセット
-void bomb_throw(float muster_up);			// プレイヤーが爆弾を投げる
-void bomb_expansion();//爆発処理
-void bomb_update();			// 爆弾の状態（タイマーなど）を更新
-void bomb_render();			// 爆弾と爆風範囲の描画処理
+void bomb_init();							// 爆弾の初期化
+void bomb_deinit();							// 爆弾のリセット
+void bomb_throw(float muster_up, int bomb_up);			// プレイヤーが爆弾を投げる
+void bomb_expansion();						//爆発処理
+void bomb_update();							// 爆弾の状態（タイマーなど）を更新
+void bomb_render();							// 爆弾と爆風範囲の描画処理
 
 class Bomb
 {
