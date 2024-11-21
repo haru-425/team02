@@ -1,12 +1,5 @@
 //------< インクルード >---------------------------------------------------------
-#include "../GameLib/game_lib.h"
-#include "m_scene.h"
-#include "audio.h"
-#include "common.h"
 #include "system.h"
-#include <cmath>
-#include <vector>
-using namespace std;
 
 VECTOR2 magnetic_force = { 0,0 };
 
@@ -80,9 +73,6 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 
 }
-
-
-
 
 float LaunchCalculateRotation(float angle, float force, float time) {
 	// 初期速度を計算

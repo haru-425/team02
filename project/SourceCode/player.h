@@ -1,5 +1,15 @@
 #pragma once
 #include "../GameLib/game_lib.h"
+#include "../GameLib/obj2d_data.h"
+#include "common.h"
+#include "audio.h"
+#include "bomb.h"
+#include "enemy.h"
+#include "system.h"
+#include "m_scene.h"
+#include <vector>
+#include <algorithm>
+#include <DirectXMath.h>
 
 //------< ’è” >----------------------------------------------------------------
 #define PLAYER_TEX_W        (400.0f)   // ƒvƒŒƒCƒ„[‚Ì‰æ‘œ1‚Â‚Ì•
@@ -47,4 +57,5 @@ public:
 	VECTOR2 pivot;
 	VECTOR4 color;
 
+	int bomb_reinforce_item;
 };

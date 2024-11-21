@@ -1,9 +1,4 @@
 #include "bomb.h"
-#include "player.h"
-#include "enemy.h"
-#include "system.h"
-
-#include "common.h"
 
 Bomb bomb;
 extern PLAYER player;
@@ -37,22 +32,19 @@ void bomb_deinit()
 	bomb.bom_time = 0;
 }
 
-void bomb_throw(float muster_up)
+void bomb_throw(float muster_up,int bomb_up)
 {	
 	bomb.start_bomb_position = player.position;
 
 	VECTOR2 Point = cursor_position();
 	bomb.bomb_angle = tracking(Point, player.position);
 
-
+	blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5)+(float)(bomb_up*10);
 	//bomb.bomb_speed = 50.0f;
 
 	bomb.bomb_state++;
 
-	if (bomb.bomb_state == 1)
-	{
-		blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5);
-	}
+	
 }
 
 void bomb_expansion() 

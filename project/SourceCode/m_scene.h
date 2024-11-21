@@ -1,8 +1,18 @@
 #pragma once
 //------< インクルード >---------------------------------------------------------
+#include "../GameLib/game_lib.h"
 #include "scene_game.h"
 #include "scene_title.h"
 #include "scene_start.h"
+#include "scene_tutorial.h"
+#include "audio.h"
+#include "common.h"
+
+// namespace
+using namespace GameLib;
+using namespace input;
+
+
 //------< 定数 >----------------------------------------------------------------
 
 enum class SCENE_TYPE
@@ -11,6 +21,7 @@ enum class SCENE_TYPE
 	START,
 	TITLE,
 	GAME,
+	TUTORIAL,
 };
 
 

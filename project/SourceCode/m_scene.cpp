@@ -1,11 +1,6 @@
 //------< インクルード >---------------------------------------------------------
-#include "../GameLib/game_lib.h"
+
 #include "m_scene.h"
-#include "audio.h"
-#include "common.h"
-// namespace
-using namespace GameLib;
-using namespace input;
 
 
 //------< 変数 >----------------------------------------------------------------
@@ -37,6 +32,10 @@ void M_SCENE::SceneChangeProcessing() {
 		case SCENE_TYPE::GAME:
 			game_deinit();
 			break;
+
+		case SCENE_TYPE::TUTORIAL:
+			tutorial_deinit();
+			break;
 		}
 
 		// 次のシーンに応じた初期設定処理
@@ -52,6 +51,10 @@ void M_SCENE::SceneChangeProcessing() {
 
 		case SCENE_TYPE::GAME:
 			game_init();
+			break;
+
+		case SCENE_TYPE::TUTORIAL:
+			tutorial_init();
 			break;
 		}
 
@@ -77,6 +80,10 @@ void M_SCENE::SceneUpdateProcessing() {
 	case SCENE_TYPE::GAME:
 		game_update();
 		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_update();
+		break;
 	}
 
 }
@@ -94,6 +101,10 @@ void M_SCENE::SceneRenderProcessing() {
 
 	case SCENE_TYPE::GAME:
 		game_render();
+		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_render();
 		break;
 	}
 
@@ -115,6 +126,10 @@ void M_SCENE::SceneEndProcessing() {
 
 	case SCENE_TYPE::GAME:
 		game_deinit();
+		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_deinit();
 		break;
 	}
 

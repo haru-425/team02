@@ -58,7 +58,7 @@ void start_update()
 		{
 			nextScene = SCENE_TYPE::GAME;
 		}
-		STRATCOLOR
+		
 
 	}
 
