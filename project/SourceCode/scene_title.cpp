@@ -16,7 +16,9 @@ int title_timer;
 
 Sprite* sprTITLE_UI_BACK;
 Sprite* sprTITLE_BUTTON[3];
-Sprite* sprTITLE_BUTTON_TEXT[3];
+Sprite* sprTITLE_BUTTON_TEXT;
+float title_text_scale[3];
+float title_text_y[3];
 
 void title_init()
 {
@@ -30,6 +32,13 @@ void title_deinit()
 	//music::stop(0);
 
 	safe_delete(sprTITLE_UI_BACK);
+	safe_delete(sprTITLE_BUTTON_TEXT);
+	for (int i = 0; i < 3; i++)
+	{
+
+		safe_delete(sprTITLE_BUTTON[i]);
+	}
+
 }
 
 void title_update()
@@ -43,6 +52,17 @@ void title_update()
 		sprTITLE_BUTTON[0] = sprite_load(L"./Data/Images/UI/playButton.png");
 		sprTITLE_BUTTON[1] = sprite_load(L"./Data/Images/UI/helpButton.png");
 		sprTITLE_BUTTON[2] = sprite_load(L"./Data/Images/UI/settingButton.png");
+
+
+		sprTITLE_BUTTON_TEXT = sprite_load(L"./Data/Images/UI/title_text.png");
+		title_text_scale[0] = 0.0f;
+		title_text_scale[1] = 0.0f;
+		title_text_scale[2] = 0.0f;
+
+
+		title_text_y[0] = SCREEN_H / 10.0f * 8.0f;
+		title_text_y[1] = SCREEN_H / 10.0f * 8.0f;
+		title_text_y[2] = SCREEN_H / 10.0f * 8.0f;
 
 
 	case title_state.B_TRANSIATON:
@@ -103,7 +123,15 @@ void title_render()
 			0,
 			1, 1, 1, 1);
 
+		if (title_text_scale[int(TITLE_BUTTON::START)] < 2.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::START)] += 0.1f;
 
+		}
+		if (title_text_y[int(TITLE_BUTTON::START)] > SCREEN_H / 10.0f * 8.0f - 100)
+		{
+			title_text_y[int(TITLE_BUTTON::START)] -= 10;
+		}
 	}
 	else {
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::START)],
@@ -114,6 +142,14 @@ void title_render()
 			64, 64,
 			0,
 			1, 1, 1, 1);
+		if (title_text_scale[int(TITLE_BUTTON::START)] > 0.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::START)] -= 0.1f;
+		}
+		if (title_text_y[int(TITLE_BUTTON::START)] < SCREEN_H / 10.0f * 8.0f)
+		{
+			title_text_y[int(TITLE_BUTTON::START)] += 20;
+		}
 	}
 
 
@@ -167,5 +203,16 @@ void title_render()
 			0,
 			1, 1, 1, 1);
 	}
+
+
+
+	sprite_render(sprTITLE_BUTTON_TEXT,
+		SCREEN_W / 2.0f, title_text_y[int(TITLE_BUTTON::START)],
+		title_text_scale[int(TITLE_BUTTON::START)], title_text_scale[int(TITLE_BUTTON::START)],
+		576 / 3 * int(TITLE_BUTTON::START), 0,
+		576 / 3.0f, 64,
+		576 / 6.0f, 32,
+		0,
+		1, 1, 1, 1);
 
 }
