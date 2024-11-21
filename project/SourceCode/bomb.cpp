@@ -1,9 +1,4 @@
 #include "bomb.h"
-#include "player.h"
-#include "enemy.h"
-#include "system.h"
-
-#include "common.h"
 
 Bomb bomb;
 extern PLAYER player;

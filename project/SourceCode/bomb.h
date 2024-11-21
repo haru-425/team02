@@ -2,6 +2,11 @@
 #define BOMB_H
 
 #include "../GameLib/game_lib.h"
+#include "player.h"
+#include "enemy.h"
+#include "system.h"
+
+#include "common.h"
 #include <vector>
 #include <algorithm>
 #include <DirectXMath.h>

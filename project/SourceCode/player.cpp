@@ -1,15 +1,5 @@
 #include "player.h"
-#include "../GameLib/game_lib.h"
-#include "../GameLib/obj2d_data.h"
-#include "common.h"
-#include "audio.h"
-#include "bomb.h"
-#include "enemy.h"
-#include "system.h"
-#include "m_scene.h"
-#include <vector>
-#include <algorithm>
-#include <DirectXMath.h>
+
 using namespace input;
 
 // ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğŠÇ—‚·‚é•Ï”
