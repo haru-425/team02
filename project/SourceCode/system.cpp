@@ -1,5 +1,4 @@
 //------< インクルード >---------------------------------------------------------
-
 #include "system.h"
 
 VECTOR2 magnetic_force = { 0,0 };
@@ -74,9 +73,6 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 
 }
-
-
-
 
 float LaunchCalculateRotation(float angle, float force, float time) {
 	// 初期速度を計算
