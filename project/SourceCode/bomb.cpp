@@ -13,7 +13,7 @@ extern float angle;
 float flepX = 0.0f;
 float flepY = 0.0f;
 std::vector<Bomb_range> range_Box;
-float bomb_blast_max_range=0;
+float blast_max_range=0;
 
 void bomb_init()
 {
@@ -51,36 +51,38 @@ void bomb_throw(float muster_up)
 
 	if (bomb.bomb_state == 1)
 	{
-		bomb_blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5);
+		blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5);
 	}
+}
+
+void bomb_expansion() 
+{
+	flepX = player.position.x - bomb.bomb_position.x;
+	flepY = player.position.y - bomb.bomb_position.y;
+
+	if (blast_max_range - sqrtf(flepX * flepX + flepY * flepY) > 0)
+	{
+		player.player_time = 0;
+		player.strat_position = player.position;
+		force = (blast_max_range - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
+		angle = -tracking(player.position, bomb.bomb_position);
+	}
+
+	range_Box.push_back(bomb.bomb_position);
+	bomb_deinit();
 }
 
 void bomb_update()
 {
 
-	debug::setString("bomb_blast_max_range:%f", bomb_blast_max_range);
-	for (auto& renge : range_Box)
+	debug::setString("bomb_blast_max_range:%f", blast_max_range);
+	debug::setString("bomb_state:%d", bomb.bomb_state);
+	/*for (auto& renge : range_Box)
 	{
 		renge.bomb_blast_max_range = bomb_blast_max_range;
-	}
+	}*/
 	switch (bomb.bomb_state)
 	{
-	case 3:
-		flepX = player.position.x - bomb.bomb_position.x;
-		flepY = player.position.y - bomb.bomb_position.y;
-
-		if (bomb_blast_max_range - sqrtf(flepX * flepX + flepY * flepY) > 0)
-		{
-			player.player_time = 0;
-			player.strat_position = player.position;
-			force = (bomb_blast_max_range - sqrtf(flepX * flepX + flepY * flepY)) * BOMB_BLAST_STRANGE;
-			angle = -tracking(player.position, bomb.bomb_position);
-		}
-
-		range_Box.push_back(bomb.bomb_position);
-		bomb_deinit();
-		break;
-
 	case 1:
 		bomb.bom_time = 0.0f;
 		bomb.bomb_state++;
@@ -146,6 +148,7 @@ void bomb_render()
 Bomb_range::Bomb_range(VECTOR2 position) :judg_position(position)
 {
 	bomb_blast_range = 0;
+	this->bomb_blast_max_range= blast_max_range;
 	player_launch = false;
 }
 

@@ -69,13 +69,32 @@ void player_update()
 		player_act();
 		if (STATE(0) & L_CLICK && click_time<= BOMB_MAX_CHARGE)
 		{
-			click_time+=0.17;
+			click_time += 0.2;
 		}
-		if (TRG_RELEASE(0) & L_CLICK)
+		if (bomb.bomb_state == 0)
 		{
-			bomb_throw(click_time);
-			click_time=0;
+			// ƒNƒŠƒbƒN‚ð—£‚µ‚½uŠÔ‚É”š’e‚ð“Š‚°‚é
+			if (TRG_RELEASE(0) & L_CLICK)
+			{
+				bomb_throw(click_time);
+				click_time = 0;
+				bomb.bomb_state = 1; // ŽŸ‚Ìó‘Ô‚Éi‚Þ
+			}
 		}
+		else if (bomb.bomb_state == 2)
+		{
+			// ƒNƒŠƒbƒN‚ð‰Ÿ‚µ‚½uŠÔ‚É”š’e‚ð–c’£‚³‚¹‚é
+			if (TRG(0) & L_CLICK)
+			{
+				bomb_expansion();
+				bomb.bomb_state = -1; // ó‘Ô‚ð‰Šú‰»
+			}
+		}
+		else if(TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
+		{
+			bomb.bomb_state = 0;
+		}
+		
 		for (auto& enemy: enemy_pop)
 		{
 			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
@@ -122,8 +141,13 @@ void player_render()
 {
 
 	primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
-
 	debug::setString("force%f", force);
+
+
+	if (STATE(0) & L_CLICK && click_time)
+	{
+		primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+	}
 }
 
 //--------------------------------------
