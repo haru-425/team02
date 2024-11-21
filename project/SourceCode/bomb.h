@@ -9,10 +9,10 @@
 using namespace DirectX;
 
 #define BOMB_BLAST_STRANGE 0.28f
-#define BOMB_BLAST_MAX_INIT_RANGE 180.0f
+#define BOMB_BLAST_MAX_INIT_RANGE 100.0f
 #define BOMB_BLAST_R_INC 10.0f
-#define BOMB_ADJUSTMENT 9.0f
-#define BOMB_MAX_CHARGE 30
+#define BOMB_ADJUSTMENT 20.0f
+#define BOMB_MAX_CHARGE 20
 #define BOMB_ADD_CLIKC_TIME (float)(BOMB_MAX_CHARGE/3/60)//　爆弾の最大爆発範囲/チャージできる最大秒数/フレーム数
 
 void bomb_init();			// 爆弾の初期化

@@ -51,7 +51,7 @@ void bomb_throw(float muster_up)
 
 	if (bomb.bomb_state == 1)
 	{
-		bomb_blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (float)(muster_up * 5);
+		bomb_blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5);
 	}
 }
 
@@ -120,7 +120,7 @@ void bomb_render()
 	}
 
 
-	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, bomb_blast_max_range, 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+	
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 
 	for (int i = 0; i < 120; i++)
