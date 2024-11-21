@@ -181,6 +181,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="GameLib\view_settings.h" />
     <ClInclude Include="SourceCode\audio.h" />
     <ClInclude Include="SourceCode\bomb.h" />
+    <ClInclude Include="SourceCode\button.h" />
     <ClInclude Include="SourceCode\common.h" />
     <ClInclude Include="SourceCode\enemy.h" />
     <ClInclude Include="SourceCode\item.h" />
@@ -209,6 +210,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="GameLib\wnd_proc.cpp" />
     <ClCompile Include="SourceCode\audio.cpp" />
     <ClCompile Include="SourceCode\bomb.cpp" />
+    <ClCompile Include="SourceCode\button.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
     <ClCompile Include="SourceCode\enemy.cpp" />
     <ClCompile Include="SourceCode\item.cpp" />

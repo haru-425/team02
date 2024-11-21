@@ -10,7 +10,7 @@ using namespace input;
 
 //------< •Ï” >----------------------------------------------------------------
 SCENE_TYPE curScene = SCENE_TYPE::NONE;
-SCENE_TYPE nextScene = SCENE_TYPE::GAME;
+SCENE_TYPE nextScene = SCENE_TYPE::TITLE;
 //FADE fade;
 
 
