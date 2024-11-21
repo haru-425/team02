@@ -190,6 +190,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="SourceCode\scene_game.h" />
     <ClInclude Include="SourceCode\scene_start.h" />
     <ClInclude Include="SourceCode\scene_title.h" />
+    <ClInclude Include="SourceCode\scene_tutorial.h" />
     <ClInclude Include="SourceCode\system.h" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +209,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="GameLib\vector.cpp" />
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
+    <ClCompile Include="scene_tutorial.cpp" />
     <ClCompile Include="SourceCode\audio.cpp" />
     <ClCompile Include="SourceCode\bomb.cpp" />
     <ClCompile Include="SourceCode\button.cpp" />

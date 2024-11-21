@@ -32,6 +32,10 @@ void M_SCENE::SceneChangeProcessing() {
 		case SCENE_TYPE::GAME:
 			game_deinit();
 			break;
+
+		case SCENE_TYPE::TUTORIAL:
+			tutorial_deinit();
+			break;
 		}
 
 		// éüÇÃÉVÅ[ÉìÇ…âûÇ∂ÇΩèâä˙ê›íËèàóù
@@ -47,6 +51,10 @@ void M_SCENE::SceneChangeProcessing() {
 
 		case SCENE_TYPE::GAME:
 			game_init();
+			break;
+
+		case SCENE_TYPE::TUTORIAL:
+			tutorial_init();
 			break;
 		}
 
@@ -72,6 +80,10 @@ void M_SCENE::SceneUpdateProcessing() {
 	case SCENE_TYPE::GAME:
 		game_update();
 		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_update();
+		break;
 	}
 
 }
@@ -89,6 +101,10 @@ void M_SCENE::SceneRenderProcessing() {
 
 	case SCENE_TYPE::GAME:
 		game_render();
+		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_render();
 		break;
 	}
 
@@ -110,6 +126,10 @@ void M_SCENE::SceneEndProcessing() {
 
 	case SCENE_TYPE::GAME:
 		game_deinit();
+		break;
+
+	case SCENE_TYPE::TUTORIAL:
+		tutorial_deinit();
 		break;
 	}
 
