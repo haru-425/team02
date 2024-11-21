@@ -15,6 +15,7 @@ S_SCENE title_state;
 int title_timer;
 
 Sprite* sprTITLE_UI_BACK;
+Sprite* sprTITLE_BUTTON[3];
 
 void title_init()
 {
@@ -38,6 +39,7 @@ void title_update()
 		title_state.state = title_state.B_TRANSIATON;
 
 		sprTITLE_UI_BACK = sprite_load(L"./Data/Images/UI/TITLE_UI_BACK.png");
+		sprTITLE_BUTTON[0] = sprite_load(L"./Data/Images/UI/playButton.png");
 
 
 	case title_state.B_TRANSIATON:
@@ -85,4 +87,30 @@ void title_render()
 		640, 360,
 		0,
 		1, 1, 1, 0.5);
+	VECTOR2 cursorPos = cursor_position();
+	if (isCircleColliding(cursorPos, 0.0f, { SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f }, 128.0f / 2.0f))
+	{
+
+		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::START)],
+			SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f,
+			1, 1,
+			128, 0,
+			128, 128,
+			64, 64,
+			0,
+			1, 1, 1, 1);
+
+
+	}
+	else {
+		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::START)],
+			SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f,
+			1, 1,
+			0, 0,
+			128, 128,
+			64, 64,
+			0,
+			1, 1, 1, 1);
+	}
+
 }
