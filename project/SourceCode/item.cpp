@@ -164,7 +164,7 @@ void item_act()
 
 	for (auto& items : item) {
 
-		if (isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000)) {
+		if (isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 10)) {
 			switch (items.type)
 			{
 			case  ITEM_TYPE::ExplosionRangeCloseUp:
@@ -196,7 +196,7 @@ void item_act()
 	item.erase(
 		std::remove_if(item.begin(), item.end(),
 			[&](const ITEM& items) {
-				return isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000);
+				return isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 10);
 			}),
 		item.end()
 	);

@@ -18,6 +18,9 @@ SCENE_TYPE _next;
 Sprite* sprTITLE_UI_BACK;
 Sprite* sprTITLE_BUTTON[3];
 Sprite* sprTITLE_BUTTON_TEXT;
+
+
+Sprite* sprBG_TITLE;
 float title_text_scale[3];
 float title_text_y[3];
 
@@ -39,6 +42,7 @@ void title_deinit()
 
 		safe_delete(sprTITLE_BUTTON[i]);
 	}
+	safe_delete(sprBG_TITLE);
 
 }
 
@@ -56,6 +60,11 @@ void title_update()
 
 
 		sprTITLE_BUTTON_TEXT = sprite_load(L"./Data/Images/UI/title_text.png");
+
+		sprBG_TITLE = sprite_load(L"./Data/Images/BG/start.png");
+
+
+
 		title_text_scale[0] = 0.0f;
 		title_text_scale[1] = 0.0f;
 		title_text_scale[2] = 0.0f;
@@ -79,11 +88,11 @@ void title_update()
 		title_state.state = title_state.NORMAL;
 
 	case title_state.NORMAL:
-		if (TRG(0) & PAD_START)
-		{
-			title_state.state = title_state.F_TRANSITION;
-			break;
-		}
+		//if (TRG(0) & PAD_START)
+		//{
+		//	title_state.state = title_state.F_TRANSITION;
+		//	break;
+		//}
 		break;
 	case title_state.F_TRANSITION:
 		if (true)
@@ -102,6 +111,7 @@ void title_render()
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 
+	sprite_render(sprBG_TITLE, 0, 0, 1, 1);
 
 	sprite_render(sprTITLE_UI_BACK,
 		SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f,
