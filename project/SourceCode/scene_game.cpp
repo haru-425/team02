@@ -48,12 +48,15 @@ void game_deinit()
 	bomb_deinit();
 	item_deinit();
 	score_deinit();
+	music::stop(BGM_GAME);
 }
 void game_update()
 {
 	switch (game_state.state)
 	{
 	case game_state.INITIALIZE:
+
+		music::play(BGM_GAME, true);
 		game_state.state = game_state.B_TRANSIATON;
 		player_init();
 		enemy_init();
@@ -66,7 +69,7 @@ void game_update()
 
 		sprArrow = sprite_load(L"./Data/Images/unnamed.png");
 		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");
-		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame.png");
+		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame2.png");
 	case game_state.B_TRANSIATON:
 		if (true)
 		{
@@ -154,11 +157,11 @@ void game_render()
 	}
 
 
+	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 
 	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 	text_out(6, to_string(score), SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 20, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 
-	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 
 
 	string time_str = to_string(LIMIT_TIME / 60 / 60) + ":" + to_string(LIMIT_TIME / 60 % 60) + ":" + to_string(LIMIT_TIME % 60);

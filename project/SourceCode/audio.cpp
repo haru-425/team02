@@ -6,7 +6,9 @@ void audio_init()
 {
 
 
-	//music::load(0, L"./Data/Musics/bgm_maoudamashii_8bit29.wav");
+	music::load(BGM_TITLE, L"./Data/Musics/Courage_to_Stand_Up.wav");
+	music::load(BGM_GAME, L"./Data/Musics/Scramble_Line.wav");
+	music::load(BGM_RESULT, L"./Data/Musics/Starlights.wav");
 
 	//sound::load(XWB_SYSTEM, L"./Data/Sounds/system.xwb");
 

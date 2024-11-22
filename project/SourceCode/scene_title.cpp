@@ -33,7 +33,7 @@ void title_init()
 void title_deinit()
 {
 
-	//music::stop(0);
+	music::stop(BGM_TITLE);
 
 	safe_delete(sprTITLE_UI_BACK);
 	safe_delete(sprTITLE_BUTTON_TEXT);
@@ -44,6 +44,7 @@ void title_deinit()
 	}
 	safe_delete(sprBG_TITLE);
 
+
 }
 
 void title_update()
@@ -51,6 +52,9 @@ void title_update()
 	switch (title_state.state)
 	{
 	case title_state.INITIALIZE:
+
+
+		music::play(BGM_TITLE, true);
 		title_state.state = title_state.B_TRANSIATON;
 
 		sprTITLE_UI_BACK = sprite_load(L"./Data/Images/UI/TITLE_UI_BACK.png");
