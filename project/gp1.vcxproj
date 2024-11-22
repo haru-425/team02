@@ -191,6 +191,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="SourceCode\scene_start.h" />
     <ClInclude Include="SourceCode\scene_title.h" />
     <ClInclude Include="SourceCode\scene_tutorial.h" />
+    <ClInclude Include="SourceCode\score.h" />
     <ClInclude Include="SourceCode\system.h" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +222,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="SourceCode\scene_game.cpp" />
     <ClCompile Include="SourceCode\scene_start.cpp" />
     <ClCompile Include="SourceCode\scene_title.cpp" />
+    <ClCompile Include="SourceCode\score.cpp" />
     <ClCompile Include="SourceCode\system.cpp" />
     <ClCompile Include="SourceCode\tutorial.cpp" />
   </ItemGroup>

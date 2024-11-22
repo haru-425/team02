@@ -15,6 +15,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "player.h"
+
 Sprite* sprItem;
 
 using namespace input;
@@ -113,6 +115,24 @@ void item_act()
 
 		}
 	}
+
+
+	for (auto& items : item) {
+		//primitive::circle(enemy.position.x, enemy.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
+		items.timer -= 1.0f;
+
+		if (items.scale.x * ITEM_SCALE <= 0.3f)
+		{
+
+			items.color.w = (int(items.timer / 10.0f) % 2) * 0.2f + 0.5f;
+		}
+		else
+		{
+			items.scale -= { 0.2f / items.timer, 0.2f / items.timer };
+
+		}
+	}
+
 
 
 

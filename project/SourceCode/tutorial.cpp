@@ -11,65 +11,62 @@ using namespace input;
 
 
 //------< •Ï” >----------------------------------------------------------------
-S_SCENE start_state;
-int start_timer;
-VECTOR3 start_color;
-int tutorial_state;
-
-void start_init()
+S_SCENE tutorial_state;
+int tutorial_timer;
+VECTOR3 tutorial_color;
+void tutorial_init()
 {
-	start_state.state = 0;
-	start_timer = 0;
-	tutorial_state = 0;
+	tutorial_state.state = 0;
+	tutorial_timer = 0;
+	tutorial_state.state = tutorial_state.INITIALIZE;
 }
-
-void start_deinit()
+void tutorial_deinit()
 {
 
 	//music::stop(0);
 
 }
 
-void start_update()
+void tutorial_update()
 {
-	switch (start_state.state)
+	switch (tutorial_state.state)
 	{
-	case start_state.INITIALIZE:
-		start_state.state = start_state.B_TRANSIATON;
-	case start_state.B_TRANSIATON:
+	case tutorial_state.INITIALIZE:
+		tutorial_state.state = tutorial_state.B_TRANSIATON;
+	case tutorial_state.B_TRANSIATON:
 		if (true)
 		{
-			start_state.state = start_state.PARAMETER;
+			tutorial_state.state = tutorial_state.PARAMETER;
 		}
 		break;
 
-	case start_state.PARAMETER:
+	case tutorial_state.PARAMETER:
+
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 
-		start_state.state = start_state.NORMAL;
+		tutorial_state.state = tutorial_state.NORMAL;
 
-	case start_state.NORMAL:
+	case tutorial_state.NORMAL:
+
+		break;
 		/*switch (switch_on)
 		{
 		default:
 			break;
 		}*/
 
-
-
-		break;
-	case start_state.F_TRANSITION:
-		if (start_timer >= 240)
+	case tutorial_state.F_TRANSITION:
+		if (tutorial_timer >= 240)
 		{
 			nextScene = SCENE_TYPE::GAME;
 		}
 
 	}
-
-	start_timer++;
+	tutorial_timer++;
 }
 
-void start_render()
+
+void tutorial_render()
 {
 	// ‰æ–Ê‚ğÂ‚Å“h‚è‚Â‚Ô‚·
 	GameLib::clear(0.3f, 0.5f, 1.0f);

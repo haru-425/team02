@@ -12,6 +12,7 @@
 #include "audio.h"
 #include "m_scene.h"
 #include "system.h"
+#include "score.h"
 // namespace
 using namespace GameLib;
 using namespace input;
@@ -39,6 +40,7 @@ void game_deinit()
 	player_deinit();
 	bomb_deinit();
 	item_deinit();
+	score_deinit();
 }
 void game_update()
 {
@@ -50,6 +52,9 @@ void game_update()
 		enemy_init();
 		bomb_init();
 		item_init();
+
+		score_init();
+		score_set(0);
 		//debug
 
 		sprArrow = sprite_load(L"./Data/Images/unnamed.png");
@@ -84,6 +89,7 @@ void game_update()
 
 
 
+		score_update();
 		enemy_update();
 		player_update();
 		bomb_update();
@@ -111,9 +117,10 @@ void game_render()
 	enemy_render();
 	bomb_render();
 	player_render();
-	debug::setString("game_timer%d", game_timer);
-	debug::setString("game_state%d", game_state.state);
-	debug::setString("magnet(%f:%f)", magnetic_force.x, magnetic_force.y);
+	score_render();
+	//debug::setString("game_timer%d", game_timer);
+	//debug::setString("game_state%d", game_state.state);
+	//debug::setString("magnet(%f:%f)", magnetic_force.x, magnetic_force.y);
 
 	if (magnetic_force.x == 0 && magnetic_force.y == 0)
 	{
