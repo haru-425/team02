@@ -143,22 +143,22 @@ void item_act()
 	item.erase(item_it, item.end());
 
 
-	//for (auto& enemy : enemy_pop) {
-	//	for (auto& range_Boxes : range_Box) {
+	for (auto& items : item) {
 
-	//		if (isCircleColliding(range_Boxes.judg_position, range_Boxes.bomb_blast_range, enemy.position, ENEMY_CD)) {
-	//			item_spawn(enemy.position, ITEM_TYPE::HPRecovery, 10.0f);
-	//		}
-	//	}
-
-
-	//}
+		if (isCircleColliding(items.position, 128 * items.scale.x * ITEM_SCALE, player.position, 10)) {
+			switch (items.type)
+			{
+			default:
+				break;
+			}
+		}
+	}
 }
 
 
 void item_spawn(VECTOR2 _pos) {
 	int ITEM_POP_RATE = rand() % 10;
-	if (ITEM_POP_RATE < 4)
+	if (ITEM_POP_RATE < 2)
 	{
 		switch (rand() % 5)
 		{

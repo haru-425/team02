@@ -23,7 +23,7 @@ void player_init()
 	player.strat_position = player.position;
 	player.hp = PLAYER_MAX_HP;
 	player.damege_invincible = false;
-	player.bomb_reinforce_item=0;
+	player.bomb_reinforce_item = 0;
 }
 
 //--------------------------------------
@@ -57,7 +57,7 @@ void player_update()
 	case 2:
 		player.player_time += 0.1f;
 		player_act();
-		if (STATE(0) & L_CLICK && click_time<= BOMB_MAX_CHARGE)
+		if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
 		{
 			click_time += 0.2;
 		}
@@ -80,12 +80,12 @@ void player_update()
 				bomb.bomb_state = -1; // ó‘Ô‚ð‰Šú‰»
 			}
 		}
-		else if(TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
+		else if (TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
 		{
 			bomb.bomb_state = 0;
 		}
-		
-		for (auto& enemy: enemy_pop)
+
+		for (auto& enemy : enemy_pop)
 		{
 			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
 				&& player.damege_invincible == false)//“G‚ÆŽ©•ª‚Æ‚Ì“–‚½‚è”»’è‚ððŒ‚É“ü‚ê‚é
@@ -110,7 +110,7 @@ void player_update()
 			{
 				player.color.w = 1;
 			}
-			if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME*60)
+			if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME * 60)
 			{
 				player.color.w = 1;
 				player.damege_invincible = false;
