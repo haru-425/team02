@@ -57,7 +57,7 @@ void player_update()
 	case 2:
 		player.player_time += 0.1f;
 		player_act(player);
-		
+
 		for (auto& enemy : enemy_pop)
 		{
 			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)

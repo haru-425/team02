@@ -13,3 +13,4 @@ void score_deinit();
 void score_act();
 void score_set(int _score);
 void score_add(int _score);
+void score_diameter_set(int _diameter, int _time);

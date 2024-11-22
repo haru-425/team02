@@ -120,11 +120,11 @@ void game_update()
 void game_render()
 {
 	GameLib::clear(0.2f, 0.2f, 0.4f);
-	item_render();
 	enemy_render();
 	bomb_render();
 	player_render();
 	score_render();
+	item_render();
 	//debug::setString("game_timer%d", game_timer);
 	//debug::setString("game_state%d", game_state.state);
 	//debug::setString("magnet(%f:%f)", magnetic_force.x, magnetic_force.y);

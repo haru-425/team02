@@ -21,6 +21,7 @@
 #include "bomb.h"
 
 Sprite* sprItem;
+float ITEM_EFFECT_TRANSPARENCY[5] = { 0.5f,0.5f,0.5f,0.5f,0.5f };
 
 using namespace input;
 
@@ -37,6 +38,7 @@ void item_init()
 	// プレイヤーの状態を初期化
 	item_state = 0;
 	item_timer = 0;
+
 
 }
 
@@ -67,6 +69,12 @@ void item_update()
 	case 1:
 		//////// パラメータの設定 ////////
 		// 次の状態に遷移
+
+		for (int i = 0; i < 5; i++)
+		{
+
+			ITEM_EFFECT_TRANSPARENCY[i] = 0.7f;
+		}
 		++item_state;
 		/*fallthrough*/
 
@@ -87,7 +95,7 @@ void item_render()
 		//primitive::circle(items.position.x, items.position.y, 15, 1, 1, 0, 1, 0.4f, 0.6f, 1.0f);
 
 		sprite_render(sprItem,
-			items.BasePosition.x, items.BasePosition.y,
+			items.position.x, items.position.y,
 			items.scale.x * ITEM_SCALE, items.scale.y * ITEM_SCALE,
 			items.texPos.x, items.texPos.y,
 			items.texSize.x, items.texSize.y,
@@ -95,6 +103,16 @@ void item_render()
 			items.angle,
 			items.color.x, items.color.y, items.color.z, items.color.w);
 	}
+
+
+
+	string effect_str = "Score x" + to_string(int(SCORE_DIAMETER));
+	text_out(6, effect_str, SCREEN_H, SCREEN_H / 100 * 10, 0.8f, 0.8f, 1, 1, 1, ITEM_EFFECT_TRANSPARENCY[int(ITEM_TYPE::ScoreTwoTimes)], TEXT_ALIGN::UPPER_RIGHT);
+
+	effect_str = "Range x" + to_string(player.bomb_reinforce_item);
+	text_out(6, effect_str, SCREEN_H, SCREEN_H / 100 * 15, 0.8f, 0.8f, 1, 1, 1, 1, TEXT_ALIGN::UPPER_RIGHT);
+
+
 
 }
 //--------------------------------------
@@ -116,6 +134,7 @@ void item_act()
 			items.scale -= { 0.2f / items.timer, 0.2f / items.timer };
 
 		}
+		items.position.y -= 0.5f;
 	}
 
 
@@ -145,20 +164,48 @@ void item_act()
 
 	for (auto& items : item) {
 
-		if (isCircleColliding(items.position, 128 * items.scale.x * ITEM_SCALE, player.position, 10)) {
+		if (isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000)) {
 			switch (items.type)
 			{
-			default:
+			case  ITEM_TYPE::ExplosionRangeCloseUp:
+				if (player.bomb_reinforce_item < 3)
+				{
+					player.bomb_reinforce_item++;
+
+				}
+				break;
+			case ITEM_TYPE::HPRecovery:
+				if (player.hp > PLAYER_MAX_HP)break;
+				else player.hp += 1;
+				break;
+			case ITEM_TYPE::LimitTimeExtended:
+				LIMIT_TIME += 60 * 5;
+				break;
+			case  ITEM_TYPE::ScoreTwoTimes:
+				score_diameter_set(2, 60 * 5);
+				break;
+			case ITEM_TYPE::TopEnemyInvalid:
+				IsThrowing = false;
+				ThrowTimer = 60 * 10;
 				break;
 			}
 		}
 	}
+
+
+	item.erase(
+		std::remove_if(item.begin(), item.end(),
+			[&](const ITEM& items) {
+				return isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000);
+			}),
+		item.end()
+	);
 }
 
 
 void item_spawn(VECTOR2 _pos) {
 	int ITEM_POP_RATE = rand() % 10;
-	if (ITEM_POP_RATE < 2)
+	if (ITEM_POP_RATE < 10)
 	{
 		switch (rand() % 5)
 		{

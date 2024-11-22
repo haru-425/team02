@@ -13,11 +13,11 @@
 #define ITEM_CD 1
 //------< 構造体 >---------------------------------------------------------------
 enum class ITEM_TYPE {
-	LimitTimeExtended		/*制限時間延長*/,
-	HPRecovery				/*HP回復*/,
-	ExplosionRangeCloseUp	/*爆発範囲拡大*/,
-	TopEnemyInvalid			/*上の敵からの弾が降ってこなくなる*/,
-	ScoreTwoTimes			/*スコア二倍*/
+	LimitTimeExtended		/*制限時間延長　　　　　　　　　　　　き*/,
+	HPRecovery				/*HP回復　　　　　　　　　　　　　　　 ょ*/,
+	ExplosionRangeCloseUp	/*爆発範囲拡大　					　う*/,
+	TopEnemyInvalid			/*上の敵からの弾が降ってこなくなる　　へ*/,
+	ScoreTwoTimes			/*スコア二倍						　い*/
 };
 class ITEM {
 private:
@@ -37,7 +37,7 @@ public:
 
 	ITEM(VECTOR2 pos, ITEM_TYPE _type, float _time) {
 		timer = _time;
-		BasePosition = pos;
+		position = pos;
 		type = _type;
 		angle = -180;
 		scale = { 1 ,1 };
@@ -52,6 +52,8 @@ public:
 };
 //------< 変数 >----------------------------------------------------------------
 extern enum class ITEM_TYPE;
+extern
+float ITEM_EFFECT_TRANSPARENCY[5];
 
 //------< プロトタイプ宣言 >-----------------------------------------------------
 void item_init();

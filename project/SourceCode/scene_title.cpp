@@ -13,6 +13,7 @@ using namespace input;
 //------< •Ï” >----------------------------------------------------------------
 S_SCENE title_state;
 int title_timer;
+SCENE_TYPE _next;
 
 Sprite* sprTITLE_UI_BACK;
 Sprite* sprTITLE_BUTTON[3];
@@ -87,7 +88,7 @@ void title_update()
 	case title_state.F_TRANSITION:
 		if (true)
 		{
-			nextScene = SCENE_TYPE::GAME;
+			nextScene = _next;
 		}
 
 
@@ -132,6 +133,11 @@ void title_render()
 		{
 			title_text_y[int(TITLE_BUTTON::START)] -= 10;
 		}
+
+		if (TRG_RELEASE(0) & L_CLICK) {
+			title_state.state = S_SCENE::F_TRANSITION;
+			_next = SCENE_TYPE::GAME;
+		}
 	}
 	else {
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::START)],
@@ -164,8 +170,19 @@ void title_render()
 			64, 64,
 			0,
 			1, 1, 1, 1);
+		if (title_text_scale[int(TITLE_BUTTON::SETTING)] < 2.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::SETTING)] += 0.1f;
 
-
+		}
+		if (title_text_y[int(TITLE_BUTTON::SETTING)] > SCREEN_H / 10.0f * 8.0f - 100)
+		{
+			title_text_y[int(TITLE_BUTTON::SETTING)] -= 10;
+		}
+		if (TRG_RELEASE(0) & L_CLICK) {
+			title_state.state = S_SCENE::F_TRANSITION;
+			_next = SCENE_TYPE::GAME;
+		}
 	}
 	else {
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::SETTING)],
@@ -176,6 +193,14 @@ void title_render()
 			64, 64,
 			0,
 			1, 1, 1, 1);
+		if (title_text_scale[int(TITLE_BUTTON::SETTING)] > 0.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::SETTING)] -= 0.1f;
+		}
+		if (title_text_y[int(TITLE_BUTTON::SETTING)] < SCREEN_H / 10.0f * 8.0f)
+		{
+			title_text_y[int(TITLE_BUTTON::SETTING)] += 20;
+		}
 	}
 
 
@@ -191,7 +216,18 @@ void title_render()
 			0,
 			1, 1, 1, 1);
 
+		if (title_text_scale[int(TITLE_BUTTON::HELP)] < 2.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::HELP)] += 0.1f;
 
+		}
+		if (title_text_y[int(TITLE_BUTTON::HELP)] > SCREEN_H / 10.0f * 8.0f - 100)
+		{
+			title_text_y[int(TITLE_BUTTON::HELP)] -= 10;
+		}		if (TRG_RELEASE(0) & L_CLICK) {
+			title_state.state = S_SCENE::F_TRANSITION;
+			_next = SCENE_TYPE::TUTORIAL;
+		}
 	}
 	else {
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::HELP)],
@@ -202,6 +238,15 @@ void title_render()
 			64, 64,
 			0,
 			1, 1, 1, 1);
+
+		if (title_text_scale[int(TITLE_BUTTON::HELP)] > 0.0f)
+		{
+			title_text_scale[int(TITLE_BUTTON::HELP)] -= 0.1f;
+		}
+		if (title_text_y[int(TITLE_BUTTON::HELP)] < SCREEN_H / 10.0f * 8.0f)
+		{
+			title_text_y[int(TITLE_BUTTON::HELP)] += 20;
+		}
 	}
 
 
@@ -210,6 +255,25 @@ void title_render()
 		SCREEN_W / 2.0f, title_text_y[int(TITLE_BUTTON::START)],
 		title_text_scale[int(TITLE_BUTTON::START)], title_text_scale[int(TITLE_BUTTON::START)],
 		576 / 3 * int(TITLE_BUTTON::START), 0,
+		576 / 3.0f, 64,
+		576 / 6.0f, 32,
+		0,
+		1, 1, 1, 1);
+
+
+	sprite_render(sprTITLE_BUTTON_TEXT,
+		SCREEN_W / 4.0f, title_text_y[int(TITLE_BUTTON::HELP)],
+		title_text_scale[int(TITLE_BUTTON::HELP)], title_text_scale[int(TITLE_BUTTON::HELP)],
+		576 / 3 * int(TITLE_BUTTON::HELP), 0,
+		576 / 3.0f, 64,
+		576 / 6.0f, 32,
+		0,
+		1, 1, 1, 1);
+
+	sprite_render(sprTITLE_BUTTON_TEXT,
+		SCREEN_W / 4.0f * 3.0f, title_text_y[int(TITLE_BUTTON::SETTING)],
+		title_text_scale[int(TITLE_BUTTON::SETTING)], title_text_scale[int(TITLE_BUTTON::SETTING)],
+		576 / 3 * int(TITLE_BUTTON::SETTING), 0,
 		576 / 3.0f, 64,
 		576 / 6.0f, 32,
 		0,
