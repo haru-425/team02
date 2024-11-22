@@ -69,7 +69,7 @@ void enemy_update()
 	{
 	case 0:
 		//////// ‰Šúİ’è ////////
-		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
+		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,80 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
 		sprEnemy = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
 		// Ÿ‚Ìó‘Ô‚É‘JˆÚ
 		++enemy_state;

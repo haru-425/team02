@@ -19,6 +19,9 @@ using namespace input;
 
 //debug
 Sprite* sprArrow;
+
+Sprite* sprBG_GAME;
+Sprite* sprFRAME_GAME;
 //------< íËêî >----------------------------------------------------------------
 
 
@@ -38,6 +41,8 @@ void game_deinit()
 {
 	//debug
 	safe_delete(sprArrow);
+	safe_delete(sprBG_GAME);
+	safe_delete(sprFRAME_GAME);
 	enemy_deinit();
 	player_deinit();
 	bomb_deinit();
@@ -60,6 +65,8 @@ void game_update()
 		//debug
 
 		sprArrow = sprite_load(L"./Data/Images/unnamed.png");
+		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");
+		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame.png");
 	case game_state.B_TRANSIATON:
 		if (true)
 		{
@@ -113,13 +120,14 @@ void game_update()
 
 	game_timer++;
 }
-
 //--------------------------------------
 //  ï`âÊèàóù
 //--------------------------------------
 void game_render()
 {
 	GameLib::clear(0.2f, 0.2f, 0.4f);
+
+	sprite_render(sprBG_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
 	enemy_render();
 	bomb_render();
 	player_render();
@@ -149,6 +157,9 @@ void game_render()
 
 	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 	text_out(6, to_string(score), SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 20, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+
+	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
+
 
 	string time_str = to_string(LIMIT_TIME / 60 / 60) + ":" + to_string(LIMIT_TIME / 60 % 60) + ":" + to_string(LIMIT_TIME % 60);
 	text_out(6, "TIME", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 30, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);

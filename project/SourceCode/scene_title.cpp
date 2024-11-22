@@ -61,7 +61,7 @@ void title_update()
 
 		sprTITLE_BUTTON_TEXT = sprite_load(L"./Data/Images/UI/title_text.png");
 
-		sprBG_TITLE = sprite_load(L"./Data/Images/BG/start.png");
+		sprBG_TITLE = sprite_load(L"./Data/Images/BG/title01.png");
 
 
 
@@ -111,7 +111,7 @@ void title_render()
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 
-	sprite_render(sprBG_TITLE, 0, 0, 1, 1);
+	sprite_render(sprBG_TITLE, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
 
 	sprite_render(sprTITLE_UI_BACK,
 		SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f,
