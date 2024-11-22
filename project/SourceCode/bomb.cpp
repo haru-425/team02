@@ -9,6 +9,7 @@ float flepX = 0.0f;
 float flepY = 0.0f;
 std::vector<Bomb_range> range_Box;
 float blast_max_range = 0;
+extern int tutorial_progress;
 
 void bomb_init()
 {
@@ -44,11 +45,11 @@ void bomb_throw(float muster_up, int bomb_up)
 
 	bomb.bomb_state++;
 
-
 }
 
 void bomb_expansion()
 {
+
 	flepX = player.position.x - bomb.bomb_position.x;
 	flepY = player.position.y - bomb.bomb_position.y;
 
@@ -98,7 +99,11 @@ void bomb_update()
 		auto it = std::remove_if(range_Box.begin(), range_Box.end(),
 			[](const Bomb_range& renge) { return renge.bomb_blast_range >= renge.bomb_blast_max_range; });
 		range_Box.erase(it, range_Box.end());
-		player_movement(angle, force + BOMB_ADJUSTMENT);
+		if (tutorial_progress != 1)
+		{
+			player_movement(angle, force + BOMB_ADJUSTMENT);
+		}
+		
 		return;
 
 		break;
