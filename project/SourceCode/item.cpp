@@ -16,6 +16,9 @@
 #include <algorithm>
 
 #include "player.h"
+#include "enemy.h"
+#include "score.h"
+#include "bomb.h"
 
 Sprite* sprItem;
 
@@ -56,14 +59,13 @@ void item_update()
 	{
 	case 0:
 		//////// ‰Šúİ’è ////////
-		sprItem = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
+		sprItem = sprite_load(L"./Data/Images/Entity/Items.png");
 		// Ÿ‚Ìó‘Ô‚É‘JˆÚ
 		++item_state;
 		/*fallthrough*/
 
 	case 1:
 		//////// ƒpƒ‰ƒ[ƒ^‚Ìİ’è ////////
-		item_spawn({ 380.0f,380.0f }, ITEM_TYPE::HPRecovery, 10.0f);
 		// Ÿ‚Ìó‘Ô‚É‘JˆÚ
 		++item_state;
 		/*fallthrough*/
@@ -139,12 +141,45 @@ void item_act()
 	auto item_it = std::remove_if(item.begin(), item.end(),
 		[](const ITEM& items) { return items.timer <= 0; });
 	item.erase(item_it, item.end());
+
+
+	//for (auto& enemy : enemy_pop) {
+	//	for (auto& range_Boxes : range_Box) {
+
+	//		if (isCircleColliding(range_Boxes.judg_position, range_Boxes.bomb_blast_range, enemy.position, ENEMY_CD)) {
+	//			item_spawn(enemy.position, ITEM_TYPE::HPRecovery, 10.0f);
+	//		}
+	//	}
+
+
+	//}
 }
 
 
+void item_spawn(VECTOR2 _pos) {
+	int ITEM_POP_RATE = rand() % 10;
+	if (ITEM_POP_RATE < 4)
+	{
+		switch (rand() % 5)
+		{
+		case 0:
+			item.push_back(ITEM(_pos, ITEM_TYPE::ExplosionRangeCloseUp, 60 * 10.0f));
+			break;
+		case 1:
+			item.push_back(ITEM(_pos, ITEM_TYPE::HPRecovery, 60 * 10.0f));
+			break;
+		case 2:
+			item.push_back(ITEM(_pos, ITEM_TYPE::LimitTimeExtended, 60 * 10.0f));
+			break;
+		case 3:
+			item.push_back(ITEM(_pos, ITEM_TYPE::ScoreTwoTimes, 60 * 10.0f));
+			break;
+		case 4:
+			item.push_back(ITEM(_pos, ITEM_TYPE::TopEnemyInvalid, 60 * 10.0f));
+			break;
+		}
+	}
 
-void item_spawn(VECTOR2 _pos, ITEM_TYPE _type) {
-	item.push_back(ITEM(_pos, _type, 60 * 10.0f));
 }
 void item_spawn(VECTOR2 _pos, ITEM_TYPE _type, float _time) {
 

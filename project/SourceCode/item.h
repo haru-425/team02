@@ -59,5 +59,5 @@ void item_update();
 void item_render();
 void item_deinit();
 void item_act();
-void item_spawn(VECTOR2 _pos, ITEM_TYPE _type);
+void item_spawn(VECTOR2 _pos);
 void item_spawn(VECTOR2 _pos, ITEM_TYPE _type, float _time);

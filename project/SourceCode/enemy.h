@@ -56,6 +56,14 @@ public:
 };
 //------< 変数 >----------------------------------------------------------------
 extern enum class ENEMY_TYPE;
+extern int ThrowTimer;
+extern bool IsThrowing;
+
+
+extern std::vector<ENEMY> enemy_pop;
+extern std::vector<ENEMY> enemy_thrower;
+extern std::vector<ENEMY> enemy_thrown_item;
+//--------------------------------------
 
 //------< プロトタイプ宣言 >-----------------------------------------------------
 void enemy_init();

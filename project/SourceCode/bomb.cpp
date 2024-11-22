@@ -8,7 +8,7 @@ extern float angle;
 float flepX = 0.0f;
 float flepY = 0.0f;
 std::vector<Bomb_range> range_Box;
-float blast_max_range=0;
+float blast_max_range = 0;
 
 void bomb_init()
 {
@@ -32,22 +32,22 @@ void bomb_deinit()
 	bomb.bom_time = 0;
 }
 
-void bomb_throw(float muster_up,int bomb_up)
-{	
+void bomb_throw(float muster_up, int bomb_up)
+{
 	bomb.start_bomb_position = player.position;
 
 	VECTOR2 Point = cursor_position();
 	bomb.bomb_angle = tracking(Point, player.position);
 
-	blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5)+(float)(bomb_up*10);
+	blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5) + (float)(bomb_up * 10);
 	//bomb.bomb_speed = 50.0f;
 
 	bomb.bomb_state++;
 
-	
+
 }
 
-void bomb_expansion() 
+void bomb_expansion()
 {
 	flepX = player.position.x - bomb.bomb_position.x;
 	flepY = player.position.y - bomb.bomb_position.y;
@@ -114,7 +114,7 @@ void bomb_render()
 	}
 
 
-	
+
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 
 	for (int i = 0; i < 120; i++)
@@ -140,7 +140,7 @@ void bomb_render()
 Bomb_range::Bomb_range(VECTOR2 position) :judg_position(position)
 {
 	bomb_blast_range = 0;
-	this->bomb_blast_max_range= blast_max_range;
+	this->bomb_blast_max_range = blast_max_range;
 	player_launch = false;
 }
 

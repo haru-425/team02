@@ -26,6 +26,8 @@ Sprite* sprArrow;
 S_SCENE game_state;
 int game_timer;
 
+int LIMIT_TIME;
+
 void game_init()
 {
 	game_state.state = 0;
@@ -69,6 +71,7 @@ void game_update()
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 
 		game_state.state = game_state.NORMAL;
+		LIMIT_TIME = LIMT_TIME_MAX;
 
 	case game_state.NORMAL:
 		if (TRG(0) & PAD_SELECT)
@@ -87,13 +90,17 @@ void game_update()
 
 
 
+		if (LIMIT_TIME <= 0)
+		{
+			game_state.state = game_state.F_TRANSITION;
+		}
 
-
+		item_update();
 		score_update();
 		enemy_update();
 		player_update();
 		bomb_update();
-		item_update();
+		LIMIT_TIME--;
 		break;
 	case game_state.F_TRANSITION:
 		if (true)
@@ -138,5 +145,13 @@ void game_render()
 		);
 	}
 
+
+
+	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, to_string(score), SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 20, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+
+	string time_str = to_string(LIMIT_TIME / 60 / 60) + ":" + to_string(LIMIT_TIME / 60 % 60) + ":" + to_string(LIMIT_TIME % 60);
+	text_out(6, "TIME", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 30, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, time_str, SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 40, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 
 }

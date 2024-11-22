@@ -15,8 +15,12 @@
 #include <vector>
 #include <algorithm>
 
-Sprite* sprEnemy;
+#include "score.h"
 
+Sprite* sprEnemy;
+bool IsThrowing = true;
+
+int ThrowTimer;
 using namespace input;
 
 // プレイヤーの状態を管理する変数
@@ -73,7 +77,7 @@ void enemy_update()
 
 	case 1:
 		//////// パラメータの設定 ////////
-
+		IsThrowing = true;
 		// 次の状態に遷移
 		++enemy_state;
 		/*fallthrough*/
@@ -195,12 +199,13 @@ void enemy_act()
 		{
 			enemy.faceing *= -1;
 		}
+
 	}
 
 
 
 
-	if (enemy_timer % spawnrate == 0)
+	if (enemy_timer % spawnrate == 0 && IsThrowing)
 	{
 		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f, ENEMY_TYPE::ENEMY_TYPE_THROWN_ITEM));
 	}
@@ -218,11 +223,35 @@ void enemy_act()
 		[](const ENEMY& enemy) { return enemy.position.y >= SCREEN_H + 100; });
 	enemy_thrown_item.erase(thrown_it, enemy_thrown_item.end());
 
+
+
+	if (ThrowTimer <= 0)
+	{
+		if (!IsThrowing)
+		{
+			IsThrowing = true;
+		}
+	}
+	else {
+
+		ThrowTimer--;
+	}
+
 }
 
 
 void enemy_kill(float bomb_blast_range, VECTOR2 blast_posison)
 {
+	for (auto& enemy : enemy_pop) {
+
+
+		if (isCircleColliding(blast_posison, bomb_blast_range, enemy.position, ENEMY_CD)) {
+			score_add(10);
+			item_spawn(enemy.position);
+
+		}
+
+	}
 	enemy_pop.erase(
 		std::remove_if(enemy_pop.begin(), enemy_pop.end(),
 			[&](const ENEMY& enemy) {
