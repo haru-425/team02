@@ -50,6 +50,7 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	// 位置を返す
 	return VECTOR2(x, y);
 }
+
 VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float gravity)
 {
 	// 初期速度を計算
@@ -68,9 +69,6 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time, float grav
 
 	// 位置を返す
 	return VECTOR2(x, y);
-
-
-
 
 }
 
@@ -97,6 +95,7 @@ float LaunchCalculateRotation(float angle, float force, float time) {
 
 	return angleAtTime - 90.0f;
 }
+
 float LaunchCalculateRotation(float angle, float force, float time, float gravity)
 {
 	// 初期速度を計算
@@ -146,6 +145,7 @@ VECTOR2 edge_reflecting(VECTOR2 pos) {
 	return pos;
 
 }
+
 VECTOR2 cursor_position() {
 
 	POINT point;
@@ -278,8 +278,6 @@ bool isColliding(VECTOR2 _center, VECTOR2  _size, VECTOR2 rot_center, VECTOR2  r
 
 	return true; // 全ての軸で重なっていれば衝突
 }
-
-
 
 //回転する矩形と円の当たり判定
 
