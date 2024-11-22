@@ -56,35 +56,8 @@ void player_update()
 
 	case 2:
 		player.player_time += 0.1f;
-		player_act();
-		if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
-		{
-			click_time += 0.2;
-		}
-		if (bomb.bomb_state == 0)
-		{
-			// ƒNƒŠƒbƒN‚ð—£‚µ‚½uŠÔ‚É”š’e‚ð“Š‚°‚é
-			if (TRG_RELEASE(0) & L_CLICK)
-			{
-				bomb_throw(click_time, player.bomb_reinforce_item);
-				click_time = 0;
-				bomb.bomb_state = 1; // ŽŸ‚Ìó‘Ô‚Éi‚Þ
-			}
-		}
-		else if (bomb.bomb_state == 2)
-		{
-			// ƒNƒŠƒbƒN‚ð‰Ÿ‚µ‚½uŠÔ‚É”š’e‚ð–c’£‚³‚¹‚é
-			if (TRG(0) & L_CLICK)
-			{
-				bomb_expansion();
-				bomb.bomb_state = -1; // ó‘Ô‚ð‰Šú‰»
-			}
-		}
-		else if (TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
-		{
-			bomb.bomb_state = 0;
-		}
-
+		player_act(player);
+		
 		for (auto& enemy : enemy_pop)
 		{
 			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
@@ -143,8 +116,35 @@ void player_render()
 //--------------------------------------
 //  ƒvƒŒƒCƒ„[‚Ìs“®ˆ—
 //--------------------------------------
-void player_act()
+void player_act(PLAYER player)
 {
+	if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
+	{
+		click_time += 0.2;
+	}
+	if (bomb.bomb_state == 0)
+	{
+		// ƒNƒŠƒbƒN‚ð—£‚µ‚½uŠÔ‚É”š’e‚ð“Š‚°‚é
+		if (TRG_RELEASE(0) & L_CLICK)
+		{
+			bomb_throw(click_time, player.bomb_reinforce_item);
+			click_time = 0;
+			bomb.bomb_state = 1; // ŽŸ‚Ìó‘Ô‚Éi‚Þ
+		}
+	}
+	else if (bomb.bomb_state == 2)
+	{
+		// ƒNƒŠƒbƒN‚ð‰Ÿ‚µ‚½uŠÔ‚É”š’e‚ð–c’£‚³‚¹‚é
+		if (TRG(0) & L_CLICK)
+		{
+			bomb_expansion();
+			bomb.bomb_state = -1; // ó‘Ô‚ð‰Šú‰»
+		}
+	}
+	else if (TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
+	{
+		bomb.bomb_state = 0;
+	}
 
 }
 
