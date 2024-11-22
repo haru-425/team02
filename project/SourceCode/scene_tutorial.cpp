@@ -13,10 +13,12 @@ using namespace input;
 //------< •Ï” >----------------------------------------------------------------
 S_SCENE tutorial_state;
 int tutorial_timer;
+int tutorial_progress;
 VECTOR3 tutorial_color;
+
 void tutorial_init()
 {
-	tutorial_state.state = 0;
+	tutorial_progress = 0;
 	tutorial_timer = 0;
 	tutorial_state.state = tutorial_state.INITIALIZE;
 }
@@ -49,11 +51,17 @@ void tutorial_update()
 	case tutorial_state.NORMAL:
 
 		break;
-		/*switch (switch_on)
+		switch (tutorial_progress)
 		{
+		case 1:
+
+			break;
+		case 2:
+
+			break;
 		default:
 			break;
-		}*/
+		}
 
 	case tutorial_state.F_TRANSITION:
 		if (tutorial_timer >= 240)

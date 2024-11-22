@@ -29,16 +29,6 @@
 
 
 //------< 構造体 >---------------------------------------------------------------
-
-
-//------< プロトタイプ宣言 >-----------------------------------------------------
-void player_init();
-void player_update();
-void player_render();
-void player_deinit();
-void player_act(PLAYER player);
-void player_movement(float angle, float force);
-
 class PLAYER {
 public:
 	float angle;
@@ -57,5 +47,15 @@ public:
 
 	int bomb_reinforce_item;
 };
+
+//------< プロトタイプ宣言 >-----------------------------------------------------
+
+void player_init();
+void player_update();
+void player_render();
+void player_deinit();
+void player_act(PLAYER player);
+void player_movement(float angle, float force);
+
 //------< 変数 >----------------------------------------------------------------
 extern PLAYER player;

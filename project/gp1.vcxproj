@@ -224,7 +224,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="SourceCode\scene_title.cpp" />
     <ClCompile Include="SourceCode\score.cpp" />
     <ClCompile Include="SourceCode\system.cpp" />
-    <ClCompile Include="SourceCode\tutorial.cpp" />
+    <ClCompile Include="SourceCode\scene_tutorial.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
