@@ -1,12 +1,5 @@
 //------< インクルード >---------------------------------------------------------
-#include "../GameLib/game_lib.h"
-#include "common.h"
-#include "audio.h"
-#include "m_scene.h"
-// namespace
-using namespace GameLib;
-using namespace input;
-
+#include "scene_tutorial.h"
 //------< 定数 >----------------------------------------------------------------
 
 
@@ -15,6 +8,7 @@ S_SCENE tutorial_state;
 int tutorial_timer;
 int tutorial_progress;
 VECTOR3 tutorial_color;
+PLAYER tutorial_player;
 
 void tutorial_init()
 {
@@ -53,11 +47,19 @@ void tutorial_update()
 		break;
 		switch (tutorial_progress)
 		{
+		case 0://初期化
+			tutorial_player.player_time = 0;
+			tutorial_player.position = VECTOR2(500.0f, 350.0f);
+			tutorial_player.strat_position = player.position;
+			tutorial_player.hp = PLAYER_MAX_HP;
+			tutorial_player.damege_invincible = false;
+			tutorial_player.bomb_reinforce_item = 0;
+			tutorial_progress++;
 		case 1:
-
+			player_act(tutorial_player);
 			break;
 		case 2:
-
+			player_act(tutorial_player);
 			break;
 		default:
 			break;
