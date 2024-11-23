@@ -5,7 +5,7 @@
 
 //------< ïœêî >----------------------------------------------------------------
 SCENE_TYPE curScene = SCENE_TYPE::NONE;
-SCENE_TYPE nextScene = SCENE_TYPE::TITLE;
+SCENE_TYPE nextScene = SCENE_TYPE::START;
 //FADE fade;
 
 
@@ -36,6 +36,9 @@ void M_SCENE::SceneChangeProcessing() {
 		case SCENE_TYPE::TUTORIAL:
 			tutorial_deinit();
 			break;
+		case SCENE_TYPE::RESULT:
+			result_deinit();
+			break;
 		}
 
 		// éüÇÃÉVÅ[ÉìÇ…âûÇ∂ÇΩèâä˙ê›íËèàóù
@@ -55,6 +58,9 @@ void M_SCENE::SceneChangeProcessing() {
 
 		case SCENE_TYPE::TUTORIAL:
 			tutorial_init();
+			break;
+		case SCENE_TYPE::RESULT:
+			result_init();
 			break;
 		}
 
@@ -84,6 +90,9 @@ void M_SCENE::SceneUpdateProcessing() {
 	case SCENE_TYPE::TUTORIAL:
 		tutorial_update();
 		break;
+	case SCENE_TYPE::RESULT:
+		result_update();
+		break;
 	}
 
 }
@@ -105,6 +114,9 @@ void M_SCENE::SceneRenderProcessing() {
 
 	case SCENE_TYPE::TUTORIAL:
 		tutorial_render();
+		break;
+	case SCENE_TYPE::RESULT:
+		result_render();
 		break;
 	}
 
@@ -130,6 +142,9 @@ void M_SCENE::SceneEndProcessing() {
 
 	case SCENE_TYPE::TUTORIAL:
 		tutorial_deinit();
+		break;
+	case SCENE_TYPE::RESULT:
+		result_deinit();
 		break;
 	}
 

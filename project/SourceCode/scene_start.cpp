@@ -59,7 +59,7 @@ void start_update()
 		}
 		break;
 	case start_state.F_TRANSITION:
-		if (start_timer >= 240)
+		if (start_timer >= 60)
 		{
 			nextScene = SCENE_TYPE::TITLE;
 		}

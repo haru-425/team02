@@ -164,7 +164,7 @@ void item_act()
 
 	for (auto& items : item) {
 
-		if (isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000)) {
+		if (isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 10)) {
 			switch (items.type)
 			{
 			case  ITEM_TYPE::ExplosionRangeCloseUp:
@@ -173,20 +173,25 @@ void item_act()
 					player.bomb_reinforce_item++;
 
 				}
+				sound::play(XWB_SOUNDS, XWB_SOUND_ITEM_ACQUISITION);
 				break;
 			case ITEM_TYPE::HPRecovery:
 				if (player.hp > PLAYER_MAX_HP)break;
 				else player.hp += 1;
+				sound::play(XWB_SOUNDS, XWB_SOUND_HEALING);
 				break;
 			case ITEM_TYPE::LimitTimeExtended:
 				LIMIT_TIME += 60 * 5;
+				sound::play(XWB_SOUNDS, XWB_SOUND_ITEM_ACQUISITION);
 				break;
 			case  ITEM_TYPE::ScoreTwoTimes:
 				score_diameter_set(2, 60 * 5);
+				sound::play(XWB_SOUNDS, XWB_SOUND_ITEM_ACQUISITION);
 				break;
 			case ITEM_TYPE::TopEnemyInvalid:
 				IsThrowing = false;
 				ThrowTimer = 60 * 10;
+				sound::play(XWB_SOUNDS, XWB_SOUND_ITEM_ACQUISITION);
 				break;
 			}
 		}
@@ -196,7 +201,7 @@ void item_act()
 	item.erase(
 		std::remove_if(item.begin(), item.end(),
 			[&](const ITEM& items) {
-				return isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 1000000);
+				return isCircleColliding(items.position, 64 * (items.scale.x * ITEM_SCALE), player.position, 10);
 			}),
 		item.end()
 	);

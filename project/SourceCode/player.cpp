@@ -64,6 +64,8 @@ void player_update()
 				&& player.damege_invincible == false)//“G‚Æ©•ª‚Æ‚Ì“–‚½‚è”»’è‚ğğŒ‚É“ü‚ê‚é
 			{
 				player.hp -= 1;
+
+				sound::play(XWB_SOUNDS, XWB_SOUND_HIT);
 				if (player.hp == 0)
 				{
 					game_state.state = S_SCENE::F_TRANSITION;
@@ -129,6 +131,8 @@ void player_act(PLAYER player)
 		{
 			bomb_throw(click_time, player.bomb_reinforce_item);
 			click_time = 0;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_THROW);
 			bomb.bomb_state = 1; // Ÿ‚Ìó‘Ô‚Éi‚Ş
 		}
 	}
@@ -137,6 +141,7 @@ void player_act(PLAYER player)
 		// ƒNƒŠƒbƒN‚ğ‰Ÿ‚µ‚½uŠÔ‚É”š’e‚ğ–c’£‚³‚¹‚é
 		if (TRG(0) & L_CLICK)
 		{
+			sound::play(XWB_SOUNDS, XWB_SOUND_BOMB);
 			bomb_expansion();
 			bomb.bomb_state = -1; // ó‘Ô‚ğ‰Šú‰»
 		}

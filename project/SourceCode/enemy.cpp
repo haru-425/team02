@@ -69,7 +69,7 @@ void enemy_update()
 	{
 	case 0:
 		//////// èâä˙ê›íË ////////
-		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,50 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
+		enemy_thrower.push_back(ENEMY({ SCREEN_H / 2.0f,80 }, 0, 0, ENEMY_TYPE::ENEMY_TYPE_THROWER));
 		sprEnemy = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
 		// éüÇÃèÛë‘Ç…ëJà⁄
 		++enemy_state;
@@ -206,7 +206,10 @@ void enemy_act()
 
 
 	if (enemy_timer % spawnrate == 0 && IsThrowing)
+
 	{
+
+		sound::play(XWB_SOUNDS, XWB_SOUND_FIRE);
 		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f, ENEMY_TYPE::ENEMY_TYPE_THROWN_ITEM));
 	}
 

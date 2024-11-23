@@ -103,7 +103,7 @@ void bomb_update()
 		{
 			player_movement(angle, force + BOMB_ADJUSTMENT);
 		}
-		
+
 		return;
 
 		break;
