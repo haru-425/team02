@@ -210,7 +210,7 @@ void item_act()
 
 void item_spawn(VECTOR2 _pos) {
 	int ITEM_POP_RATE = rand() % 10;
-	if (ITEM_POP_RATE < 10)
+	if (ITEM_POP_RATE < 2)
 	{
 		switch (rand() % 5)
 		{
