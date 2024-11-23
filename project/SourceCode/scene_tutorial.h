@@ -11,6 +11,8 @@
 #include "../GameLib/game_lib.h"
 #include "common.h"
 #include "audio.h"
+#include "system.h"
+#include "bomb.h"
 #include "m_scene.h"
 // namespace
 using namespace GameLib;

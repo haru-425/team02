@@ -7,14 +7,19 @@
 S_SCENE tutorial_state;
 int tutorial_timer;
 int tutorial_progress;
+float tutorial_force = 0.0f;
+float tutorial_angle = 0.0f;
+float tutorial_click_times = 0;
 VECTOR3 tutorial_color;
 PLAYER tutorial_player;
+extern Bomb bomb;
 
 void tutorial_init()
 {
 	tutorial_progress = 0;
 	tutorial_timer = 0;
 	tutorial_state.state = tutorial_state.INITIALIZE;
+	tutorial_click_times = 0;
 }
 void tutorial_deinit()
 {
@@ -44,7 +49,6 @@ void tutorial_update()
 
 	case tutorial_state.NORMAL:
 
-		break;
 		switch (tutorial_progress)
 		{
 		case 0://èâä˙âª
@@ -55,16 +59,20 @@ void tutorial_update()
 			tutorial_player.damege_invincible = false;
 			tutorial_player.bomb_reinforce_item = 0;
 			tutorial_progress++;
+			bomb_init();
 		case 1:
 			player_act(tutorial_player);
+			bomb_update();
 			break;
 		case 2:
 			player_act(tutorial_player);
+			bomb_update();
 			break;
 		default:
 			break;
 		}
 
+		break;
 	case tutorial_state.F_TRANSITION:
 		if (tutorial_timer >= 240)
 		{
@@ -80,4 +88,28 @@ void tutorial_render()
 {
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
+	primitive::circle(tutorial_player.position.x, tutorial_player.position.y, 10, 1, 1, 0, 1, 0, 1);
+
+	if (STATE(0) & L_CLICK && tutorial_click_times)
+	{
+		primitive::circle(tutorial_player.position.x, tutorial_player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (tutorial_click_times * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+	}
+	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
+	
+	for (int i = 0; i < 120; i++)
+	{
+		primitive::circle(edge_reflecting(
+			tutorial_player.position + LaunchCalculatePosition(
+				-tracking(
+					cursor_position(
+					), tutorial_player.position
+				), bomb.bomb_speed, i * 0.5f
+			)
+		).x,
+			edge_reflecting(tutorial_player.position + LaunchCalculatePosition(-tracking(cursor_position(), tutorial_player.position), bomb.bomb_speed, i * 0.5f)).y,
+			3,
+			1, 1,
+			0,
+			1, 1, 1, 0.5f);
+	}
 }
