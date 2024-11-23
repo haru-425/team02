@@ -33,12 +33,12 @@ void bomb_deinit()
 	bomb.bom_time = 0;
 }
 
-void bomb_throw(float muster_up, int bomb_up)
+void bomb_throw(float muster_up, int bomb_up, VECTOR2 position)
 {
-	bomb.start_bomb_position = player.position;
+	bomb.start_bomb_position = position;
 
 	VECTOR2 Point = cursor_position();
-	bomb.bomb_angle = tracking(Point, player.position);
+	bomb.bomb_angle = tracking(Point, position);
 
 	blast_max_range = BOMB_BLAST_MAX_INIT_RANGE + (muster_up * 5) + (float)(bomb_up * 8);
 	//bomb.bomb_speed = 50.0f;

@@ -129,10 +129,8 @@ void player_act(PLAYER player)
 		// クリックを離した瞬間に爆弾を投げる
 		if (TRG_RELEASE(0) & L_CLICK)
 		{
-			bomb_throw(click_time, player.bomb_reinforce_item);
+			bomb_throw(click_time, player.bomb_reinforce_item, player.position);
 			click_time = 0;
-
-			sound::play(XWB_SOUNDS, XWB_SOUND_THROW);
 			bomb.bomb_state = 1; // 次の状態に進む
 		}
 	}
