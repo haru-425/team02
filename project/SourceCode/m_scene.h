@@ -5,6 +5,7 @@
 #include "scene_title.h"
 #include "scene_start.h"
 #include "scene_tutorial.h"
+#include "scene_result.h"
 #include "audio.h"
 #include "common.h"
 
@@ -22,6 +23,7 @@ enum class SCENE_TYPE
 	TITLE,
 	GAME,
 	TUTORIAL,
+	RESULT,
 };
 
 

@@ -115,7 +115,7 @@ void game_update()
 	case game_state.F_TRANSITION:
 		if (true)
 		{
-			nextScene = SCENE_TYPE::TITLE;
+			nextScene = SCENE_TYPE::RESULT;
 		}
 
 
@@ -134,7 +134,6 @@ void game_render()
 	enemy_render();
 	bomb_render();
 	player_render();
-	score_render();
 	item_render();
 	//debug::setString("game_timer%d", game_timer);
 	//debug::setString("game_state%d", game_state.state);
@@ -159,6 +158,7 @@ void game_render()
 
 	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 
+	score_render();
 	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 	text_out(6, to_string(score), SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 20, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
 
