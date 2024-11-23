@@ -196,6 +196,7 @@ void result_render()
 		}		if (TRG_RELEASE(0) & L_CLICK) {
 			result_state.state = S_SCENE::F_TRANSITION;
 			__next = SCENE_TYPE::TITLE;
+			sound::play (XWB_SOUNDS, XWB_SOUND_RETURN_BUTTON);
 		}
 	}
 	else {

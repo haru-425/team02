@@ -206,7 +206,10 @@ void enemy_act()
 
 
 	if (enemy_timer % spawnrate == 0 && IsThrowing)
+
 	{
+
+		sound::play(XWB_SOUNDS, XWB_SOUND_FIRE);
 		enemy_thrown_item.push_back(ENEMY(enemy_thrower[0].position, rand() % 3 - 1, 25.0f, ENEMY_TYPE::ENEMY_TYPE_THROWN_ITEM));
 	}
 

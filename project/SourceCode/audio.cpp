@@ -10,9 +10,12 @@ void audio_init()
 	music::load(BGM_GAME, L"./Data/Musics/Scramble_Line.wav");
 	music::load(BGM_RESULT, L"./Data/Musics/Starlights.wav");
 
-	//sound::load(XWB_SYSTEM, L"./Data/Sounds/system.xwb");
+	sound::load(XWB_SOUNDS, L"./Data/Sounds/sounds.xwb");
+	for (int i = 0; i < 8; i++)
+	{
 
-	//sound::setVolume(XWB_STAGE1, XWB_STAGE1_MISSILE, 4.0f);
+		sound::setVolume(XWB_SOUNDS, i, 4.0f);
+	}
 }
 
 void audio_deinit()
