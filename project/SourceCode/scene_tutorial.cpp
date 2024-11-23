@@ -13,6 +13,7 @@ float tutorial_click_times = 0;
 VECTOR3 tutorial_color;
 PLAYER tutorial_player;
 extern Bomb bomb;
+extern std::vector<Bomb_range> range_Box;
 
 void tutorial_init()
 {
@@ -89,6 +90,11 @@ void tutorial_render()
 	// ‰æ–Ê‚ğÂ‚Å“h‚è‚Â‚Ô‚·
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 	primitive::circle(tutorial_player.position.x, tutorial_player.position.y, 10, 1, 1, 0, 1, 0, 1);
+
+
+	for (auto& range : range_Box) {
+		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 1, 1, 0.2f);
+	}
 
 	if (STATE(0) & L_CLICK && tutorial_click_times)
 	{

@@ -140,7 +140,7 @@ void player_act(PLAYER player)
 		if (TRG(0) & L_CLICK)
 		{
 			sound::play(XWB_SOUNDS, XWB_SOUND_BOMB);
-			bomb_expansion();
+			bomb_expansion(player);
 			bomb.bomb_state = -1; // ó‘Ô‚ğ‰Šú‰»
 		}
 	}
