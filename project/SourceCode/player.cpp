@@ -124,6 +124,7 @@ void player_act(PLAYER player)
 	{
 		click_time += 0.2;
 	}
+
 	if (bomb.bomb_state == 0)
 	{
 		// ƒNƒŠƒbƒN‚ğ—£‚µ‚½uŠÔ‚É”š’e‚ğ“Š‚°‚é
@@ -140,7 +141,7 @@ void player_act(PLAYER player)
 		if (TRG(0) & L_CLICK)
 		{
 			sound::play(XWB_SOUNDS, XWB_SOUND_BOMB);
-			bomb_expansion();
+			bomb_expansion(player);
 			bomb.bomb_state = -1; // ó‘Ô‚ğ‰Šú‰»
 		}
 	}
