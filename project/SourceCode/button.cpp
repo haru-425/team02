@@ -22,11 +22,10 @@ bool Button::rect_click(Button button_info)
 
 void Button::tutorial_next_button_set()
 {
-	position;
-	scale;
-	texPos;
-	texSize;
-	pivot;
+	position = { 1080, 660 };
+	scale = { 1,1 };
+	texPos={50,20};
+	texSize = { 100, 40 };
 	enabled = true;
 
 }
@@ -37,7 +36,6 @@ void Button::tutorial_buck_button_set()
 	scale;
 	texPos;
 	texSize;
-	pivot;
 	enabled = true;
 
 }

@@ -24,6 +24,7 @@ enum class SCENE_TYPE
 	GAME,
 	TUTORIAL,
 	RESULT,
+	SETTING,
 };
 
 

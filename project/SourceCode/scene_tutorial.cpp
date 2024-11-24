@@ -17,6 +17,7 @@ extern std::vector<Bomb_range> range_Box;
 Button next_button;
 Button buck_button;
 extern Sprite* sprFRAME_GAME;
+extern Sprite* sprBG_GAME;
 
 void tutorial_init()
 {
@@ -29,7 +30,8 @@ void tutorial_init()
 }
 void tutorial_deinit()
 {
-
+	safe_delete(sprFRAME_GAME);
+	safe_delete(sprBG_GAME);
 	//music::stop(0);
 
 }
@@ -40,6 +42,8 @@ void tutorial_update()
 	{
 	case tutorial_state.INITIALIZE:
 		tutorial_state.state = tutorial_state.B_TRANSIATON;
+		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame2.png");
+		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");
 	case tutorial_state.B_TRANSIATON:
 		if (true)
 		{
@@ -64,11 +68,12 @@ void tutorial_update()
 			tutorial_player.hp = PLAYER_MAX_HP;
 			tutorial_player.damege_invincible = false;
 			tutorial_player.bomb_reinforce_item = 0;
-			tutorial_progress=2;
+			tutorial_progress=1;
 			bomb_init();
 		case 1:
 			player_act(tutorial_player);
 			bomb_update();
+			
 			break;
 		case 2:
 			player_act(tutorial_player);
@@ -77,7 +82,11 @@ void tutorial_update()
 		default:
 			break;
 		}
-
+		if (next_button.rect_click(next_button) && TRG_RELEASE(0) & L_CLICK)
+		{
+			tutorial_progress++;
+		}
+		debug::setString("%d", tutorial_progress);
 		break;
 	case tutorial_state.F_TRANSITION:
 		if (tutorial_timer >= 240)
@@ -94,10 +103,10 @@ void tutorial_render()
 {
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
+	
+	sprite_render(sprBG_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
+
 	primitive::circle(tutorial_player.position.x, tutorial_player.position.y, 10, 1, 1, 0, 1, 0, 1);
-
-
-
 	for (auto& range : range_Box) {
 		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 1, 1, 0.2f);
 	}
@@ -122,6 +131,7 @@ void tutorial_render()
 			0,
 			1, 1, 1, 0.5f);
 	}
-	primitive::rect(800,500,100,50);
 	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
+	primitive::rect(880, 640, 100, 40);
+	primitive::rect(1030, 640, 100, 40);
 }

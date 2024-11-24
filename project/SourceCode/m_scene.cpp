@@ -38,6 +38,8 @@ void M_SCENE::SceneChangeProcessing() {
 			break;
 		case SCENE_TYPE::RESULT:
 			result_deinit();
+		case SCENE_TYPE::SETTING:
+			result_deinit();
 			break;
 		}
 
@@ -60,6 +62,9 @@ void M_SCENE::SceneChangeProcessing() {
 			tutorial_init();
 			break;
 		case SCENE_TYPE::RESULT:
+			result_init();
+			break;
+		case SCENE_TYPE::SETTING:
 			result_init();
 			break;
 		}
@@ -93,6 +98,9 @@ void M_SCENE::SceneUpdateProcessing() {
 	case SCENE_TYPE::RESULT:
 		result_update();
 		break;
+	case SCENE_TYPE::SETTING:
+		result_init();
+		break;
 	}
 
 }
@@ -117,6 +125,9 @@ void M_SCENE::SceneRenderProcessing() {
 		break;
 	case SCENE_TYPE::RESULT:
 		result_render();
+		break;
+	case SCENE_TYPE::SETTING:
+		result_init();
 		break;
 	}
 
@@ -145,6 +156,9 @@ void M_SCENE::SceneEndProcessing() {
 		break;
 	case SCENE_TYPE::RESULT:
 		result_deinit();
+		break;
+	case SCENE_TYPE::SETTING:
+		result_init();
 		break;
 	}
 
