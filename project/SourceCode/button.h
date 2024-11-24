@@ -14,5 +14,6 @@ public:
     bool enabled;       // ƒ{ƒ^ƒ“‚ª—LŒø‚©‚Ç‚¤‚©
 
     void tutorial_next_button_set();
+    void tutorial_buck_button_set();
     bool rect_click(Button button_info);
 };

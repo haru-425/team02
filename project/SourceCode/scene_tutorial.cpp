@@ -14,6 +14,9 @@ VECTOR3 tutorial_color;
 PLAYER tutorial_player;
 extern Bomb bomb;
 extern std::vector<Bomb_range> range_Box;
+Button next_button;
+Button buck_button;
+extern Sprite* sprFRAME_GAME;
 
 void tutorial_init()
 {
@@ -21,6 +24,8 @@ void tutorial_init()
 	tutorial_timer = 0;
 	tutorial_state.state = tutorial_state.INITIALIZE;
 	tutorial_click_times = 0;
+	next_button.tutorial_next_button_set();
+	buck_button.tutorial_buck_button_set();
 }
 void tutorial_deinit()
 {
@@ -59,7 +64,7 @@ void tutorial_update()
 			tutorial_player.hp = PLAYER_MAX_HP;
 			tutorial_player.damege_invincible = false;
 			tutorial_player.bomb_reinforce_item = 0;
-			tutorial_progress++;
+			tutorial_progress=2;
 			bomb_init();
 		case 1:
 			player_act(tutorial_player);
@@ -117,4 +122,6 @@ void tutorial_render()
 			0,
 			1, 1, 1, 0.5f);
 	}
+	primitive::rect(800,500,100,50);
+	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 }

@@ -14,6 +14,7 @@
 #include "system.h"
 #include "bomb.h"
 #include "m_scene.h"
+#include "button.h"
 // namespace
 using namespace GameLib;
 using namespace input;

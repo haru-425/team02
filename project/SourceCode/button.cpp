@@ -1,16 +1,5 @@
 #include "button.h"
 
-void Button::tutorial_next_button_set()
-{
-	position;
-	scale;
-	texPos;
-	texSize;
-	pivot;
-	enabled=true;
-
-}
-
 bool Button::rect_click(Button button_info)
 {
 	// マウスカーソルの座標取得
@@ -29,4 +18,26 @@ bool Button::rect_click(Button button_info)
 
 	// マウスがボタン範囲内ならクリックされたと判定
 	return isWithinX && isWithinY;
+}
+
+void Button::tutorial_next_button_set()
+{
+	position;
+	scale;
+	texPos;
+	texSize;
+	pivot;
+	enabled = true;
+
+}
+
+void Button::tutorial_buck_button_set()
+{
+	position;
+	scale;
+	texPos;
+	texSize;
+	pivot;
+	enabled = true;
+
 }

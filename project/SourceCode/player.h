@@ -3,7 +3,7 @@
 #include "../GameLib/obj2d_data.h"
 #include "common.h"
 #include "audio.h"
-#include "bomb.h"
+//#include "bomb.h"
 #include "enemy.h"
 #include "system.h"
 #include "m_scene.h"

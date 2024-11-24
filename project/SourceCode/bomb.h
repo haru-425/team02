@@ -25,7 +25,7 @@ class PLAYER;
 void bomb_init();							// 爆弾の初期化
 void bomb_deinit();							// 爆弾のリセット
 void bomb_throw(float muster_up, int bomb_up, VECTOR2 position);			// プレイヤーが爆弾を投げる
-void bomb_expansion(PLAYER player);						//爆発処理
+void bomb_expansion(/*PLAYER player*/);						//爆発処理
 void bomb_update();							// 爆弾の状態（タイマーなど）を更新
 void bomb_render();							// 爆弾と爆風範囲の描画処理
 
