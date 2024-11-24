@@ -124,6 +124,7 @@ void player_act(PLAYER player)
 	{
 		click_time += 0.2;
 	}
+
 	if (bomb.bomb_state == 0)
 	{
 		// ƒNƒŠƒbƒN‚ğ—£‚µ‚½uŠÔ‚É”š’e‚ğ“Š‚°‚é
