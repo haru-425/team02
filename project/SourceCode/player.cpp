@@ -7,8 +7,6 @@ int player_state;
 float force = 0.0f;
 float angle = 0.0f;
 float click_time = 0;
-//PLAYER player;
-
 Sprite* sprPLAYER;
 extern std::vector<ENEMY> enemy_pop;
 extern Bomb bomb;
@@ -172,4 +170,5 @@ void player_movement(float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);
+
 }
