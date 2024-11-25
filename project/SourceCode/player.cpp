@@ -52,8 +52,8 @@ void player_update(PLAYER& player)
 
 	case 1:
 		//////// ƒpƒ‰ƒ[ƒ^‚Ìİ’è ////////
-		sprite_load(L"./Data/Images/Entity/player.png");
-
+		sprPLAYER = sprite_load(L"./Data/Images/Entity/player.png");
+		player.color.w = 1;
 		// Ÿ‚Ìó‘Ô‚É‘JˆÚ
 		++player_state;
 		/*fallthrough*/
@@ -113,12 +113,12 @@ void player_render()
 
 	sprite_render(sprPLAYER,
 		player.position.x, player.position.y,
-		1, 1,
+		0.3f, 0.3f,
 		0, 0,
 		128, 128,
 		64, 64,
 		LaunchCalculateRotation(ToRadian(player.angle), force, player.player_time),
-		1, 1, 1, 0.5);
+		1, 1, 1, player.color.w);
 	debug::setString("force%f", force);
 
 
