@@ -6,17 +6,6 @@
 //
 //******************************************************************************
 
-//------< インクルード >---------------------------------------------------------
-#include "../GameLib/game_lib.h"
-#include "common.h"
-#include "audio.h"
-#include "m_scene.h"
-#include "system.h"
-#include "score.h"
-// namespace
-using namespace GameLib;
-using namespace input;
-
 //debug
 Sprite* sprArrow;
 

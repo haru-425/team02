@@ -47,7 +47,7 @@ void bomb_throw(float muster_up, int bomb_up, VECTOR2 position)
 
 }
 
-void bomb_expansion(/*PLAYER player*/)
+void bomb_expansion(PLAYER &player)
 {
 
 	flepX = player.position.x - bomb.bomb_position.x;

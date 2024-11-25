@@ -118,7 +118,7 @@ void player_render()
 //--------------------------------------
 //  プレイヤーの行動処理
 //--------------------------------------
-void player_act(PLAYER player)
+void player_act(PLAYER& player)
 {
 	if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
 	{
@@ -141,7 +141,7 @@ void player_act(PLAYER player)
 		if (TRG(0) & L_CLICK)
 		{
 			sound::play(XWB_SOUNDS, XWB_SOUND_BOMB);
-			bomb_expansion(/*player*/);
+			bomb_expansion(player);
 			bomb.bomb_state = -1; // 状態を初期化
 		}
 	}
@@ -159,12 +159,5 @@ void player_movement(float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);
-	//if (player.position.y < 0)
-	//{
-	//	::force = 0.0;
-	//	player.player_time = 0.0f;
-	//	player.strat_position = { player.position.x, 0.0f };
-	//}
-
-
+	
 }
