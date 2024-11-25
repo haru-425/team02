@@ -215,19 +215,19 @@ void item_spawn(VECTOR2 _pos) {
 		switch (rand() % 5)
 		{
 		case 0:
-			item.push_back(ITEM(_pos, ITEM_TYPE::ExplosionRangeCloseUp, 60 * 10.0f));
+			item.push_back(ITEM(_pos, ITEM_TYPE::ExplosionRangeCloseUp, 60 * 11.0f));
 			break;
 		case 1:
-			item.push_back(ITEM(_pos, ITEM_TYPE::HPRecovery, 60 * 10.0f));
+			item.push_back(ITEM(_pos, ITEM_TYPE::HPRecovery, 60 * 11.0f));
 			break;
 		case 2:
-			item.push_back(ITEM(_pos, ITEM_TYPE::LimitTimeExtended, 60 * 10.0f));
+			item.push_back(ITEM(_pos, ITEM_TYPE::LimitTimeExtended, 60 * 11.0f));
 			break;
 		case 3:
-			item.push_back(ITEM(_pos, ITEM_TYPE::ScoreTwoTimes, 60 * 10.0f));
+			item.push_back(ITEM(_pos, ITEM_TYPE::ScoreTwoTimes, 60 * 11.0f));
 			break;
 		case 4:
-			item.push_back(ITEM(_pos, ITEM_TYPE::TopEnemyInvalid, 60 * 10.0f));
+			item.push_back(ITEM(_pos, ITEM_TYPE::TopEnemyInvalid, 60 * 11.0f));
 			break;
 		}
 	}
