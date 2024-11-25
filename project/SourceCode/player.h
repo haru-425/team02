@@ -52,7 +52,7 @@ public:
 //------< プロトタイプ宣言 >-----------------------------------------------------
 
 void player_init();
-void player_update();
+void player_update(PLAYER& player);
 void player_render();
 void player_deinit();
 void player_act(PLAYER& player);

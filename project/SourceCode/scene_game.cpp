@@ -22,6 +22,8 @@ int game_timer;
 
 int LIMIT_TIME;
 
+PLAYER player;
+
 void game_init()
 {
 	game_state.state = 0;
@@ -99,7 +101,7 @@ void game_update()
 		item_update();
 		score_update();
 		enemy_update();
-		player_update();
+		player_update(player);
 		bomb_update();
 		LIMIT_TIME--;
 		break;
