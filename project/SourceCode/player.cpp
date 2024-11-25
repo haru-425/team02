@@ -36,7 +36,7 @@ void player_deinit()
 //--------------------------------------
 //  プレイヤーの更新処理
 //--------------------------------------
-void player_update()
+void player_update(PLAYER player)
 {
 	switch (player_state)
 	{
