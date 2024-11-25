@@ -7,7 +7,7 @@ int player_state;
 float force = 0.0f;
 float angle = 0.0f;
 float click_time = 0;
-PLAYER player;
+//PLAYER player;
 
 Sprite* sprPLAYER;
 extern std::vector<ENEMY> enemy_pop;
@@ -39,20 +39,20 @@ void player_deinit()
 //--------------------------------------
 //  プレイヤーの更新処理
 //--------------------------------------
-void player_update()
+void player_update(PLAYER& player)
 {
 	switch (player_state)
 	{
 	case 0:
 		//////// 初期設定 ////////
 		player.position = VECTOR2(500, 350);
-		sprite_load(L"./Data/Images/Entity/player.png");
 		// 次の状態に遷移
 		++player_state;
 		/*fallthrough*/
 
 	case 1:
 		//////// パラメータの設定 ////////
+		sprite_load(L"./Data/Images/Entity/player.png");
 
 		// 次の状態に遷移
 		++player_state;
@@ -110,9 +110,15 @@ void player_render()
 {
 
 	primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
+
 	sprite_render(sprPLAYER,
 		player.position.x, player.position.y,
-		1, 1, 1, 1, 0, 1, player.color.x, player.color.w, player.color.z, player.color.w);
+		1, 1,
+		0, 0,
+		128, 128,
+		64, 64,
+		LaunchCalculateRotation(ToRadian(player.angle), force, player.player_time),
+		1, 1, 1, 0.5);
 	debug::setString("force%f", force);
 
 
@@ -166,5 +172,4 @@ void player_movement(float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);
-	//test
 }
