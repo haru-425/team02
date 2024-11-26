@@ -171,7 +171,7 @@ void player_act(PLAYER& player)
 //--------------------------------------
 //  プレイヤーの行動処理
 //--------------------------------------
-void player_movement(PLAYER &player,float angle, float force)
+void player_movement(PLAYER& player, float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);
