@@ -10,6 +10,7 @@ float flepY = 0.0f;
 std::vector<Bomb_range> range_Box;
 float blast_max_range = 0;
 extern int tutorial_progress;
+Sprite* sprBOMB;
 
 void bomb_init()
 {
@@ -31,6 +32,7 @@ void bomb_deinit()
 	bomb.bomb_speed = 50.0f;
 	bomb.bomb_angle = 0.0f;
 	bomb.bom_time = 0;
+	safe_delete(sprBOMB);
 }
 
 void bomb_throw(float muster_up, int bomb_up, VECTOR2 position)
@@ -47,7 +49,7 @@ void bomb_throw(float muster_up, int bomb_up, VECTOR2 position)
 
 }
 
-void bomb_expansion(PLAYER &player)
+void bomb_expansion(PLAYER& player)
 {
 
 	flepX = player.position.x - bomb.bomb_position.x;
@@ -77,6 +79,7 @@ void bomb_update(PLAYER& player)
 	switch (bomb.bomb_state)
 	{
 	case 1:
+		sprBOMB = sprite_load(L"./Data/Images/Bomb/bomb.png");
 		bomb.bom_time = 0.0f;
 		bomb.bomb_state++;
 
@@ -102,7 +105,7 @@ void bomb_update(PLAYER& player)
 
 		if (tutorial_progress != 1)
 		{
-			player_movement(player,angle, force + BOMB_ADJUSTMENT);
+			player_movement(player, angle, force + BOMB_ADJUSTMENT);
 		}
 
 		return;
@@ -120,6 +123,15 @@ void bomb_render()
 	}
 
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
+	sprite_render(sprBOMB,
+		bomb.bomb_position.x, bomb.bomb_position.y,
+		40.0f / 128.0f, 40.0f / 128.0f,
+		0, 0,
+		128, 128,
+		64, 64,
+		LaunchCalculateRotation(ToRadian(bomb.bomb_angle), bomb.bomb_speed, bomb.bom_time)
+
+	);
 
 	for (int i = 0; i < 120; i++)
 	{
