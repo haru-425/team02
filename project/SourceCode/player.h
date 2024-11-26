@@ -31,7 +31,6 @@
 //------< \‘¢‘Ì >---------------------------------------------------------------
 class PLAYER {
 public:
-	bool player_move_juge;
 	float angle;
 	float speed;
 	float player_time;
@@ -56,7 +55,7 @@ void player_update(PLAYER& player);
 void player_render();
 void player_deinit();
 void player_act(PLAYER& player);
-void player_movement(float angle, float force);
+void player_movement(PLAYER& player, float angle, float force);
 
 //------< •Ï” >----------------------------------------------------------------
 extern PLAYER player;

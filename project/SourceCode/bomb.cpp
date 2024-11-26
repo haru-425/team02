@@ -65,7 +65,7 @@ void bomb_expansion(PLAYER &player)
 	bomb_deinit();
 }
 
-void bomb_update()
+void bomb_update(PLAYER& player)
 {
 
 	debug::setString("bomb_blast_max_range:%f", blast_max_range);
@@ -99,9 +99,10 @@ void bomb_update()
 		auto it = std::remove_if(range_Box.begin(), range_Box.end(),
 			[](const Bomb_range& renge) { return renge.bomb_blast_range >= renge.bomb_blast_max_range; });
 		range_Box.erase(it, range_Box.end());
+
 		if (tutorial_progress != 1)
 		{
-			player_movement(angle, force + BOMB_ADJUSTMENT);
+			player_movement(player,angle, force + BOMB_ADJUSTMENT);
 		}
 
 		return;
@@ -117,8 +118,6 @@ void bomb_render()
 	for (auto& range : range_Box) {
 		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 0, 0, 0.2f);
 	}
-
-
 
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 

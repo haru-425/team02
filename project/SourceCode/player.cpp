@@ -23,6 +23,7 @@ void player_init()
 	player.strat_position = player.position;
 	player.hp = PLAYER_MAX_HP;
 	player.damege_invincible = false;
+	player.invincible_time = true;
 	player.bomb_reinforce_item = 0;
 }
 
@@ -166,7 +167,7 @@ void player_act(PLAYER& player)
 //--------------------------------------
 //  プレイヤーの行動処理
 //--------------------------------------
-void player_movement(float angle, float force)
+void player_movement(PLAYER &player,float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
 	player.position = edge_reflecting(player.position);

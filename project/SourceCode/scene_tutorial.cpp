@@ -71,14 +71,20 @@ void tutorial_update()
 			tutorial_progress=1;
 			bomb_init();
 		case 1:
+			tutorial_player.player_time = 0.1f;
 			player_act(tutorial_player);
-			bomb_update();
-			
+			bomb_update(tutorial_player);
 			break;
+
 		case 2:
+			tutorial_progress++;
+		case 3:
+			tutorial_player.player_time += 0.1f;
 			player_act(tutorial_player);
-			bomb_update();
+			bomb_update(tutorial_player);
+
 			break;
+
 		default:
 			break;
 		}

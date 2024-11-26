@@ -39,3 +39,36 @@ void Button::tutorial_buck_button_set()
 	enabled = true;
 
 }
+
+void Button::bgm_volume_Down_init()
+{
+	position = { 1027, 390 };
+	scale = { 0.3f, 0.2f };
+	texPos = { 0, 0 };
+	texSize = { 400, 400 };
+	color = { 1.0f, 1.0f, 1.0f, 1.0f };
+}
+void Button::bgm_volume_Up_init()
+{
+	position = { 1513, 390 };  // 中心位置
+	scale = { 0.3f, 0.2f };
+	texPos = { 0, 0 };
+	texSize = { 400, 400 };
+	color = { 1.0f, 1.0f, 1.0f, 1.0f };
+}
+void Button::se_volume_Down_init()
+{
+	position = { 1027, 590 };  // 中心位置
+	scale = { 0.3f, 0.2f };
+	texPos = { 0, 0 };
+	texSize = { 400, 400 };
+	color = { 1.0f, 1.0f, 1.0f, 1.0f };
+}
+void Button::se_volume_Up_init()
+{
+	position = { 1513, 590 };  // 中心位置
+	scale = { 0.3f, 0.2f };
+	texPos = { 0, 0 };
+	texSize = { 400, 400 };
+	color = { 1.0f, 1.0f, 1.0f, 1.0f };
+}

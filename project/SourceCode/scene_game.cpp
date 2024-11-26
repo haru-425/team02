@@ -102,7 +102,7 @@ void game_update()
 		score_update();
 		enemy_update();
 		player_update(player);
-		bomb_update();
+		bomb_update(player);
 		LIMIT_TIME--;
 		break;
 	case game_state.F_TRANSITION:
