@@ -7,6 +7,7 @@
 S_SCENE tutorial_state;
 int tutorial_timer;
 int tutorial_progress;
+float tutorial_clicktime = 0;
 float tutorial_force = 0.0f;
 float tutorial_angle = 0.0f;
 float tutorial_click_times = 0;
@@ -68,21 +69,42 @@ void tutorial_update()
 			tutorial_player.hp = PLAYER_MAX_HP;
 			tutorial_player.damege_invincible = false;
 			tutorial_player.bomb_reinforce_item = 0;
-			tutorial_progress=1;
+			tutorial_progress++;
 			bomb_init();
 		case 1:
 			tutorial_player.player_time = 0.1f;
 			player_act(tutorial_player);
 			bomb_update(tutorial_player);
+			if (STATE(0) & L_CLICK && tutorial_clicktime <= BOMB_MAX_CHARGE)
+			{
+				tutorial_clicktime += 0.2;
+			}
+			if (TRG_RELEASE(0) & L_CLICK)
+			{
+				tutorial_clicktime = 0;
+			}
 			break;
 
 		case 2:
+			tutorial_player.player_time = 0;
+			tutorial_player.position = VECTOR2(500.0f, 350.0f);
+			tutorial_player.strat_position = player.position;
+			tutorial_player.hp = PLAYER_MAX_HP;
+			tutorial_player.damege_invincible = false;
+			tutorial_player.bomb_reinforce_item = 0;
 			tutorial_progress++;
 		case 3:
 			tutorial_player.player_time += 0.1f;
 			player_act(tutorial_player);
 			bomb_update(tutorial_player);
-
+			if (STATE(0) & L_CLICK && tutorial_clicktime <= BOMB_MAX_CHARGE)
+			{
+				tutorial_clicktime += 0.2;
+			}
+			if (TRG_RELEASE(0) & L_CLICK)
+			{
+				tutorial_clicktime = 0;
+			}
 			break;
 
 		default:
@@ -112,6 +134,10 @@ void tutorial_render()
 	
 	sprite_render(sprBG_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
 
+	if (STATE(0) & L_CLICK && tutorial_clicktime&& bomb.bomb_state==0)
+	{
+		primitive::circle(tutorial_player.position.x, tutorial_player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (tutorial_clicktime * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+	}
 	primitive::circle(tutorial_player.position.x, tutorial_player.position.y, 10, 1, 1, 0, 1, 0, 1);
 	for (auto& range : range_Box) {
 		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 1, 1, 0.2f);

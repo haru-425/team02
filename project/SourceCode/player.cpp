@@ -80,11 +80,11 @@ void player_update(PLAYER& player)
 		if (player.damege_invincible == true)
 		{
 			player.invincible_time++;
-			if (player.invincible_time % 120 == 0)
+			if (player.invincible_time % 30 == 0)
 			{
 				player.color.w = 0;
 			}
-			else if (player.invincible_time % 60 == 0)
+			else if (player.invincible_time % 15 == 0)
 			{
 				player.color.w = 1;
 			}
@@ -96,6 +96,10 @@ void player_update(PLAYER& player)
 			}
 		}
 
+		/*if (player.position.y>=720)
+		{
+			player.strat_position.y = 300;
+		}*/
 		//デバックログ
 		debug::setString("player.hp:%d", player.hp);
 		break;
@@ -121,7 +125,7 @@ void player_render()
 	debug::setString("force%f", force);
 
 
-	if (STATE(0) & L_CLICK && click_time)
+	if (STATE(0) & L_CLICK && click_time && bomb.bomb_state == 0)
 	{
 		primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
 	}

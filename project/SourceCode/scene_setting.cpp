@@ -9,8 +9,6 @@ Button se_volume_up;
 Button se_volume_Down;
 extern Button EndButton;
 
-Sprite* sprBG_S;
-Sprite* sprOverley_S;
 Sprite* volume_change;
 Sprite* volume_setting;
 
@@ -34,10 +32,8 @@ void setting_update()
 	case setting_state.INITIALIZE:
 
 		GameLib::setBlendMode(Blender::BS_ALPHA);
-		volume_change = sprite_load(L"./Data/Images/arrow01.png");
-		sprBG_S = sprite_load(L"./Data/Images/title_layer01.png");
-		sprOverley_S = sprite_load(L"./Data/Images/title_layer02.png");
-		volume_setting = sprite_load(L"./Data/Images/setting.png");
+		volume_change = sprite_load(L"./Data/Images/UI/arrow01.png");
+		volume_setting = sprite_load(L"./Data/Images/UI/setting.png");
 		setting_state.state = setting_state.B_TRANSIATON;
 		
 	case setting_state.B_TRANSIATON:
@@ -114,6 +110,44 @@ void setting_render()
 {
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
+
+	sprite_render(volume_setting, 0, 0, 1, 1, 0, 0);
+	GameLib::text_out(6, "BGM VOLUME", 850, 400, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
+	GameLib::text_out(6, std::to_string(game_volume.bgm_volume), 1250, 400, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
+	GameLib::text_out(6, "SE VOLUME", 850, 600, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
+	GameLib::text_out(6, std::to_string(game_volume.se_volume), 1250, 600, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
+	if (game_volume.bgm_volume < 5)
+	{
+		sprite_render(volume_change, 1450, 330, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
+	}
+	else
+	{
+		sprite_render(volume_change, 1450, 330, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
+	}
+	if (game_volume.bgm_volume > 0)
+	{
+		sprite_render(volume_change, 970, 330, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
+	}
+	else
+	{
+		sprite_render(volume_change, 970, 330, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
+	}
+	if (game_volume.se_volume < 5)
+	{
+		sprite_render(volume_change, 1450, 530, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
+	}
+	else
+	{
+		sprite_render(volume_change, 1450, 530, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
+	}
+	if (game_volume.se_volume > 0)
+	{
+		sprite_render(volume_change, 970, 530, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
+	}
+	else
+	{
+		sprite_render(volume_change, 970, 530, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
+	}
 
 	
 }
