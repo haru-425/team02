@@ -28,6 +28,7 @@ void bomb_throw(float muster_up, int bomb_up, VECTOR2 position);			// プレイヤー
 void bomb_expansion(PLAYER &player);						//爆発処理
 void bomb_update(PLAYER& player);							// 爆弾の状態（タイマーなど）を更新
 void bomb_render();							// 爆弾と爆風範囲の描画処理
+void returnplayer();
 
 class Bomb
 {

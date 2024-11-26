@@ -3,28 +3,29 @@
 using namespace input;
 
 // プレイヤーの状態を管理する変数
-int player_state;
-float force = 0.0f;
-float angle = 0.0f;
-float click_time = 0;
-Sprite* sprPLAYER;
-extern std::vector<ENEMY> enemy_pop;
-extern Bomb bomb;
-extern S_SCENE game_state;
+int player_state; // プレイヤーの現在の状態（フェーズ）を表す
+float force = 0.0f; // プレイヤーの行動に関連する力
+float angle = 0.0f; // プレイヤーの角度
+float click_time = 0; // クリックを保持した時間（爆弾チャージに使用）
+Sprite* sprPLAYER; // プレイヤーのスプライトデータ
+extern std::vector<ENEMY> enemy_pop; // ゲーム内の敵リスト（外部で定義）
+extern Bomb bomb; // 爆弾の管理クラス（外部で定義）
+extern S_SCENE game_state; // ゲームの現在の状態（外部で定義）
+
 //--------------------------------------
 //  プレイヤーの初期設定
 //--------------------------------------
 void player_init()
 {
-	// プレイヤーの状態を初期化
-	player_state = 0;
-	player.player_time = 0;
-	player.position = VECTOR2(500.0f, 350.0f);
-	player.strat_position = player.position;
-	player.hp = PLAYER_MAX_HP;
-	player.damege_invincible = false;
-	player.invincible_time = true;
-	player.bomb_reinforce_item = 0;
+    // プレイヤーの状態を初期化
+    player_state = 0; // 状態を初期化
+    player.player_time = 0; // プレイヤーの行動時間をリセット
+    player.position = VECTOR2(500.0f, 350.0f); // プレイヤーの初期位置
+    player.strat_position = player.position; // 初期位置を記録
+    player.hp = PLAYER_MAX_HP; // 最大HPを設定
+    player.damege_invincible = false; // 無敵状態を解除
+    player.invincible_time = true; // 無敵時間を初期化
+    player.bomb_reinforce_item = 0; // 爆弾強化アイテムの初期化
 }
 
 //--------------------------------------
@@ -32,7 +33,7 @@ void player_init()
 //--------------------------------------
 void player_deinit()
 {
-	safe_delete(sprPLAYER);
+    safe_delete(sprPLAYER); // スプライトデータを安全に削除
 }
 
 //--------------------------------------
@@ -40,70 +41,75 @@ void player_deinit()
 //--------------------------------------
 void player_update(PLAYER& player)
 {
-	switch (player_state)
-	{
-	case 0:
-		//////// 初期設定 ////////
-		player.position = VECTOR2(500, 350);
-		// 次の状態に遷移
-		++player_state;
-		/*fallthrough*/
+    switch (player_state)
+    {
+    case 0: // 初期化状態
+        player.position = VECTOR2(500, 350); // 初期位置を再設定
+        ++player_state; // 次の状態へ
+        /*fallthrough*/
 
-	case 1:
-		//////// パラメータの設定 ////////
-		sprPLAYER = sprite_load(L"./Data/Images/Entity/player.png");
-		player.color.w = 1;
-		// 次の状態に遷移
-		++player_state;
-		/*fallthrough*/
+    case 1: // パラメータの設定
+        sprPLAYER = sprite_load(L"./Data/Images/Entity/player.png"); // スプライトを読み込む
+        player.color.w = 1; // プレイヤーの色設定（不透明）
+        ++player_state; // 次の状態へ
+        /*fallthrough*/
 
-	case 2:
-		player.player_time += 0.1f;
-		player_act(player);
+    case 2: // プレイ中の更新処理
+        player.player_time += 0.1f; // 行動時間を更新
+        player_act(player); // プレイヤーの行動を処理
 
-		for (auto& enemy : enemy_pop)
-		{
-			if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
-				&& player.damege_invincible == false)//敵と自分との当たり判定を条件に入れる
-			{
-				player.hp -= 1;
+        // 敵との当たり判定処理
+        for (auto& enemy : enemy_pop)
+        {
+            if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
+                && player.damege_invincible == false) // 無敵でない場合
+            {
+                player.hp -= 1; // HPを減少
+                sound::play(XWB_SOUNDS, XWB_SOUND_HIT); // 被弾音を再生
+                if (player.hp == 0)
+                {
+                    game_state.state = S_SCENE::F_TRANSITION; // ゲーム終了状態へ移行
+                }
+                player.damege_invincible = true; // 無敵状態に切り替え
+                break;
+            }
+        }
 
-				sound::play(XWB_SOUNDS, XWB_SOUND_HIT);
-				if (player.hp == 0)
-				{
-					game_state.state = S_SCENE::F_TRANSITION;
-				}
-				player.damege_invincible = true;
-				break;
-			}
-		}
-		if (player.damege_invincible == true)
-		{
-			player.invincible_time++;
-			if (player.invincible_time % 30 == 0)
-			{
-				player.color.w = 0;
-			}
-			else if (player.invincible_time % 15 == 0)
-			{
-				player.color.w = 1;
-			}
-			if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME * 60)
-			{
-				player.color.w = 1;
-				player.damege_invincible = false;
-				player.invincible_time = 0;
-			}
-		}
+        // 無敵状態の処理
+        if (player.damege_invincible == true)
+        {
+            player.invincible_time++;
+            if (player.invincible_time % 30 == 0)
+            {
+                player.color.w = 0; // 点滅のために透明にする
+            }
+            else if (player.invincible_time % 15 == 0)
+            {
+                player.color.w = 1; // 点滅のために不透明にする
+            }
+            if (player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME * 60)
+            {
+                player.color.w = 1; 
+                player.damege_invincible = false; // 無敵が終了
+                player.invincible_time = 0;
+            }
+        }
 
-		/*if (player.position.y>=720)
-		{
-			player.strat_position.y = 300;
-		}*/
-		//デバックログ
-		debug::setString("player.hp:%d", player.hp);
-		break;
-	}
+        // 底面に達した場合の処理
+        if (player.position.y >= 720)
+        {
+            player.strat_position.x = player.position.x; // リセット位置を設定
+            player.strat_position.y = 300;
+            returnplayer(); // プレイヤーをリスポーン
+            player.player_time = 0;
+            player.hp -= 2; // 落下ダメージ
+            player.damege_invincible = true; // 無敵状態に
+        }
+
+        // デバッグ情報を出力
+        debug::setString("player.hp:%d", player.hp);
+        break;
+    }
 }
 
 //--------------------------------------
@@ -111,24 +117,27 @@ void player_update(PLAYER& player)
 //--------------------------------------
 void player_render()
 {
+    // プレイヤーの位置に円を描画（デバッグ用）
+    primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
 
-	primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
+    // プレイヤーのスプライトを描画
+    sprite_render(sprPLAYER,
+        player.position.x, player.position.y,
+        0.3f, 0.3f,
+        0, 0,
+        128, 128,
+        64, 64,
+        LaunchCalculateRotation(ToRadian(player.angle), force, player.player_time),
+        1, 1, 1, player.color.w);
 
-	sprite_render(sprPLAYER,
-		player.position.x, player.position.y,
-		0.3f, 0.3f,
-		0, 0,
-		128, 128,
-		64, 64,
-		LaunchCalculateRotation(ToRadian(player.angle), force, player.player_time),
-		1, 1, 1, player.color.w);
-	debug::setString("force%f", force);
+    // 力の値をデバッグ出力
+    debug::setString("force%f", force);
 
-
-	if (STATE(0) & L_CLICK && click_time && bomb.bomb_state == 0)
-	{
-		primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
-	}
+    // 爆弾の最大爆発範囲を描画
+    if (STATE(0) & L_CLICK && click_time && bomb.bomb_state == 0)
+    {
+        primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+    }
 }
 
 //--------------------------------------
@@ -136,44 +145,40 @@ void player_render()
 //--------------------------------------
 void player_act(PLAYER& player)
 {
-	if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
-	{
-		click_time += 0.2;
-	}
+    if (STATE(0) & L_CLICK && click_time <= BOMB_MAX_CHARGE)
+    {
+        click_time += 0.2; // クリックでチャージ増加
+    }
 
-	if (bomb.bomb_state == 0)
-	{
-		// クリックを離した瞬間に爆弾を投げる
-		if (TRG_RELEASE(0) & L_CLICK)
-		{
-			bomb_throw(click_time, player.bomb_reinforce_item, player.position);
-			click_time = 0;
-			bomb.bomb_state = 1; // 次の状態に進む
-		}
-	}
-	else if (bomb.bomb_state == 2)
-	{
-		// クリックを押した瞬間に爆弾を膨張させる
-		if (TRG(0) & L_CLICK)
-		{
-			sound::play(XWB_SOUNDS, XWB_SOUND_BOMB);
-			bomb_expansion(player);
-			bomb.bomb_state = -1; // 状態を初期化
-		}
-	}
-	else if (TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
-	{
-		bomb.bomb_state = 0;
-	}
-
+    if (bomb.bomb_state == 0)
+    {
+        if (TRG_RELEASE(0) & L_CLICK) // クリックを離したとき
+        {
+            bomb_throw(click_time, player.bomb_reinforce_item, player.position); // 爆弾を投げる
+            click_time = 0; // チャージをリセット
+            bomb.bomb_state = 1; // 爆弾状態を進める
+        }
+    }
+    else if (bomb.bomb_state == 2)
+    {
+        if (TRG(0) & L_CLICK) // クリックしたとき
+        {
+            sound::play(XWB_SOUNDS, XWB_SOUND_BOMB); // 爆弾音を再生
+            bomb_expansion(player); // 爆弾を膨張させる
+            bomb.bomb_state = -1; // 状態をリセット
+        }
+    }
+    else if (TRG_RELEASE(0) & L_CLICK && bomb.bomb_state == -1)
+    {
+        bomb.bomb_state = 0; // 爆弾の初期状態に戻す
+    }
 }
 
 //--------------------------------------
-//  プレイヤーの行動処理
+//  プレイヤーの移動処理
 //--------------------------------------
 void player_movement(PLAYER& player, float angle, float force)
 {
-	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY);
-	player.position = edge_reflecting(player.position);
-
+    player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY); // 移動計算
+    player.position = edge_reflecting(player.position); // 壁での反射処理
 }
