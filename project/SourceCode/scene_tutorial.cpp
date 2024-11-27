@@ -20,6 +20,7 @@ Button return_button;
 extern Sprite* sprFRAME_GAME;
 extern Sprite* sprBG_GAME;
 extern Sprite* sprBG_TITLE;
+extern Sprite* sprEnemy;
 Sprite* tutorial_No1;
 Sprite* tutorial_No2;
 Sprite* tutorial_No3;
@@ -44,6 +45,7 @@ void tutorial_deinit()
 	safe_delete(tutorial_No3);
 	safe_delete(tutorial_No4);
 	safe_delete(tutorial_No5);
+	safe_delete(sprEnemy);
 	//music::stop(0);
 
 }
@@ -57,6 +59,7 @@ void tutorial_update()
 		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame2.png");
 		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");
 		sprBG_TITLE = sprite_load(L"./Data/Images/BG/title01.png");
+		sprEnemy = sprite_load(L"./Data/Images/Entity/Enemy/Enemy.png");
 		tutorial_No1 = sprite_load(L"./Data/Images/UI/tutorial_1.png");
 		tutorial_No2 = sprite_load(L"./Data/Images/UI/tutorial_2.png");
 		tutorial_No3 = sprite_load(L"./Data/Images/UI/tutorial_3.png");
