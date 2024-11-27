@@ -1,5 +1,6 @@
 #include "../GameLib/game_lib.h"
 #include "audio.h"
+#include "scene_setting.h"
 // namespace
 using namespace GameLib;
 void audio_init()
@@ -11,11 +12,7 @@ void audio_init()
 	music::load(BGM_RESULT, L"./Data/Musics/Starlights.wav");
 
 	sound::load(XWB_SOUNDS, L"./Data/Sounds/sounds.xwb");
-	for (int i = 0; i < 8; i++)
-	{
 
-		sound::setVolume(XWB_SOUNDS, i, 4.0f);
-	}
 }
 
 void audio_deinit()
