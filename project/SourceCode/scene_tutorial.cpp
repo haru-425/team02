@@ -145,7 +145,7 @@ void tutorial_update()
 			enemy_deinit();
 			tutorial_progress++;
 		case 8:
-
+			tutorial_timer++;
 			if (return_button.rect_click(return_button) && TRG_RELEASE(0) & L_CLICK)//タイトル画面への移動ボタン
 			{
 				tutorial_state.state = tutorial_state.F_TRANSITION;
@@ -187,8 +187,6 @@ void tutorial_render()
 	for (auto& range : range_Box) {
 		primitive::circle(range.judg_position.x, range.judg_position.y, range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, range.bomb_blast_range / range.bomb_blast_max_range, 0, 1, 1, 1, 0.2f);
 	}
-
-	/*primitive::circle(tutorial_player.position.x, tutorial_player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (tutorial_click_times * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);*/
 
 	primitive::circle(bomb.bomb_position.x, bomb.bomb_position.y, 10, 1, 1);
 	
