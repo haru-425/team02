@@ -22,6 +22,8 @@ void setting_init()
 void setting_deinit()
 {
 	//music::stop(0);
+	safe_delete(volume_change);
+	safe_delete(volume_setting);
 
 }
 
