@@ -13,7 +13,7 @@
 
 using namespace DirectX;
 
-#define BOMB_BLAST_STRANGE 0.28f
+#define BOMB_BLAST_STRANGE 0.15f
 #define BOMB_BLAST_MAX_INIT_RANGE 100.0f
 #define BOMB_BLAST_R_INC 10.0f
 #define BOMB_ADJUSTMENT 20.0f

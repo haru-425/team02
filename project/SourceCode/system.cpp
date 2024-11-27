@@ -40,7 +40,7 @@ VECTOR2 LaunchCalculatePosition(float angle, float force, float time) {
 	float vy = v0 * sin(angle);
 
 	// 重力加速度を定義
-	float g = 9.8f;
+	float g = 7.2f;
 
 	// n秒後の位置を計算
 	float x = vx * time;
@@ -143,7 +143,6 @@ VECTOR2 edge_reflecting(VECTOR2 pos) {
 	}
 	//	if (pos.y <= 0) pos.y *= -1;
 	return pos;
-
 }
 
 VECTOR2 cursor_position() {

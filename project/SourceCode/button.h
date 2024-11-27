@@ -19,5 +19,6 @@ public:
     void bgm_volume_Down_init();
     void se_volume_Up_init();
     void se_volume_Down_init();
+
     bool rect_click(Button button_info);
 };

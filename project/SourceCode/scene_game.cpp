@@ -132,6 +132,7 @@ void game_render()
 	//debug::setString("game_state%d", game_state.state);
 	//debug::setString("magnet(%f:%f)", magnetic_force.x, magnetic_force.y);
 
+	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 	if (magnetic_force.x == 0 && magnetic_force.y == 0)
 	{
 
@@ -139,7 +140,7 @@ void game_render()
 	else {
 		sprite_render(
 			sprArrow,
-			SCREEN_H + ((SCREEN_W - SCREEN_H) / 2.0f), SCREEN_H / 2.0f,
+			SCREEN_H + ((SCREEN_W - SCREEN_H) / 2.0f), SCREEN_H / 4.0f*3.0f,
 			0.1f, 0.1f,
 			0, 0,
 			2067, 1646,
@@ -149,7 +150,6 @@ void game_render()
 	}
 
 
-	sprite_render(sprFRAME_GAME, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0, 1920, 1080);
 
 	score_render();
 	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);

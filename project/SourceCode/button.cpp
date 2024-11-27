@@ -32,10 +32,10 @@ void Button::tutorial_next_button_set()
 
 void Button::tutorial_buck_button_set()
 {
-	position;
-	scale;
-	texPos;
-	texSize;
+	position = { 930, 660 };
+	scale = { 1,1 };
+	texPos = { 50,20 };
+	texSize = { 100, 40 };
 	enabled = true;
 
 }
