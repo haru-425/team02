@@ -113,43 +113,41 @@ void setting_render()
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 
-	sprite_render(volume_setting, 0, 0, 1, 1, 0, 0);
-	GameLib::text_out(6, "BGM VOLUME", 850, 400, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
-	GameLib::text_out(6, std::to_string(game_volume.bgm_volume), 1250, 400, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
-	GameLib::text_out(6, "SE VOLUME", 850, 600, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
-	GameLib::text_out(6, std::to_string(game_volume.se_volume), 1250, 600, 2, 2, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
+	sprite_render(volume_setting, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0);
+	GameLib::text_out(6, "BGM VOLUME", 425, 300, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
+	GameLib::text_out(6, std::to_string(game_volume.bgm_volume), 825, 300, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
+	GameLib::text_out(6, "SE VOLUME", 425, 400, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
+	GameLib::text_out(6, std::to_string(game_volume.se_volume), 825, 400, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);
 	if (game_volume.bgm_volume < 5)
 	{
-		sprite_render(volume_change, 1450, 330, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
+		sprite_render(volume_change, 925, 265, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
 	}
 	else
 	{
-		sprite_render(volume_change, 1450, 330, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
+		sprite_render(volume_change, 925, 265, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
 	}
 	if (game_volume.bgm_volume > 0)
 	{
-		sprite_render(volume_change, 970, 330, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
+		sprite_render(volume_change, 685, 265, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
 	}
 	else
 	{
-		sprite_render(volume_change, 970, 330, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
+		sprite_render(volume_change, 685, 265, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
 	}
 	if (game_volume.se_volume < 5)
 	{
-		sprite_render(volume_change, 1450, 530, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
+		sprite_render(volume_change, 925, 365, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90));
 	}
 	else
 	{
-		sprite_render(volume_change, 1450, 530, 0.3f, 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
+		sprite_render(volume_change, 925, 365, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 0, 400, ToRadian(90), 1, 1, 1, 0.5);
 	}
 	if (game_volume.se_volume > 0)
 	{
-		sprite_render(volume_change, 970, 530, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
+		sprite_render(volume_change, 685, 365, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90));
 	}
 	else
 	{
-		sprite_render(volume_change, 970, 530, 0.3f, 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
+		sprite_render(volume_change, 685, 365, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
 	}
-
-	
 }
