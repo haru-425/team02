@@ -66,13 +66,13 @@ void player_update(PLAYER& player)
             {
                 player.hp -= 1; // HPを減少
                 sound::play(XWB_SOUNDS, XWB_SOUND_HIT); // 被弾音を再生
-                if (player.hp == 0)
-                {
-                    game_state.state = S_SCENE::F_TRANSITION; // ゲーム終了状態へ移行
-                }
                 player.damege_invincible = true; // 無敵状態に切り替え
                 break;
             }
+        }
+        if (player.hp <= 0)
+        {
+            game_state.state = S_SCENE::F_TRANSITION; // ゲーム終了状態へ移行
         }
 
         // 無敵状態の処理
@@ -118,7 +118,30 @@ void player_update(PLAYER& player)
 void player_render()
 {
     // プレイヤーの位置に円を描画（デバッグ用）
-    primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1);
+    primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1); 
+
+    if (player.position.x >= SCREEN_H - 50 && player.position.y <= 0 + 90)
+    {
+        primitive::line(player.position.x - 23, player.position.y + 34, player.position.x - 5, player.position.y, 0.5, 0.5, 0.5, 1, 2);
+    }
+    else if (player.position.x >= SCREEN_H - 50)
+    {
+        primitive::line(player.position.x - 65, player.position.y - 32, player.position.x - 5, player.position.y, 0.5, 0.5, 0.5, 1, 2);
+    }
+    else if (player.position.y <= 0 + 80)
+    {
+        primitive::line(player.position.x + 15, player.position.y + 34, player.position.x - 5, player.position.y, 0.5, 0.5, 0.5, 1, 2);
+    }
+    else
+    {
+        primitive::line(player.position.x + 15, player.position.y - 32, player.position.x - 5, player.position.y, 0.5, 0.5, 0.5, 1, 2);
+    }
+
+    // 爆弾の最大爆発範囲を描画
+    if (STATE(0) & L_CLICK && click_time && bomb.bomb_state == 0)
+    {
+        primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+    }
 
     // プレイヤーのスプライトを描画
     sprite_render(sprPLAYER,
@@ -130,15 +153,54 @@ void player_render()
         LaunchCalculateRotation(ToRadian(player.angle), force, player.player_time),
         1, 1, 1, player.color.w);
 
+    for (int i = 0; i < 120; i++)
+    {
+        primitive::circle(edge_reflecting(
+            player.position + LaunchCalculatePosition(
+                -tracking(
+                    cursor_position(
+                    ), player.position
+                ), bomb.bomb_speed, i * 0.5f
+            )
+        ).x,
+            edge_reflecting(player.position + LaunchCalculatePosition(-tracking(cursor_position(), player.position), bomb.bomb_speed, i * 0.5f)).y,
+            3,
+            1, 1,
+            0,
+            1, 1, 1, 0.5f);
+    }
+
     // 力の値をデバッグ出力
     debug::setString("force%f", force);
 
-    // 爆弾の最大爆発範囲を描画
-    if (STATE(0) & L_CLICK && click_time && bomb.bomb_state == 0)
+    float r = HPColor(player.hp).x;
+    float g = HPColor(player.hp).y;
+    float b = HPColor(player.hp).z;
+
+    //プレイヤーの体力表示
+    if (player.position.x >= SCREEN_H - 50 && player.position.y <= 0 + 90)
     {
-        primitive::circle(player.position.x, player.position.y, BOMB_BLAST_MAX_INIT_RANGE + (click_time * 5), 1, 1, 0, 0.0f, 0.2f, 0.4f, 0.2f);
+        primitive::rect(player.position.x - 69, player.position.y + 33, 42, 9, 0, 0, 0, 0.5, 0.5, 0.5);
+        primitive::rect(player.position.x - 65, player.position.y + 35, 35 * player.hp * 0.1, 5, 0, 0, 0, r, g, b);
+    }
+    else if (player.position.x>= SCREEN_H - 50)
+    {
+        primitive::rect(player.position.x - 69, player.position.y - 35, 42, 9, 0, 0, 0, 0.5, 0.5, 0.5);
+        primitive::rect(player.position.x - 65, player.position.y - 33, 35 * player.hp * 0.1, 5, 0, 0, 0, r, g, b);
+    }
+    else if (player.position.y <= 0 + 80)
+    {
+        primitive::rect(player.position.x + 15, player.position.y + 33, 42, 9, 0, 0, 0, 0.5, 0.5, 0.5);
+        primitive::rect(player.position.x + 19, player.position.y + 35, 35 * player.hp * 0.1, 5, 0, 0, 0, r, g, b);
+    }
+    else
+    {
+        primitive::rect(player.position.x + 15, player.position.y - 35, 42, 9, 0, 0, 0, 0.5, 0.5, 0.5);
+        primitive::rect(player.position.x + 19, player.position.y - 33, 35 * player.hp * 0.1, 5, 0, 0, 0, r, g, b);
     }
 }
+
+   
 
 //--------------------------------------
 //  プレイヤーの行動処理
@@ -181,4 +243,20 @@ void player_movement(PLAYER& player, float angle, float force)
 {
     player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY); // 移動計算
     player.position = edge_reflecting(player.position); // 壁での反射処理
+}
+
+VECTOR3 HPColor(int HP) 
+{
+    if (HP < 3)
+    {
+        return VECTOR3(1.0, 0, 0);
+    }
+    else if (HP < 5)
+    {
+        return VECTOR3(1.0, 1.0, 0);
+    }
+    else
+    {
+        return VECTOR3(0.5, 1, 0.5);
+    }
 }
