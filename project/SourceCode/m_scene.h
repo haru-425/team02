@@ -6,7 +6,6 @@
 #include "scene_start.h"
 #include "scene_tutorial.h"
 #include "scene_result.h"
-#include "scene_setting.h"
 #include "audio.h"
 #include "common.h"
 
