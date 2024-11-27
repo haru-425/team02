@@ -26,7 +26,7 @@ void start_init()
 void start_deinit()
 {
 
-	//music::stop(0);
+	music::stop(0);
 
 }
 

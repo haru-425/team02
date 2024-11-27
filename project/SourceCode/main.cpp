@@ -31,6 +31,15 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// Žg—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 	while (GameLib::gameLoop())
 	{
 		// ƒV[ƒ“‚Ì•ÏXˆ—
+		for (int i = 0; i < 8; i++)
+		{
+
+			sound::setVolume(XWB_SOUNDS, i, 1.0f / 5.0f * game_volume.se_volume);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			music::setVolume(i, 1.0f / 5.0f * game_volume.bgm_volume);
+		}
 		M_SCENE::SceneChangeProcessing();
 		// ƒV[ƒ“‚ÌXVˆ—
 		M_SCENE::SceneUpdateProcessing();
