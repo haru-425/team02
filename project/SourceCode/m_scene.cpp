@@ -75,18 +75,10 @@ void M_SCENE::SceneChangeProcessing() {
 void M_SCENE::SceneUpdateProcessing() {
 
 	// 入力を更新する
-	music::update();
-	for (int i = 0; i < 8; i++)
-	{
 
-		sound::setVolume(XWB_SOUNDS, i, 1.0f / 5.0f * game_volume.se_volume);
-	}
-	for (int i = 0; i < 3; i++)
-	{
-		music::setVolume(i, 1.0f / 5.0f * game_volume.bgm_volume);
-	}
 	input::update();
 
+	music::update();
 	// 現在のシーンに応じた更新・描画処理
 	switch (curScene)
 	{

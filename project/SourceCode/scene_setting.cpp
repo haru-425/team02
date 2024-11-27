@@ -12,13 +12,14 @@ extern Button EndButton;
 Sprite* volume_change;
 Sprite* volume_setting;
 Sprite* BG_Image;
+Sprite* sprRetern;
 
 
 void setting_init()
 {
 	setting_timer = 0;
 	setting_state.state = setting_state.INITIALIZE;
-	
+
 }
 void setting_deinit()
 {
@@ -26,6 +27,8 @@ void setting_deinit()
 	safe_delete(volume_change);
 	safe_delete(volume_setting);
 	safe_delete(BG_Image);
+	safe_delete(sprRetern);
+	music::stop(BGM_RESULT);
 
 }
 
@@ -38,9 +41,12 @@ void setting_update()
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 		volume_change = sprite_load(L"./Data/Images/UI/arrow01.png");
 		volume_setting = sprite_load(L"./Data/Images/UI/setting.png");
+		sprRetern = sprite_load(L"./Data/Images/UI/reternButton.png");
 		BG_Image = sprite_load(L"./Data/Images/BG/title01.png");
 		setting_state.state = setting_state.B_TRANSIATON;
-		
+
+		music::play(BGM_TITLE, true);
+
 	case setting_state.B_TRANSIATON:
 
 		if (true)
@@ -64,6 +70,8 @@ void setting_update()
 		if (TRG(0) & L_CLICK && bgm_volume_up.rect_click(bgm_volume_up) && game_volume.bgm_volume < 5)
 		{
 			game_volume.bgm_volume++;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 			//sound::play(XWB_SYSTEM, XWB_SYSTEM_BUTTON);
 
 
@@ -71,12 +79,16 @@ void setting_update()
 		if (TRG(0) & L_CLICK && bgm_volume_Down.rect_click(bgm_volume_Down) && game_volume.bgm_volume > 0)
 		{
 			game_volume.bgm_volume--;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 			//sound::play(XWB_SYSTEM, XWB_SYSTEM_BUTTON);
 
 		}
 		if (TRG(0) & L_CLICK && se_volume_up.rect_click(se_volume_up) && game_volume.se_volume < 5)
 		{
 			game_volume.se_volume++;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 
 			/*for (int i = 0; i < SOUND_EFFECT_COUNT; i++)
 			{
@@ -89,6 +101,8 @@ void setting_update()
 		if (TRG(0) & L_CLICK && se_volume_Down.rect_click(se_volume_Down) && game_volume.se_volume > 0)
 		{
 			game_volume.se_volume--;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 			/*for (int i = 0; i < SOUND_EFFECT_COUNT; i++)
 			{
 
@@ -98,12 +112,12 @@ void setting_update()
 		}
 
 		/*EndButton.end_button_update();*/
-		
+
 		break;
 	case setting_state.F_TRANSITION:
-		if (setting_timer >= 240)
+		if (true)
 		{
-			nextScene = SCENE_TYPE::GAME;
+			nextScene = SCENE_TYPE::TITLE;
 		}
 
 	}
@@ -154,5 +168,23 @@ void setting_render()
 	else
 	{
 		sprite_render(volume_change, 685, 365, (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.3f, 0, 0, 400, 400, 400, 0, ToRadian(-90), 1, 1, 1, 0.5);
+	}
+
+	VECTOR2 cursorPos = cursor_position();
+	if (isCircleColliding(cursorPos, 0.0f, { SCREEN_W - 200.0f, 100 }, 128.0f / 2.0f))
+	{
+
+
+		sprite_render(sprRetern, SCREEN_W - 200, 100, 1, 1, 128, 0, 128, 128, 64, 64, 0);
+		if (TRG_RELEASE(0) & L_CLICK) {
+			setting_state.state = S_SCENE::F_TRANSITION;
+
+			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
+		}
+	}
+	else
+	{
+
+		sprite_render(sprRetern, SCREEN_W - 200, 100, 1, 1, 0, 0, 128, 128, 64, 64, 0);
 	}
 }
