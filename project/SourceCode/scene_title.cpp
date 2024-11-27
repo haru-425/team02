@@ -197,7 +197,7 @@ void title_render()
 		}
 		if (TRG_RELEASE(0) & L_CLICK) {
 			title_state.state = S_SCENE::F_TRANSITION;
-			_next = SCENE_TYPE::GAME;
+			_next = SCENE_TYPE::SETTING;
 
 			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 		}
