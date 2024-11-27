@@ -1,4 +1,4 @@
-//------< インクルード >---------------------------------------------------------
+//------< インクル拏ド >---------------------------------------------------------
 #include "../GameLib/game_lib.h"
 #include "common.h"
 #include "audio.h"
@@ -7,10 +7,9 @@
 using namespace GameLib;
 using namespace input;
 
-//------< 定数 >----------------------------------------------------------------
+//------< 定摧 >----------------------------------------------------------------
 
-
-//------< 変数 >----------------------------------------------------------------
+//------< 変摧 >----------------------------------------------------------------
 S_SCENE title_state;
 int title_timer;
 SCENE_TYPE _next;
@@ -18,12 +17,15 @@ SCENE_TYPE _next;
 Sprite* sprTITLE_UI_BACK;
 Sprite* sprTITLE_BUTTON[3];
 Sprite* sprTITLE_BUTTON_TEXT;
-
+Sprite* sprLogo;
 
 Sprite* sprBG_TITLE;
 float title_text_scale[3];
 float title_text_y[3];
 
+VECTOR2 titlePos;
+int title_move_timer;
+float title_angle;
 void title_init()
 {
 	title_state.state = 0;
@@ -43,8 +45,7 @@ void title_deinit()
 		safe_delete(sprTITLE_BUTTON[i]);
 	}
 	safe_delete(sprBG_TITLE);
-
-
+	safe_delete(sprLogo);
 }
 
 void title_update()
@@ -52,7 +53,6 @@ void title_update()
 	switch (title_state.state)
 	{
 	case title_state.INITIALIZE:
-
 
 		music::play(BGM_TITLE, true);
 		title_state.state = title_state.B_TRANSIATON;
@@ -62,23 +62,21 @@ void title_update()
 		sprTITLE_BUTTON[1] = sprite_load(L"./Data/Images/UI/helpButton.png");
 		sprTITLE_BUTTON[2] = sprite_load(L"./Data/Images/UI/settingButton.png");
 
-
 		sprTITLE_BUTTON_TEXT = sprite_load(L"./Data/Images/UI/title_text.png");
 
 		sprBG_TITLE = sprite_load(L"./Data/Images/BG/title01.png");
 
-
+		sprLogo = sprite_load(L"./Data/Images/UI/logo.png");
 
 		title_text_scale[0] = 0.0f;
 		title_text_scale[1] = 0.0f;
 		title_text_scale[2] = 0.0f;
 
-
 		title_text_y[0] = SCREEN_H / 10.0f * 8.0f;
 		title_text_y[1] = SCREEN_H / 10.0f * 8.0f;
 		title_text_y[2] = SCREEN_H / 10.0f * 8.0f;
 
-
+		title_move_timer = 0;
 	case title_state.B_TRANSIATON:
 		if (true)
 		{
@@ -92,19 +90,21 @@ void title_update()
 		title_state.state = title_state.NORMAL;
 
 	case title_state.NORMAL:
-		//if (TRG(0) & PAD_START)
+		// if (TRG(0) & PAD_START)
 		//{
 		//	title_state.state = title_state.F_TRANSITION;
 		//	break;
-		//}
+		// }
+		title_move_timer++;
+		titlePos.x = SCREEN_W / 2 + cos(title_angle) * 10;
+		titlePos.y = SCREEN_H / 4.0f + sin(2 * title_angle) * 10;
+		title_angle += ToRadian(1);
 		break;
 	case title_state.F_TRANSITION:
 		if (true)
 		{
 			nextScene = _next;
 		}
-
-
 	}
 
 	title_timer++;
@@ -112,7 +112,7 @@ void title_update()
 
 void title_render()
 {
-	// 画面を青で塗りつぶす
+	// 画面を敖で塗りつぶす
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 
 	sprite_render(sprBG_TITLE, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
@@ -141,21 +141,22 @@ void title_render()
 		if (title_text_scale[int(TITLE_BUTTON::START)] < 2.0f)
 		{
 			title_text_scale[int(TITLE_BUTTON::START)] += 0.1f;
-
 		}
 		if (title_text_y[int(TITLE_BUTTON::START)] > SCREEN_H / 10.0f * 8.0f - 100)
 		{
 			title_text_y[int(TITLE_BUTTON::START)] -= 10;
 		}
 
-		if (TRG_RELEASE(0) & L_CLICK) {
+		if (TRG_RELEASE(0) & L_CLICK)
+		{
 			title_state.state = S_SCENE::F_TRANSITION;
 			_next = SCENE_TYPE::GAME;
 
 			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 		}
 	}
-	else {
+	else
+	{
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::START)],
 			SCREEN_W / 2.0f, SCREEN_H / 10.0f * 8.0f,
 			1, 1,
@@ -174,7 +175,6 @@ void title_render()
 		}
 	}
 
-
 	if (isCircleColliding(cursorPos, 0.0f, { SCREEN_W / 4.0f * 3.0f, SCREEN_H / 10.0f * 8.0f }, 128.0f / 2.0f))
 	{
 
@@ -189,20 +189,21 @@ void title_render()
 		if (title_text_scale[int(TITLE_BUTTON::SETTING)] < 2.0f)
 		{
 			title_text_scale[int(TITLE_BUTTON::SETTING)] += 0.1f;
-
 		}
 		if (title_text_y[int(TITLE_BUTTON::SETTING)] > SCREEN_H / 10.0f * 8.0f - 100)
 		{
 			title_text_y[int(TITLE_BUTTON::SETTING)] -= 10;
 		}
-		if (TRG_RELEASE(0) & L_CLICK) {
+		if (TRG_RELEASE(0) & L_CLICK)
+		{
 			title_state.state = S_SCENE::F_TRANSITION;
 			_next = SCENE_TYPE::SETTING;
 
 			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
 		}
 	}
-	else {
+	else
+	{
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::SETTING)],
 			SCREEN_W / 4.0f * 3.0f, SCREEN_H / 10.0f * 8.0f,
 			1, 1,
@@ -221,7 +222,6 @@ void title_render()
 		}
 	}
 
-
 	if (isCircleColliding(cursorPos, 0.0f, { SCREEN_W / 4.0f, SCREEN_H / 10.0f * 8.0f }, 128.0f / 2.0f))
 	{
 
@@ -237,20 +237,21 @@ void title_render()
 		if (title_text_scale[int(TITLE_BUTTON::HELP)] < 2.0f)
 		{
 			title_text_scale[int(TITLE_BUTTON::HELP)] += 0.1f;
-
 		}
 		if (title_text_y[int(TITLE_BUTTON::HELP)] > SCREEN_H / 10.0f * 8.0f - 100)
 		{
 			title_text_y[int(TITLE_BUTTON::HELP)] -= 10;
-		}		if (TRG_RELEASE(0) & L_CLICK) {
+		}
+		if (TRG_RELEASE(0) & L_CLICK)
+		{
 			title_state.state = S_SCENE::F_TRANSITION;
 			_next = SCENE_TYPE::TUTORIAL;
 
 			sound::play(XWB_SOUNDS, XWB_SOUND_BUTTON);
-
 		}
 	}
-	else {
+	else
+	{
 		sprite_render(sprTITLE_BUTTON[int(TITLE_BUTTON::HELP)],
 			SCREEN_W / 4.0f, SCREEN_H / 10.0f * 8.0f,
 			1, 1,
@@ -270,8 +271,6 @@ void title_render()
 		}
 	}
 
-
-
 	sprite_render(sprTITLE_BUTTON_TEXT,
 		SCREEN_W / 2.0f, title_text_y[int(TITLE_BUTTON::START)],
 		title_text_scale[int(TITLE_BUTTON::START)], title_text_scale[int(TITLE_BUTTON::START)],
@@ -280,7 +279,6 @@ void title_render()
 		576 / 6.0f, 32,
 		0,
 		1, 1, 1, 1);
-
 
 	sprite_render(sprTITLE_BUTTON_TEXT,
 		SCREEN_W / 4.0f, title_text_y[int(TITLE_BUTTON::HELP)],
@@ -299,5 +297,14 @@ void title_render()
 		576 / 6.0f, 32,
 		0,
 		1, 1, 1, 1);
+
+
+	sprite_render(sprLogo,
+		titlePos.x, titlePos.y,
+		0.5f, 0.5f,
+		0, 0,
+		1500, 500,
+		750, 250,
+		0);
 
 }
