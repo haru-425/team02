@@ -11,6 +11,7 @@ extern Button EndButton;
 
 Sprite* volume_change;
 Sprite* volume_setting;
+Sprite* BG_Image;
 
 
 void setting_init()
@@ -24,6 +25,7 @@ void setting_deinit()
 	//music::stop(0);
 	safe_delete(volume_change);
 	safe_delete(volume_setting);
+	safe_delete(BG_Image);
 
 }
 
@@ -36,6 +38,7 @@ void setting_update()
 		GameLib::setBlendMode(Blender::BS_ALPHA);
 		volume_change = sprite_load(L"./Data/Images/UI/arrow01.png");
 		volume_setting = sprite_load(L"./Data/Images/UI/setting.png");
+		BG_Image = sprite_load(L"./Data/Images/BG/title01.png");
 		setting_state.state = setting_state.B_TRANSIATON;
 		
 	case setting_state.B_TRANSIATON:
@@ -113,6 +116,8 @@ void setting_render()
 	// âÊñ Çê¬Ç≈ìhÇËÇ¬Ç‘Ç∑
 	GameLib::clear(0.3f, 0.5f, 1.0f);
 
+	sprite_render(BG_Image, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
+	primitive::rect(90, 175, 1100, 470, 0, 0, 0, 0, 0, 0, 0.8);
 	sprite_render(volume_setting, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f, 0, 0);
 	GameLib::text_out(6, "BGM VOLUME", 425, 300, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_RIGHT);
 	GameLib::text_out(6, std::to_string(game_volume.bgm_volume), 825, 300, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE_LEFT);

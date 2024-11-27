@@ -42,32 +42,32 @@ void Button::tutorial_buck_button_set()
 
 void Button::bgm_volume_Down_init()
 {
-	position = { 1027, 390 };
-	scale = { 0.3f, 0.2f };
+	position = { 720, 305 };
+	scale = { (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.23f };
 	texPos = { 0, 0 };
 	texSize = { 400, 400 };
 	color = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 void Button::bgm_volume_Up_init()
 {
-	position = { 1513, 390 };  // 中心位置
-	scale = { 0.3f, 0.2f };
+	position = { 965, 305 };  // 中心位置
+	scale = { (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.23f };
 	texPos = { 0, 0 };
 	texSize = { 400, 400 };
 	color = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 void Button::se_volume_Down_init()
 {
-	position = { 1027, 590 };  // 中心位置
-	scale = { 0.3f, 0.2f };
+	position = { 720, 405 };  // 中心位置
+	scale = { (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.23f };
 	texPos = { 0, 0 };
 	texSize = { 400, 400 };
 	color = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 void Button::se_volume_Up_init()
 {
-	position = { 1513, 590 };  // 中心位置
-	scale = { 0.3f, 0.2f };
+	position = { 965, 405 };  // 中心位置
+	scale = { (SCREEN_W / 1920.0f) * 0.3f, (SCREEN_H / 1080.0f) * 0.23f };
 	texPos = { 0, 0 };
 	texSize = { 400, 400 };
 	color = { 1.0f, 1.0f, 1.0f, 1.0f };
