@@ -6,6 +6,8 @@
 // namespace
 using namespace GameLib;
 using namespace input;
+VECTOR2 score_pos;
+float score_angle;
 
 //------< ’è” >----------------------------------------------------------------
 
@@ -94,6 +96,10 @@ void result_update()
 		//	result_state.state = result_state.F_TRANSITION;
 		//	break;
 		//}
+
+		score_pos.x = cos(score_angle) * 20;
+		score_pos.y = sin(2 * score_angle) * 10;
+		score_angle += ToRadian(1);
 		break;
 	case result_state.F_TRANSITION:
 		if (true)
@@ -196,7 +202,7 @@ void result_render()
 		}		if (TRG_RELEASE(0) & L_CLICK) {
 			result_state.state = S_SCENE::F_TRANSITION;
 			__next = SCENE_TYPE::TITLE;
-			sound::play (XWB_SOUNDS, XWB_SOUND_RETURN_BUTTON);
+			sound::play(XWB_SOUNDS, XWB_SOUND_RETURN_BUTTON);
 		}
 	}
 	else {
@@ -239,6 +245,34 @@ void result_render()
 		576 / 6.0f, 32,
 		0,
 		1, 1, 1, 1);
+	int BOLD = 1;
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x + BOLD, SCREEN_H / 100 * 30 + score_pos.y, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x - BOLD, SCREEN_H / 100 * 30 + score_pos.y, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x, SCREEN_H / 100 * 30 + score_pos.y + BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x, SCREEN_H / 100 * 30 + score_pos.y - BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x + BOLD, SCREEN_H / 100 * 30 + score_pos.y + BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x + BOLD, SCREEN_H / 100 * 30 + score_pos.y - BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x - BOLD, SCREEN_H / 100 * 30 + score_pos.y + BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x - BOLD, SCREEN_H / 100 * 30 + score_pos.y - BOLD, 3, 3, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+
+	text_out(6, "SCORE", SCREEN_W / 2.0f + score_pos.x, SCREEN_H / 100 * 30 + score_pos.y, 3, 3, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+
+
+	string str_score = to_string(score);
+	text_out(6, str_score, SCREEN_W / 2.0f + BOLD, SCREEN_H / 100 * 30 + 150, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f - BOLD, SCREEN_H / 100 * 30 + 150, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f, SCREEN_H / 100 * 30 + BOLD + 150, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f, SCREEN_H / 100 * 30 - BOLD + 150, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f + BOLD, SCREEN_H / 100 * 30 + 150 + BOLD, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f + BOLD, SCREEN_H / 100 * 30 + 150 - BOLD, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f - BOLD, SCREEN_H / 100 * 30 + 150 + BOLD, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f - BOLD, SCREEN_H / 100 * 30 + 150 - BOLD, 5, 5, 0, 0, 0.7f, 1, TEXT_ALIGN::MIDDLE);
+	text_out(6, str_score, SCREEN_W / 2.0f, SCREEN_H / 100 * 30 + 150, 5, 5, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);
+
+
 
 
 

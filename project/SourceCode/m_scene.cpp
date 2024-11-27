@@ -5,7 +5,7 @@
 
 //------< •Ï” >----------------------------------------------------------------
 SCENE_TYPE curScene = SCENE_TYPE::NONE;
-SCENE_TYPE nextScene = SCENE_TYPE::START;
+SCENE_TYPE nextScene = SCENE_TYPE::TITLE;
 //FADE fade;
 
 
