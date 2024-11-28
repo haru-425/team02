@@ -143,6 +143,37 @@ void tutorial_update()
 			{
 				tutorial_clicktime = 0;
 			}
+			if (tutorial_player.damege_invincible == true)
+			{
+				tutorial_player.invincible_time++;
+				if (tutorial_player.invincible_time % 30 == 0)
+				{
+					tutorial_player.color.w = 0.5; // 点滅のために透明にする
+				}
+				else if (tutorial_player.invincible_time % 15 == 0)
+				{
+					tutorial_player.color.w = 1; // 点滅のために不透明にする
+				}
+				if (tutorial_player.invincible_time >= PLAYER_MAX_INVINCIBLE_TIME * 60)
+				{
+					tutorial_player.color.w = 1;
+					tutorial_player.damege_invincible = false; // 無敵が終了
+					tutorial_player.invincible_time = 0;
+				}
+			}
+
+			// 底面に達した場合の処理
+			if (tutorial_player.position.y >= 720)
+			{
+				tutorial_player.strat_position.x = tutorial_player.position.x; // リセット位置を設定
+				tutorial_player.strat_position.y = 300;
+				returnplayer(); // プレイヤーをリスポーン
+				tutorial_player.player_time = 0;
+				tutorial_player.hp -= 2; // 落下ダメージ
+				tutorial_player.damege_invincible = true; // 無敵状態に
+
+				sound::play(XWB_SOUNDS, XWB_SOUND_HIT); // 被弾音を再生
+			}
 			break;
 		case 4:
 			bomb_deinit();
