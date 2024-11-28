@@ -151,6 +151,11 @@ void game_render()
 	}
 
 
+	string effect_str = "Score x" + to_string(int(SCORE_DIAMETER));
+	text_out(6, effect_str, SCREEN_H, SCREEN_H / 100 * 10, 0.8f, 0.8f, 1, 1, 1, ITEM_EFFECT_TRANSPARENCY[int(ITEM_TYPE::ScoreTwoTimes)], TEXT_ALIGN::UPPER_RIGHT);
+
+	effect_str = "Range x" + to_string(player.bomb_reinforce_item);
+	text_out(6, effect_str, SCREEN_H, SCREEN_H / 100 * 15, 0.8f, 0.8f, 1, 1, 1, 1, TEXT_ALIGN::UPPER_RIGHT);
 
 	score_render();
 	text_out(6, "SCORE", SCREEN_W - (SCREEN_W - SCREEN_H) + (SCREEN_W - SCREEN_H) / 2.0f, SCREEN_H / 100 * 10, 1, 1, 1, 1, 1, 1, TEXT_ALIGN::MIDDLE);

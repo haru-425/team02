@@ -219,7 +219,7 @@ void enemy_act()
 		enemy.position = enemy.BasePosition + LaunchCalculatePosition(ToRadian(enemy.angle * 45 + 90), enemy.force, enemy.timer);
 		enemy.position = edge_reflecting(enemy.position);
 
-		enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, magnetic_force);
+		/*enemy.BasePosition = magnetic_force_suction(enemy.BasePosition, magnetic_force);*/
 	}
 
 	auto thrown_it = std::remove_if(enemy_thrown_item.begin(), enemy_thrown_item.end(),
