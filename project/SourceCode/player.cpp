@@ -70,6 +70,19 @@ void player_update(PLAYER& player)
                 break;
             }
         }
+        for (auto& enemy : enemy_thrown_item) 
+        {
+            if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
+                && player.damege_invincible == false) // 無敵でない場合
+            {
+                player.hp -= 1; // HPを減少
+                sound::play(XWB_SOUNDS, XWB_SOUND_HIT); // 被弾音を再生
+                player.damege_invincible = true; // 無敵状態に切り替え
+                break;
+            }
+        
+        }
+
         if (player.hp <= 0)
         {
             game_state.state = S_SCENE::F_TRANSITION; // ゲーム終了状態へ移行
@@ -81,7 +94,7 @@ void player_update(PLAYER& player)
             player.invincible_time++;
             if (player.invincible_time % 30 == 0)
             {
-                player.color.w = 0; // 点滅のために透明にする
+                player.color.w = 0.5; // 点滅のために透明にする
             }
             else if (player.invincible_time % 15 == 0)
             {
@@ -118,7 +131,7 @@ void player_update(PLAYER& player)
 void player_render()
 {
     // プレイヤーの位置に円を描画（デバッグ用）
-    primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1); 
+    /*primitive::circle(player.position.x, player.position.y, 10, 1, 1, 0, 1, 0, 1); */
 
     if (player.position.x >= SCREEN_H - 50 && player.position.y <= 0 + 90)
     {
