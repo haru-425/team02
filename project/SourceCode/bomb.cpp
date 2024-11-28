@@ -89,8 +89,8 @@ void bomb_expansion(PLAYER& player)
 //--------------------------------------
 void bomb_update(PLAYER& player)
 {
-	debug::setString("bomb_blast_max_range:%f", blast_max_range); // デバッグ情報を出力
-	debug::setString("bomb_state:%d", bomb.bomb_state);
+	//debug::setString("bomb_blast_max_range:%f", blast_max_range); // デバッグ情報を出力
+	//debug::setString("bomb_state:%d", bomb.bomb_state);
 
 	switch (bomb.bomb_state)
 	{

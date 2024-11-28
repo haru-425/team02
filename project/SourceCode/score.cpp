@@ -26,7 +26,7 @@ void score_render() {
 		break;
 
 	case SCENE_TYPE::GAME:
-		debug::setString("score%d", score);
+		//debug::setString("score%d", score);
 		break;
 
 	case SCENE_TYPE::TUTORIAL:

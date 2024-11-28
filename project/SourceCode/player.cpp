@@ -123,7 +123,7 @@ void player_update(PLAYER& player)
 		}
 
 		// デバッグ情報を出力
-		debug::setString("player.hp:%d", player.hp);
+		/*debug::setString("player.hp:%d", player.hp);*/
 		break;
 	}
 }
@@ -187,7 +187,7 @@ void player_render()
 	}
 
 	// 力の値をデバッグ出力
-	debug::setString("force%f", force);
+	/*debug::setString("force%f", force);*/
 
 	float r = HPColor(player.hp).x;
 	float g = HPColor(player.hp).y;
