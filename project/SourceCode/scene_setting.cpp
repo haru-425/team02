@@ -47,6 +47,8 @@ void setting_update()
 
 		music::play(BGM_RESULT, true);
 
+		music::setVolume(BGM_RESULT, 1.0f / 5.0f * game_volume.bgm_volume);
+
 	case setting_state.B_TRANSIATON:
 
 		if (true)

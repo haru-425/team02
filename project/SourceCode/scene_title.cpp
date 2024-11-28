@@ -53,8 +53,8 @@ void title_update()
 	switch (title_state.state)
 	{
 	case title_state.INITIALIZE:
-
 		music::play(BGM_TITLE, true);
+		music::setVolume(BGM_TITLE, 1.0f / 5.0f * game_volume.bgm_volume); //Volume
 		title_state.state = title_state.B_TRANSIATON;
 
 		sprTITLE_UI_BACK = sprite_load(L"./Data/Images/UI/TITLE_UI_BACK.png");

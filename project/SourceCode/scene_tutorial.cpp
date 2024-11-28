@@ -67,6 +67,8 @@ void tutorial_update()
 	case tutorial_state.INITIALIZE:
 
 		music::play(BGM_RESULT, true);
+
+		music::setVolume(BGM_RESULT, 1.0f / 5.0f * game_volume.bgm_volume);
 		tutorial_state.state = tutorial_state.B_TRANSIATON;
 		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame2.png");
 		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");

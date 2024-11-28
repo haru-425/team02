@@ -57,6 +57,8 @@ void result_update()
 
 
 		music::play(BGM_RESULT, true);
+
+		music::setVolume(BGM_RESULT, 1.0f / 5.0f * game_volume.bgm_volume);
 		result_state.state = result_state.B_TRANSIATON;
 
 		sprRESULT_UI_BACK = sprite_load(L"./Data/Images/UI/TITLE_UI_BACK.png");

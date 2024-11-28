@@ -48,8 +48,10 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// g—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 		{
 			music::setVolume(i, 1.0f / 5.0f * game_volume.bgm_volume);
 		}
+
 	}
 
+	GameLib::present(1, 0);
 	// ƒV[ƒ“‚ÌI—¹ˆ—
 	M_SCENE::SceneEndProcessing; // <- ‚±‚±‚ÉƒZƒ~ƒRƒƒ“‚ª•K—v
 	// ƒQ[ƒ€ƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹ˆ—

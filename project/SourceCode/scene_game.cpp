@@ -51,6 +51,8 @@ void game_update()
 	case game_state.INITIALIZE:
 
 		music::play(BGM_GAME, true);
+
+		music::setVolume(BGM_GAME, 1.0f / 5.0f * game_volume.bgm_volume);
 		game_state.state = game_state.B_TRANSIATON;
 		player_init();
 		enemy_init();
