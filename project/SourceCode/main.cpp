@@ -31,6 +31,14 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// g—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 	while (GameLib::gameLoop())
 	{
 		// ƒV[ƒ“‚Ì•ÏXˆ—
+
+		M_SCENE::SceneChangeProcessing();
+		// ƒV[ƒ“‚ÌXVˆ—
+		M_SCENE::SceneUpdateProcessing();
+		// ƒV[ƒ“‚Ì•`‰æˆ—
+		M_SCENE::SceneRenderProcessing();
+		// ƒtƒŒ[ƒ€‚ğ•\¦
+		GameLib::present(1, 0);
 		for (int i = 0; i < 8; i++)
 		{
 
@@ -40,13 +48,6 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// g—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 		{
 			music::setVolume(i, 1.0f / 5.0f * game_volume.bgm_volume);
 		}
-		M_SCENE::SceneChangeProcessing();
-		// ƒV[ƒ“‚ÌXVˆ—
-		M_SCENE::SceneUpdateProcessing();
-		// ƒV[ƒ“‚Ì•`‰æˆ—
-		M_SCENE::SceneRenderProcessing();
-		// ƒtƒŒ[ƒ€‚ğ•\¦
-		GameLib::present(1, 0);
 	}
 
 	// ƒV[ƒ“‚ÌI—¹ˆ—

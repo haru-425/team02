@@ -45,7 +45,7 @@ void setting_update()
 		BG_Image = sprite_load(L"./Data/Images/BG/title01.png");
 		setting_state.state = setting_state.B_TRANSIATON;
 
-		music::play(BGM_TITLE, true);
+		music::play(BGM_RESULT, true);
 
 	case setting_state.B_TRANSIATON:
 

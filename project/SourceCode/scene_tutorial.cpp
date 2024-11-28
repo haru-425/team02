@@ -56,7 +56,7 @@ void tutorial_deinit()
 	safe_delete(sprPLAYER);
 	safe_delete(sprBOMB);
 	safe_delete(sprArrow);
-	//music::stop(0);
+	music::stop(BGM_RESULT);
 
 }
 
@@ -65,6 +65,8 @@ void tutorial_update()
 	switch (tutorial_state.state)
 	{
 	case tutorial_state.INITIALIZE:
+
+		music::play(BGM_RESULT, true);
 		tutorial_state.state = tutorial_state.B_TRANSIATON;
 		sprFRAME_GAME = sprite_load(L"./Data/Images/BG/frame2.png");
 		sprBG_GAME = sprite_load(L"./Data/Images/BG/game.png");
