@@ -293,6 +293,8 @@ void tutorial_render()
 		break;
 	case 5:
 		sprite_render(tutorial_No3, 720, 0);
+		sprite_render(sprEnemy, 950, 80, 0.7, 0.7, 128, 0,128,128);
+		sprite_render(sprEnemy, 950, 330, 0.7, 0.7, 0, 0, 128, 128);
 		break;
 
 	case 6:
