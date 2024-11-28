@@ -49,7 +49,7 @@ void item_deinit()
 {
 
 	safe_delete(sprItem);
-
+	item.erase(item.begin(), item.end());
 }
 
 //--------------------------------------

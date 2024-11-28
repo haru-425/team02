@@ -32,7 +32,7 @@ float spawnPointIncreaseValue = 5;
 VECTOR2 spawnPoint;
 float spawnAngle = 90;
 float spawnAngleIncreaseValue = 1;
-int spawnrate = 60;
+int spawnrate = 240;
 std::vector<ENEMY> enemy_pop;
 std::vector<ENEMY> enemy_thrower;
 std::vector<ENEMY> enemy_thrown_item;

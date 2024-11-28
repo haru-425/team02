@@ -70,9 +70,10 @@ void player_update(PLAYER& player)
                 break;
             }
         }
+
         for (auto& enemy : enemy_thrown_item) 
         {
-            if (isColliding(player.position, player.texSize, enemy.position, enemy.texSize, enemy.angle)
+            if (isColliding(player.position, player.texSize, enemy.position, (enemy.texSize/2)*(1/3.5f), enemy.angle)
                 && player.damege_invincible == false) // ñ≥ìGÇ≈Ç»Ç¢èÍçá
             {
                 player.hp -= 1; // HPÇå∏è≠
