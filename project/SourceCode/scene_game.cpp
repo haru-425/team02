@@ -41,6 +41,7 @@ void game_deinit()
 	bomb_deinit();
 	item_deinit();
 	score_deinit();
+	bomb_range_denit();
 	music::stop(BGM_GAME);
 }
 void game_update()

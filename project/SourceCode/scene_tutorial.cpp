@@ -144,6 +144,7 @@ void tutorial_update()
 			break;
 		case 4:
 			bomb_deinit();
+			bomb_range_denit();
 			enemy_init();
 			tutorial_player.position = VECTOR2(5000.0f, 3500.0f);
 			tutorial_player.strat_position = player.position;
