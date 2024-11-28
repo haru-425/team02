@@ -102,7 +102,7 @@ void tutorial_update()
 		{
 		case 0://èâä˙âª
 			tutorial_player.player_time = 0;
-			tutorial_player.position = VECTOR2(500.0f, 350.0f);
+			tutorial_player.position = VECTOR2(350.0f, 150.0f);
 			tutorial_player.strat_position = player.position;
 			tutorial_player.hp = PLAYER_MAX_HP;
 			tutorial_player.damege_invincible = false;
@@ -124,9 +124,10 @@ void tutorial_update()
 			break;
 
 		case 2:
+			bomb_deinit();
 			tutorial_player.player_time = 0;
-			tutorial_player.position = VECTOR2(500.0f, 350.0f);
-			tutorial_player.strat_position = player.position;
+			tutorial_player.position = VECTOR2(350.0f, 150.0f);
+			tutorial_player.strat_position = tutorial_player.position;
 			tutorial_player.hp = PLAYER_MAX_HP;
 			tutorial_player.damege_invincible = false;
 			tutorial_player.bomb_reinforce_item = 0;
