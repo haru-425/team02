@@ -230,7 +230,7 @@ void tutorial_render()
 		sprite_render(tutorial_No4, 720, 0);
 		break;
 	case 8:
-		sprite_render(sprBG_TITLE, 0, 0);
+		sprite_render(sprBG_TITLE, 0, 0, SCREEN_W / 1920.0f, SCREEN_H / 1080.0f);
 		primitive::rect(0, 0, 1280, 720, 0, 0, 0, 0, 0, 0, 0.8);
 		sprite_render(tutorial_No5, 0, 0);
 		primitive::rect(880, 640, 100, 40);
