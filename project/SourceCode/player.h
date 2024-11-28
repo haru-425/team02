@@ -60,3 +60,4 @@ VECTOR3 HPColor(int HP);
 
 //------< •Ï” >----------------------------------------------------------------
 extern PLAYER player;
+extern float force;
