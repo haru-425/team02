@@ -41,6 +41,11 @@ void bomb_deinit()
 	safe_delete(sprBOMB); // スプライトデータを削除
 }
 
+void bomb_range_denit()
+{
+	range_Box.erase(range_Box.begin(), range_Box.end());
+}
+
 //--------------------------------------
 // 爆弾を投げる処理
 //--------------------------------------
