@@ -208,7 +208,7 @@ void tutorial_update()
 		{
 			tutorial_progress++;
 		}
-		debug::setString("%d", tutorial_progress);
+		//debug::setString("%d", tutorial_progress);
 		break;
 	case tutorial_state.F_TRANSITION:
 		if (tutorial_timer >= 240)

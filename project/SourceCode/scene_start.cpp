@@ -78,6 +78,6 @@ void start_render()
 	//GameLib::clear(0.3f, 0.5f, 1.0f);
 	GameLib::clear(start_color.x, start_color.y, start_color.z);
 	sprite_render(sprBG_START, 0, 0, 1, 1);
-	debug::setString("timer%d", start_timer);
-	debug::setString("state%d", start_state.state);
+	//debug::setString("timer%d", start_timer);
+	//debug::setString("state%d", start_state.state);
 }
