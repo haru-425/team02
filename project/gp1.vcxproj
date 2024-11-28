@@ -179,6 +179,7 @@ attrib +h SourceCode\gp1.log</Command>
     <ClInclude Include="GameLib\util.h" />
     <ClInclude Include="GameLib\vector.h" />
     <ClInclude Include="GameLib\view_settings.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SourceCode\audio.h" />
     <ClInclude Include="SourceCode\bomb.h" />
     <ClInclude Include="SourceCode\button.h" />
@@ -229,6 +230,12 @@ attrib +h SourceCode\gp1.log</Command>
     <ClCompile Include="SourceCode\score.cpp" />
     <ClCompile Include="SourceCode\system.cpp" />
     <ClCompile Include="SourceCode\scene_tutorial.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gp1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Images\baku.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

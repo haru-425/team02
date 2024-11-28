@@ -22,7 +22,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)// Žg—p‚µ‚È‚¢•Ï”‚Í‹Lq‚
 {
 	// ƒQ[ƒ€ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰ŠúÝ’è
 	// ƒ^ƒCƒgƒ‹A‰æ–Ê•A‰æ–Ê‚‚³Aƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh‚ðŽw’è
-	GameLib::init(L"ƒQ[ƒ€ƒvƒƒOƒ‰ƒ~ƒ“ƒO‡T", SCREEN_W, SCREEN_H, FULLSCREEN);
+	GameLib::init(L"BLASTAY", SCREEN_W, SCREEN_H, FULLSCREEN);
 
 	// ƒI[ƒfƒBƒI‚Ì‰ŠúÝ’è
 	audio_init();
