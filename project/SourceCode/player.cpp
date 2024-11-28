@@ -259,6 +259,15 @@ void player_movement(PLAYER& player, float angle, float force)
 {
 	player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY); // ˆÚ“®ŒvZ
 	player.position = edge_reflecting(player.position); // •Ç‚Å‚Ì”½Ëˆ—
+	if (player.position.y < 18)
+	{
+		::angle = ToRadian(-90);
+		::force *= 0.5f;
+		player.player_time = 0;
+		player.strat_position = { player.position.x, 18 };
+		player.position = player.strat_position + LaunchCalculatePosition(angle, force, player.player_time, PLAYER_GRAVITY); // ˆÚ“®ŒvZ
+		//force *= 0.5;
+	}
 }
 
 VECTOR3 HPColor(int HP)
