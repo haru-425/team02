@@ -140,7 +140,7 @@ void game_render()
 	else {
 		sprite_render(
 			sprArrow,
-			SCREEN_H + ((SCREEN_W - SCREEN_H) / 2.0f), SCREEN_H / 4.0f*3.0f,
+			SCREEN_H + ((SCREEN_W - SCREEN_H) / 2.0f), SCREEN_H / 4.0f * 3.0f,
 			0.1f, 0.1f,
 			0, 0,
 			2067, 1646,
