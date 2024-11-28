@@ -6,6 +6,7 @@
 //------< •Ï” >----------------------------------------------------------------
 S_SCENE tutorial_state;
 int tutorial_timer;
+int tutorial_magic_timer;
 int tutorial_progress;
 float tutorial_clicktime = 0;
 float tutorial_force = 0.0f;
@@ -188,12 +189,14 @@ void tutorial_update()
 			break;
 
 		case 6:
-			tutorial_timer++;
+			if (tutorial_magic_timer == 1) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
+			tutorial_magic_timer++;
 			enemy_update();
-			if (tutorial_timer % 800 == 0) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
+			if (tutorial_magic_timer % 800 == 0) magnetic_force = { rand() % 1000 / 100.0f - 5.0f,rand() % 1000 / 1000.0f - 0.5f };
 			break;
 		case 7:
 			enemy_deinit();
+			magnetic_force = { 0,0 };
 			tutorial_progress++;
 		case 8:
 			tutorial_timer++;
